@@ -5,12 +5,14 @@ This folder contains all project-related documentation, design files, and techni
 ## Folder Structure
 
 ### `/db_design/` (Root level)
+
 - Database schemas
 - SQL migration files
 - Database design documents
 - ER diagrams
 
 ### `/docs/design/`
+
 - **LLD (Low Level Design) documents**
 - System architecture diagrams
 - Component design specifications
@@ -18,6 +20,7 @@ This folder contains all project-related documentation, design files, and techni
 - Technical specifications
 
 ### `/docs/api/`
+
 - API documentation
 - Endpoint specifications
 - Request/response schemas
@@ -25,12 +28,14 @@ This folder contains all project-related documentation, design files, and techni
 - API versioning information
 
 ### `/docs/collections/`
+
 - **Postman collections**
 - API testing scenarios
 - Environment configurations
 - Test data sets
 
 ### `/docs/`
+
 - Project overview documents
 - Setup and installation guides
 - Deployment documentation

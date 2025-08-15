@@ -1,0 +1,10 @@
+module.exports = {
+  extends: ["next/core-web-vitals", "plugin:prettier/recommended"],
+  rules: {
+    eqeqeq: "error", // enforce === instead of ==
+    "no-console": "warn", // warn when using console.log
+    curly: ["error", "all"], // require {} for all control statements
+    "no-unused-vars": "warn", // warn about unused variables
+    "prettier/prettier": ["error", { endOfLine: "auto" }], // Windows/Linux line endings
+  },
+};
