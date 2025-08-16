@@ -1,0 +1,390 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//////////////////////////////////////////////////////
+// Coursivo – Single-Educator MVP (Instant Payouts)
+// One educator brand, global student base
+//////////////////////////////////////////////////////
+
+enum CourseStatus {
+  draft
+  published
+  archived
+}
+
+enum PaymentProvider {
+  razorpay
+  stripe
+}
+
+enum PaymentStatus {
+  created
+  paid
+  failed
+  refunded
+}
+
+enum EnrollmentSource {
+  purchase
+  admin
+  coupon
+}
+
+enum EnrollmentStatus {
+  active
+  revoked
+}
+
+enum ContentType {
+  video
+  file
+  text
+}
+
+enum AttemptStatus {
+  in_progress
+  submitted
+  graded
+}
+
+enum QuizStatus {
+  draft
+  published
+  completed
+}
+
+enum ProgressStatus {
+  not_started
+  in_progress
+  completed
+}
+
+//////////////////////////////////////////////////////
+// Identity
+//////////////////////////////////////////////////////
+
+model educator_account {
+  id              String   @id @default(cuid())
+  name            String?  @db.VarChar(150)
+  email           String   @unique @db.VarChar(255)
+  password_hash   String?  @db.VarChar(255)
+  avatar_url      String?  @db.VarChar(512)
+
+  // Branding / domain
+  domain          String?  @db.VarChar(255)
+  domain_verified Boolean  @default(false)
+  domain_provider String?  @db.VarChar(100)
+
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  // Relations
+  students        students[]
+  educator_bank   educator_bank?
+  courses         courses[]
+  purchases       purchases[]
+}
+
+model students {
+  id             String   @id @default(cuid())
+  educator_id    String
+  name           String?  @db.VarChar(150)
+  email          String   @db.VarChar(255)
+  password_hash  String?  @db.VarChar(255)
+  avatar_url     String?  @db.VarChar(512)
+  is_active      Boolean  @default(true)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  // Relations
+  educator       educator_account @relation(fields: [educator_id], references: [id])
+  enrollments    enrollments[]
+  quiz_attempts  quiz_attempts[]
+  purchases      purchases[]
+
+  @@index([educator_id, is_active, created_at])
+}
+
+//////////////////////////////////////////////////////
+// Educator payout bank
+//////////////////////////////////////////////////////
+
+model educator_bank {
+  id               String   @id @default(cuid())
+  educator_id      String   @unique
+  account_holder   String?  @db.VarChar(150)
+  account_number   String?  @db.VarChar(34)
+  ifsc             String?  @db.VarChar(20)
+  upi_id           String?  @db.VarChar(100)
+  is_verified      Boolean  @default(false)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+
+  // Relations
+  educator        educator_account @relation(fields: [educator_id], references: [id])
+}
+
+//////////////////////////////////////////////////////
+// Catalog
+//////////////////////////////////////////////////////
+
+model courses {
+  id               String       @id @default(cuid())
+  educator_id      String
+  title            String       @db.VarChar(200)
+  slug             String       @unique @db.VarChar(220)
+  description      String?
+  price_cents      Int          @default(0)
+  discount_percent Int?         @default(0)
+  currency         String       @default("INR") @db.VarChar(3)
+  status           CourseStatus @default(draft)
+  thumbnail_url    String?      @db.VarChar(512)
+  duration_minutes Int?
+  created_at       DateTime     @default(now())
+  updated_at       DateTime     @updatedAt
+
+  // Relations
+  educator        educator_account @relation(fields: [educator_id], references: [id])
+  sections        sections[]
+  quizzes         quizzes[]
+  enrollments     enrollments[]
+  purchases       purchases[]
+
+  @@index([status, created_at])
+}
+
+model sections {
+  id          String   @id @default(cuid())
+  course_id   String
+  title       String   @db.VarChar(200)
+  description String?
+  order_no    Int      @default(1)
+  created_at  DateTime @default(now())
+
+  // Relations
+  course      courses        @relation(fields: [course_id], references: [id])
+  content_items content_items[]
+
+  @@index([course_id, order_no])
+}
+
+model content_items {
+  id                String      @id @default(cuid())
+  section_id        String
+  type              ContentType
+  title             String      @db.VarChar(200)
+  order_no          Int         @default(1)
+  is_preview        Boolean     @default(false)
+  created_at        DateTime    @default(now())
+
+  // VIDEO
+  video_asset_id    String?     @db.VarChar(150)
+  video_playback_id String?     @db.VarChar(150)
+  duration_seconds  Int?
+
+  // FILE
+  file_key          String?     @db.VarChar(300)
+  file_size_bytes   BigInt?
+  mime_type         String?     @db.VarChar(120)
+
+  // TEXT
+  body_md           String?
+
+  // Relations
+  section           sections    @relation(fields: [section_id], references: [id])
+  progress          enrollment_content_progress[]
+
+  @@index([section_id, order_no])
+}
+
+//////////////////////////////////////////////////////
+// Quizzes
+//////////////////////////////////////////////////////
+
+model quizzes {
+  id               String     @id @default(cuid())
+  course_id        String
+  title            String     @db.VarChar(200)
+  total_marks      Int?       @default(0)
+  duration_minutes Int?
+  status           QuizStatus @default(draft)
+  created_at       DateTime   @default(now())
+
+  // Relations
+  course           courses         @relation(fields: [course_id], references: [id])
+  questions        quiz_questions[]
+  attempts         quiz_attempts[]
+
+  @@index([course_id, created_at])
+}
+
+model quiz_questions {
+  id             String   @id @default(cuid())
+  quiz_id        String
+  question       String
+  options        Json
+  correct_index  Int
+  image_url      String?  @db.VarChar(512)
+  explanation    String?
+  created_at     DateTime @default(now())
+
+  // Relations
+  quiz           quizzes                @relation(fields: [quiz_id], references: [id])
+  attempted_answers quiz_attempted_answers[]
+
+  @@index([quiz_id])
+}
+
+//////////////////////////////////////////////////////
+// Quiz Attempts & Attempted Answers
+//////////////////////////////////////////////////////
+
+model quiz_attempts {
+  id               String        @id @default(cuid())
+  quiz_id          String
+  student_id       String
+  status           AttemptStatus @default(in_progress)
+  started_at       DateTime      @default(now())
+  submitted_at     DateTime?
+  total_questions  Int?
+  total_correct    Int?
+  total_incorrect  Int?
+  score            Int?
+  meta             Json?
+
+  // Relations
+  quiz             quizzes                @relation(fields: [quiz_id], references: [id])
+  student          students               @relation(fields: [student_id], references: [id])
+  attempted_answers quiz_attempted_answers[]
+
+  @@index([quiz_id, student_id])
+  @@index([student_id, status, started_at])
+}
+
+model quiz_attempted_answers {
+  id                 String   @id @default(cuid())
+  attempt_id         String
+  question_id        String
+  selected_index     Int?
+  is_correct         Boolean?
+  time_spent_seconds Int?
+  answered_at        DateTime @default(now())
+
+  // Relations
+  attempt           quiz_attempts  @relation(fields: [attempt_id], references: [id])
+  question          quiz_questions @relation(fields: [question_id], references: [id])
+
+  @@unique([attempt_id, question_id])
+  @@index([attempt_id])
+}
+
+//////////////////////////////////////////////////////
+// Commerce
+//////////////////////////////////////////////////////
+
+model purchases {
+  id                           String          @id @default(cuid())
+  educator_id                  String
+  student_id                   String
+  course_id                    String
+  provider                     PaymentProvider @default(razorpay)
+  provider_payment_id          String          @unique @db.VarChar(120)
+  amount_cents                 Int
+  currency                     String          @default("INR") @db.VarChar(3)
+  status                       PaymentStatus   @default(created)
+  platform_fee_cents           Int             @default(0)
+  meta                         Json?
+
+  // Instant payout tracking
+  educator_payout_amount_cents Int?
+  educator_payout_status       String?         @db.VarChar(20)
+  educator_payout_at           DateTime?
+
+  created_at                   DateTime        @default(now())
+
+  // Relations
+  educator                    educator_account @relation(fields: [educator_id], references: [id])
+  student                     students         @relation(fields: [student_id], references: [id])
+  course                      courses          @relation(fields: [course_id], references: [id])
+
+  @@index([educator_id, created_at])
+  @@index([student_id, course_id])
+  @@index([status, created_at])
+  @@index([course_id, created_at])
+}
+
+model enrollments {
+  id             String            @id @default(cuid())
+  student_id     String
+  course_id      String
+  source         EnrollmentSource  @default(purchase)
+  status         EnrollmentStatus  @default(active)
+  start_at       DateTime          @default(now())
+  end_at         DateTime?
+  created_at     DateTime          @default(now())
+
+  // Relations
+  student        students                          @relation(fields: [student_id], references: [id])
+  course         courses                           @relation(fields: [course_id], references: [id])
+  certificate    course_completion_certificates?
+  progress       enrollment_content_progress[]
+
+  @@unique([student_id, course_id])
+  @@index([student_id])
+  @@index([course_id])
+}
+
+//////////////////////////////////////////////////////
+// Course Completion Certificates (by enrollment)
+//////////////////////////////////////////////////////
+
+model course_completion_certificates {
+  id              String    @id @default(cuid())
+  enrollment_id   String    @unique
+  certificate_url String?   @db.VarChar(512)
+  certificate_id  String?   @unique @db.VarChar(100)
+  issued_at       DateTime  @default(now())
+  signed_by       String?   @db.VarChar(150)
+  revoked_at      DateTime?
+  meta            Json?
+
+  // Relations
+  enrollment     enrollments @relation(fields: [enrollment_id], references: [id])
+}
+
+//////////////////////////////////////////////////////
+// Progress linked to Enrollment & Content Item (normalized)
+//////////////////////////////////////////////////////
+
+model enrollment_content_progress {
+  id                    String         @id @default(cuid())
+  enrollment_id         String
+  content_item_id       String
+
+  status                ProgressStatus @default(not_started)
+  progress_percent      Int?
+  last_position_seconds Int?
+  attempts_count        Int?
+  last_viewed_at        DateTime?
+  completed_at          DateTime?
+
+  created_at            DateTime       @default(now())
+  updated_at            DateTime       @updatedAt
+
+  // Relations
+  enrollment            enrollments     @relation(fields: [enrollment_id], references: [id])
+  content_item          content_items   @relation(fields: [content_item_id], references: [id])
+
+  @@unique([enrollment_id, content_item_id])
+  @@index([enrollment_id])
+  @@index([content_item_id])
+}
