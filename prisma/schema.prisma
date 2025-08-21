@@ -306,7 +306,7 @@ model purchases {
 
   // Instant payout tracking
   educator_payout_amount_cents Int?
-  educator_payout_status       String?         @db.VarChar(20)
+  educator_payout_status       String?         @db.VarChar(20) @default("pending")
   educator_payout_at           DateTime?
 
   created_at                   DateTime        @default(now())
