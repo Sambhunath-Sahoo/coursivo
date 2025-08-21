@@ -1,141 +1,149 @@
-"use client";
+'use client';
 
-import { signIn, useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ArrowLeft, Mail, Lock, GraduationCap, Eye, EyeOff } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 
-export default function EducatorSigninPage() {
-  const [formData, setFormData] = useState({ 
-    email: "", 
-    password: "", 
-    domain: "" 
+const defaultAcademy = {
+  id: 'coursivo',
+  name: 'Coursivo',
+  description: 'Modern Learning Platform',
+  theme: { primary: '#000000', secondary: '#404040' }
+};
+
+export default function AcademySignInPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
   });
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  
-  const { data: session, status } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const domain = searchParams.get("domain") || "";
-
-  useEffect(() => {
-    if (domain) {
-      setFormData(prev => ({ ...prev, domain }));
-    }
-  }, [domain]);
-
-  useEffect(() => {
-    if (status === "authenticated" && session) {
-      router.push(`/academy/dashboard?domain=${formData.domain}`);
-    }
-  }, [status, session, router, formData.domain]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      // Use the educator credentials provider
-      const result = await signIn("educator-credentials", {
-        email: formData.email,
-        password: formData.password,
-        domain: formData.domain,
-        action: "signin",
-        redirect: false,
-      });
-
-      if (result?.error) {
-        setError(result.error);
-      }
-    } catch (error) {
-      setError("Network error");
-    } finally {
-      setLoading(false);
-    }
+    setIsLoading(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setIsLoading(false);
+    router.push('/academy/dashboard');
   };
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-6">
-        <div>
-          <h2 className="text-center text-3xl font-bold">Educator Sign In</h2>
-          <p className="text-center text-gray-600 mt-2">Access your academy dashboard</p>
-        </div>
-        
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
-            <div className="text-red-600 text-center">{error}</div>
-          )}
-          
-          <div>
-            <label htmlFor="domain" className="block text-sm font-medium text-gray-700 mb-1">
-              Academy Domain
-            </label>
-            <input
-              id="domain"
-              type="text"
-              required
-              placeholder="e.g., alpha, beta, myschool"
-              value={formData.domain}
-              onChange={(e) => setFormData({ ...formData, domain: e.target.value })}
-              className="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              required
-              placeholder="your@email.com"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              required
-              placeholder="Password"
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
-          
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2 px-4 bg-blue-600 text-white rounded-md disabled:opacity-50 hover:bg-blue-700"
-          >
-            {loading ? "Signing in..." : "Sign In"}
-          </button>
-        </form>
-        
-                  <div className="text-center">
-            <a href={`/academy/signup?domain=${formData.domain}`} className="text-blue-600 hover:underline">
-              Don&apos;t have an academy? Create one
-            </a>
-          </div>
-        
-        <div className="text-center">
-          <a href="/" className="text-gray-500 hover:underline">
-            ← Back to Home
-          </a>
+    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+      <div className="w-full max-w-md">
+        {/* Back Button */}
+        <Button 
+          variant="ghost" 
+          onClick={() => router.push('/')}
+          className="mb-6 text-gray-600 hover:text-black hover:bg-gray-50"
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Home
+        </Button>
+
+        {/* Auth Card */}
+        <Card className="bg-white border-gray-200 shadow-lg">
+          <CardHeader className="text-center pb-6">
+            <div className="w-16 h-16 rounded-2xl mx-auto mb-4 bg-black flex items-center justify-center">
+              <GraduationCap className="h-8 w-8 text-white" />
+            </div>
+            <CardTitle className="text-2xl text-black">
+              Welcome Back to {defaultAcademy.name}
+            </CardTitle>
+            <CardDescription className="text-base text-gray-600">
+              Sign in to your educator account
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-black">Email Address</Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    className="pl-10 border-gray-300 focus:border-black"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-black">Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    value={formData.password}
+                    onChange={(e) => handleInputChange('password', e.target.value)}
+                    className="pl-10 pr-10 border-gray-300 focus:border-black"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+              </div>
+
+              <Button 
+                type="submit" 
+                className="w-full bg-black hover:bg-gray-800 text-white"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Signing In...' : 'Sign In'}
+              </Button>
+            </form>
+
+            <div className="relative">
+              <Separator className="bg-gray-200" />
+              <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-sm text-gray-500">
+                or
+              </span>
+            </div>
+
+            <div className="text-center">
+              <p className="text-sm text-gray-600">
+                Don't have an academy account?
+              </p>
+              <Button 
+                variant="link" 
+                onClick={() => router.push('/academy/signup')}
+                className="p-0 h-auto text-black hover:text-gray-700"
+              >
+                Create Academy
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Role Badge */}
+        <div className="mt-6 text-center">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-black text-white">
+            Educator Portal
+          </span>
         </div>
       </div>
     </div>
