@@ -1,24 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Coursivo - Single-Educator MVP Platform
+
+This is a [Next.js](https://nextjs.org) project for Coursivo, a platform designed for single educators to create and sell courses globally with instant payouts.
+
+## Features
+
+- **Single Educator Focus**: One educator brand, global student base
+- **Instant Payouts**: Real-time payment processing and educator payouts
+- **Course Management**: Create, organize, and publish courses
+- **Student Progress Tracking**: Detailed analytics and completion tracking
+- **Quiz System**: Comprehensive assessment with attempt tracking
+- **Multi-Payment Support**: Razorpay and Stripe integration
+- **Custom Domain Branding**: Educator-specific domains
+
+## Tech Stack
+
+- **Frontend**: Next.js 15 with App Router
+- **Database**: PostgreSQL with Prisma ORM
+- **Styling**: Tailwind CSS
+- **UI Components**: Radix UI + shadcn/ui
+- **Authentication**: NextAuth.js (ready to configure)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+ 
+- PostgreSQL database
+- npm or yarn
+
+### Installation
+
+1. **Clone and install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Set up environment**:
+   ```bash
+   cp env.example .env
+   # Edit .env with your database URL and other configs
+   ```
+
+3. **Set up database**:
+   ```bash
+   npm run db:generate  # Generate Prisma client
+   npm run db:push      # Push schema to database
+   ```
+
+4. **Start development server**:
+   ```bash
+   npm run dev
+   ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Database Schema
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The platform uses a comprehensive Prisma schema with models for:
+- Educator accounts and branding
+- Course catalog and content management
+- Student enrollment and progress tracking
+- Payment processing and payout management
+- Quiz system and assessment tracking
+
+See `prisma/README.md` for detailed schema documentation.
 
 ## Learn More
 
