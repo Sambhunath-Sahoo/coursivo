@@ -2,7 +2,16 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { GraduationCap, ArrowRight, Users, BookOpen, TrendingUp, Zap, Award, Sparkles, CheckCircle, Star, Play, Monitor, Search, Shield, Leaf, Brain } from "lucide-react";
+import {
+  ArrowRight,
+  GraduationCap,
+  Star,
+  Brain,
+  Monitor,
+  Search,
+  Shield,
+  Play,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { UserRole, AuthMode } from "@/types/academy";
 
@@ -12,7 +21,7 @@ export default function HomePage() {
 
   const handleAuthStart = (role: UserRole, mode: AuthMode) => {
     if (role === "educator") {
-      router.push(`/${mode === 'signin' ? 'signin' : 'signup'}`);
+      router.push(`/${mode === "signin" ? "signin" : "signup"}`);
     } else if (role === "student") {
       router.push(`/${mode}`);
     }
@@ -36,17 +45,23 @@ export default function HomePage() {
 
             <div className="hidden md:flex items-center space-x-16">
               <div className="flex items-center space-x-12">
-                <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
+                <a
+                  href="#features"
+                  className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
                   Features
                 </a>
-                <a href="#about" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
+                <a
+                  href="#about"
+                  className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
                   About
                 </a>
-                <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
+                <a
+                  href="#contact"
+                  className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
                   Contact
                 </a>
               </div>
-              
+
               <div className="flex items-center space-x-4">
                 <Button
                   variant="ghost"
@@ -113,16 +128,16 @@ export default function HomePage() {
           <div className="space-y-8">
             <div className="space-y-6">
               <div className="inline-flex items-center px-4 py-2 rounded-full border border-[#09382f]/20 bg-[#09382f]/10 text-sm font-medium text-[#09382f] mb-4">
-                <Leaf className="h-4 w-4 mr-2" />
+                <Brain className="h-4 w-4 mr-2" />
                 Natural Intelligence Meets Digital Learning
               </div>
-              <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-                <span className="block">Transform Education</span>
-                <span className="block text-[#09382f]">Naturally</span>
+              <h1 className="text-5xl font-bold text-gray-900 mb-6">
+                Transform Learning with Coursivo&apos;s AI-Powered Platform
               </h1>
-              <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-                Create, manage, and deliver exceptional learning experiences with our
-                comprehensive platform that harmonizes natural wisdom with digital innovation.
+              <p className="text-xl text-gray-600 mb-8 max-w-3xl">
+                Create, manage, and deliver exceptional educational experiences. Our platform
+                combines cutting-edge technology with intuitive design to help educators build
+                thriving learning communities.
               </p>
             </div>
 
@@ -144,13 +159,21 @@ export default function HomePage() {
             </div>
 
             <div className="pt-8">
-              <p className="text-sm text-gray-600 mb-4">Trusted by the world's most ambitious educators</p>
+              <p className="text-sm text-gray-600 mb-4">
+                Trusted by the world&apos;s most ambitious educators
+              </p>
               <div className="flex justify-center items-center space-x-8 text-gray-600">
                 <span className="text-sm">Featured in</span>
                 <div className="flex space-x-8">
-                  <div className="w-24 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-xs text-gray-600 font-medium">TechCrunch</div>
-                  <div className="w-24 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-xs text-gray-600 font-medium">Forbes</div>
-                  <div className="w-24 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-xs text-gray-600 font-medium">EdTech</div>
+                  <div className="w-24 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-xs text-gray-600 font-medium">
+                    TechCrunch
+                  </div>
+                  <div className="w-24 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-xs text-gray-600 font-medium">
+                    Forbes
+                  </div>
+                  <div className="w-24 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-xs text-gray-600 font-medium">
+                    EdTech
+                  </div>
                 </div>
               </div>
             </div>
@@ -166,7 +189,9 @@ export default function HomePage() {
               <Brain className="h-4 w-4 mr-2" />
               Intelligent Learning Features
             </div>
-            <h2 className="text-4xl font-bold mb-4 text-gray-900">See how students learn with your platform</h2>
+            <h2 className="text-4xl font-bold mb-4 text-gray-900">
+              See how students learn with your platform
+            </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Harness the power of natural intelligence combined with cutting-edge technology
             </p>
@@ -177,9 +202,12 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-[#09382f] rounded-xl flex items-center justify-center mb-6 shadow-lg">
                 <Monitor className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Monitor learning progress in real-time</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">
+                Monitor learning progress in real-time
+              </h3>
               <p className="text-gray-600">
-                See students interact with your courses in real-time with instant insights. Track progress, identify bottlenecks, and optimize learning pathways naturally.
+                See students interact with your courses in real-time with instant insights. Track
+                progress, identify bottlenecks, and optimize learning pathways naturally.
               </p>
             </div>
 
@@ -187,9 +215,12 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-[#09382f] rounded-xl flex items-center justify-center mb-6 shadow-lg">
                 <Search className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Reveal pain points that hurt engagement</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">
+                Reveal pain points that hurt engagement
+              </h3>
               <p className="text-gray-600">
-                Understand where students are frustrated or confused. Drill into specific lessons to see the impact on learning outcomes and identify improvements.
+                Understand where students are frustrated or confused. Drill into specific lessons to
+                see the impact on learning outcomes and identify improvements.
               </p>
             </div>
 
@@ -197,9 +228,12 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-[#09382f] rounded-xl flex items-center justify-center mb-6 shadow-lg">
                 <Shield className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Find and capture issues at the source</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">
+                Find and capture issues at the source
+              </h3>
               <p className="text-gray-600">
-                Surface previously unseen problems and debug in-depth by capturing learning analytics and student behavior patterns with natural precision.
+                Surface previously unseen problems and debug in-depth by capturing learning
+                analytics and student behavior patterns with natural precision.
               </p>
             </div>
 
@@ -207,9 +241,12 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-[#09382f] rounded-xl flex items-center justify-center mb-6 shadow-lg">
                 <Play className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Stop wasting time in support tickets</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">
+                Stop wasting time in support tickets
+              </h3>
               <p className="text-gray-600">
-                Instantly get context on student issues and support them in real-time. Diagnose and reproduce problems effortlessly with intelligent insights.
+                Instantly get context on student issues and support them in real-time. Diagnose and
+                reproduce problems effortlessly with intelligent insights.
               </p>
             </div>
           </div>
@@ -225,14 +262,18 @@ export default function HomePage() {
               See what educators are saying about Coursivo
             </div>
             <blockquote className="text-2xl lg:text-3xl font-medium text-gray-900 leading-relaxed">
-              "Coursivo has been game-changing for us. The platform has saved countless hours of course management, and undeniably improved the learning experience for our students."
+              &ldquo;Coursivo has been game-changing for us. The platform has saved countless hours
+              of course management, and undeniably improved the learning experience for our
+              students.&rdquo;
             </blockquote>
             <div className="text-center">
               <div className="font-semibold text-gray-900">Dr. Sarah Chen</div>
               <div className="text-gray-600">Computer Science Professor, Stanford University</div>
             </div>
             <div className="pt-4">
-              <Button variant="link" className="text-blue-500 hover:text-[#09382f] transition-colors duration-300">
+              <Button
+                variant="link"
+                className="text-blue-500 hover:text-[#09382f] transition-colors duration-300">
                 Read Case Study
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
@@ -253,7 +294,8 @@ export default function HomePage() {
                 <span className="text-lg font-bold text-[#09382f]">Coursivo</span>
               </div>
               <p className="text-gray-300">
-                Empowering education through innovative technology and thoughtful design, harmonizing natural wisdom with digital innovation.
+                Empowering education through innovative technology and thoughtful design,
+                harmonizing natural wisdom with digital innovation.
               </p>
             </div>
 

@@ -1,21 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   Settings,
   Save,
   Edit,
   Upload,
   Palette,
-  Globe,
   Shield,
   Bell,
-  Users,
   CreditCard,
-  Mail,
-  Phone,
-  MapPin,
   Camera,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,7 +22,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function SettingsPage() {
-  const router = useRouter();
   const [activeTab, setActiveTab] = useState("general");
 
   const [academySettings, setAcademySettings] = useState({
@@ -78,13 +71,13 @@ export default function SettingsPage() {
     // Here you would typically save to your backend
   };
 
-  const handleInputChange = (section: string, field: string, value: any) => {
+  const handleInputChange = (section: string, field: string, value: string | number | boolean) => {
     if (section === "academy") {
-      setAcademySettings(prev => ({ ...prev, [field]: value }));
+      setAcademySettings((prev) => ({ ...prev, [field]: value }));
     } else if (section === "notifications") {
-      setNotificationSettings(prev => ({ ...prev, [field]: value }));
+      setNotificationSettings((prev) => ({ ...prev, [field]: value }));
     } else if (section === "security") {
-      setSecuritySettings(prev => ({ ...prev, [field]: value }));
+      setSecuritySettings((prev) => ({ ...prev, [field]: value }));
     }
   };
 
@@ -99,8 +92,7 @@ export default function SettingsPage() {
             </div>
             <Button
               onClick={handleSaveSettings}
-              className="bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-            >
+              className="bg-[#09382f] hover:bg-[#0a4a3a] text-white">
               <Save className="h-4 w-4 mr-2" />
               Save Changes
             </Button>
@@ -138,7 +130,9 @@ export default function SettingsPage() {
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900">Academy Logo</h3>
-                    <p className="text-sm text-gray-600">Upload your academy logo (recommended: 200x200px)</p>
+                    <p className="text-sm text-gray-600">
+                      Upload your academy logo (recommended: 200x200px)
+                    </p>
                   </div>
                 </div>
 
@@ -148,7 +142,7 @@ export default function SettingsPage() {
                     <Input
                       id="academyName"
                       value={academySettings.name}
-                      onChange={(e) => handleInputChange('academy', 'name', e.target.value)}
+                      onChange={(e) => handleInputChange("academy", "name", e.target.value)}
                       className="mt-1"
                     />
                   </div>
@@ -158,7 +152,7 @@ export default function SettingsPage() {
                     <Input
                       id="website"
                       value={academySettings.website}
-                      onChange={(e) => handleInputChange('academy', 'website', e.target.value)}
+                      onChange={(e) => handleInputChange("academy", "website", e.target.value)}
                       className="mt-1"
                     />
                   </div>
@@ -169,7 +163,7 @@ export default function SettingsPage() {
                       id="email"
                       type="email"
                       value={academySettings.email}
-                      onChange={(e) => handleInputChange('academy', 'email', e.target.value)}
+                      onChange={(e) => handleInputChange("academy", "email", e.target.value)}
                       className="mt-1"
                     />
                   </div>
@@ -179,7 +173,7 @@ export default function SettingsPage() {
                     <Input
                       id="phone"
                       value={academySettings.phone}
-                      onChange={(e) => handleInputChange('academy', 'phone', e.target.value)}
+                      onChange={(e) => handleInputChange("academy", "phone", e.target.value)}
                       className="mt-1"
                     />
                   </div>
@@ -190,7 +184,7 @@ export default function SettingsPage() {
                   <Textarea
                     id="description"
                     value={academySettings.description}
-                    onChange={(e) => handleInputChange('academy', 'description', e.target.value)}
+                    onChange={(e) => handleInputChange("academy", "description", e.target.value)}
                     className="mt-1"
                     rows={3}
                   />
@@ -201,7 +195,7 @@ export default function SettingsPage() {
                   <Textarea
                     id="address"
                     value={academySettings.address}
-                    onChange={(e) => handleInputChange('academy', 'address', e.target.value)}
+                    onChange={(e) => handleInputChange("academy", "address", e.target.value)}
                     className="mt-1"
                     rows={2}
                   />
@@ -221,7 +215,13 @@ export default function SettingsPage() {
                       id="maxStudents"
                       type="number"
                       value={academySettings.maxStudentsPerCourse}
-                      onChange={(e) => handleInputChange('academy', 'maxStudentsPerCourse', parseInt(e.target.value))}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "academy",
+                          "maxStudentsPerCourse",
+                          parseInt(e.target.value)
+                        )
+                      }
                       className="mt-1"
                     />
                   </div>
@@ -232,7 +232,13 @@ export default function SettingsPage() {
                       id="defaultPrice"
                       type="number"
                       value={academySettings.defaultCoursePrice}
-                      onChange={(e) => handleInputChange('academy', 'defaultCoursePrice', parseFloat(e.target.value))}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "academy",
+                          "defaultCoursePrice",
+                          parseFloat(e.target.value)
+                        )
+                      }
                       className="mt-1"
                     />
                   </div>
@@ -242,9 +248,8 @@ export default function SettingsPage() {
                     <select
                       id="currency"
                       value={academySettings.currency}
-                      onChange={(e) => handleInputChange('academy', 'currency', e.target.value)}
-                      className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-sm"
-                    >
+                      onChange={(e) => handleInputChange("academy", "currency", e.target.value)}
+                      className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-sm">
                       <option value="USD">USD - US Dollar</option>
                       <option value="EUR">EUR - Euro</option>
                       <option value="GBP">GBP - British Pound</option>
@@ -257,22 +262,30 @@ export default function SettingsPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <Label>Allow Public Registration</Label>
-                      <p className="text-sm text-gray-600">Allow students to register without invitation</p>
+                      <p className="text-sm text-gray-600">
+                        Allow students to register without invitation
+                      </p>
                     </div>
                     <Switch
                       checked={academySettings.allowPublicRegistration}
-                      onCheckedChange={(checked) => handleInputChange('academy', 'allowPublicRegistration', checked)}
+                      onCheckedChange={(checked) =>
+                        handleInputChange("academy", "allowPublicRegistration", checked)
+                      }
                     />
                   </div>
 
                   <div className="flex items-center justify-between">
                     <div>
                       <Label>Require Email Verification</Label>
-                      <p className="text-sm text-gray-600">Students must verify their email before accessing courses</p>
+                      <p className="text-sm text-gray-600">
+                        Students must verify their email before accessing courses
+                      </p>
                     </div>
                     <Switch
                       checked={academySettings.requireEmailVerification}
-                      onCheckedChange={(checked) => handleInputChange('academy', 'requireEmailVerification', checked)}
+                      onCheckedChange={(checked) =>
+                        handleInputChange("academy", "requireEmailVerification", checked)
+                      }
                     />
                   </div>
                 </div>
@@ -298,12 +311,16 @@ export default function SettingsPage() {
                         id="primaryColor"
                         type="color"
                         value={academySettings.primaryColor}
-                        onChange={(e) => handleInputChange('academy', 'primaryColor', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("academy", "primaryColor", e.target.value)
+                        }
                         className="w-16 h-10 p-1"
                       />
                       <Input
                         value={academySettings.primaryColor}
-                        onChange={(e) => handleInputChange('academy', 'primaryColor', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("academy", "primaryColor", e.target.value)
+                        }
                         className="flex-1"
                       />
                     </div>
@@ -316,12 +333,16 @@ export default function SettingsPage() {
                         id="secondaryColor"
                         type="color"
                         value={academySettings.secondaryColor}
-                        onChange={(e) => handleInputChange('academy', 'secondaryColor', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("academy", "secondaryColor", e.target.value)
+                        }
                         className="w-16 h-10 p-1"
                       />
                       <Input
                         value={academySettings.secondaryColor}
-                        onChange={(e) => handleInputChange('academy', 'secondaryColor', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("academy", "secondaryColor", e.target.value)
+                        }
                         className="flex-1"
                       />
                     </div>
@@ -331,19 +352,17 @@ export default function SettingsPage() {
                 <div className="p-6 bg-gray-50 rounded-lg">
                   <h3 className="font-medium text-gray-900 mb-4">Preview</h3>
                   <div className="space-y-3">
-                    <Button 
+                    <Button
                       style={{ backgroundColor: academySettings.primaryColor }}
-                      className="text-white"
-                    >
+                      className="text-white">
                       Primary Button
                     </Button>
-                    <Button 
-                      variant="outline" 
-                      style={{ 
+                    <Button
+                      variant="outline"
+                      style={{
                         borderColor: academySettings.secondaryColor,
-                        color: academySettings.secondaryColor 
-                      }}
-                    >
+                        color: academySettings.secondaryColor,
+                      }}>
                       Secondary Button
                     </Button>
                   </div>
@@ -366,20 +385,25 @@ export default function SettingsPage() {
                   {Object.entries(notificationSettings).map(([key, value]) => (
                     <div key={key} className="flex items-center justify-between">
                       <div>
-                        <Label>{key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</Label>
+                        <Label>
+                          {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                        </Label>
                         <p className="text-sm text-gray-600">
-                          {key === 'emailNotifications' && 'Receive notifications via email'}
-                          {key === 'smsNotifications' && 'Receive notifications via SMS'}
-                          {key === 'pushNotifications' && 'Receive push notifications'}
-                          {key === 'courseUpdates' && 'Get notified about course updates'}
-                          {key === 'studentProgress' && 'Get notified about student progress'}
-                          {key === 'systemAlerts' && 'Receive system alerts and maintenance notifications'}
-                          {key === 'marketingEmails' && 'Receive marketing emails and promotions'}
+                          {key === "emailNotifications" && "Receive notifications via email"}
+                          {key === "smsNotifications" && "Receive notifications via SMS"}
+                          {key === "pushNotifications" && "Receive push notifications"}
+                          {key === "courseUpdates" && "Get notified about course updates"}
+                          {key === "studentProgress" && "Get notified about student progress"}
+                          {key === "systemAlerts" &&
+                            "Receive system alerts and maintenance notifications"}
+                          {key === "marketingEmails" && "Receive marketing emails and promotions"}
                         </p>
                       </div>
                       <Switch
                         checked={value}
-                        onCheckedChange={(checked) => handleInputChange('notifications', key, checked)}
+                        onCheckedChange={(checked) =>
+                          handleInputChange("notifications", key, checked)
+                        }
                       />
                     </div>
                   ))}
@@ -402,22 +426,30 @@ export default function SettingsPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <Label>Two-Factor Authentication</Label>
-                      <p className="text-sm text-gray-600">Add an extra layer of security to your account</p>
+                      <p className="text-sm text-gray-600">
+                        Add an extra layer of security to your account
+                      </p>
                     </div>
                     <Switch
                       checked={securitySettings.twoFactorAuth}
-                      onCheckedChange={(checked) => handleInputChange('security', 'twoFactorAuth', checked)}
+                      onCheckedChange={(checked) =>
+                        handleInputChange("security", "twoFactorAuth", checked)
+                      }
                     />
                   </div>
 
                   <div className="flex items-center justify-between">
                     <div>
                       <Label>Password Complexity Requirements</Label>
-                      <p className="text-sm text-gray-600">Enforce strong passwords for all users</p>
+                      <p className="text-sm text-gray-600">
+                        Enforce strong passwords for all users
+                      </p>
                     </div>
                     <Switch
                       checked={securitySettings.passwordComplexity}
-                      onCheckedChange={(checked) => handleInputChange('security', 'passwordComplexity', checked)}
+                      onCheckedChange={(checked) =>
+                        handleInputChange("security", "passwordComplexity", checked)
+                      }
                     />
                   </div>
                 </div>
@@ -429,7 +461,9 @@ export default function SettingsPage() {
                       id="sessionTimeout"
                       type="number"
                       value={securitySettings.sessionTimeout}
-                      onChange={(e) => handleInputChange('security', 'sessionTimeout', parseInt(e.target.value))}
+                      onChange={(e) =>
+                        handleInputChange("security", "sessionTimeout", parseInt(e.target.value))
+                      }
                       className="mt-1"
                     />
                   </div>
@@ -440,7 +474,9 @@ export default function SettingsPage() {
                       id="loginAttempts"
                       type="number"
                       value={securitySettings.loginAttempts}
-                      onChange={(e) => handleInputChange('security', 'loginAttempts', parseInt(e.target.value))}
+                      onChange={(e) =>
+                        handleInputChange("security", "loginAttempts", parseInt(e.target.value))
+                      }
                       className="mt-1"
                     />
                   </div>
@@ -462,7 +498,9 @@ export default function SettingsPage() {
                 <div className="p-6 bg-blue-50 rounded-lg">
                   <h3 className="font-medium text-blue-900 mb-2">Current Plan: Professional</h3>
                   <p className="text-blue-700">$99/month - Up to 1000 students</p>
-                  <Button variant="outline" className="mt-4 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
+                  <Button
+                    variant="outline"
+                    className="mt-4 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
                     Upgrade Plan
                   </Button>
                 </div>
@@ -494,7 +532,9 @@ export default function SettingsPage() {
                       { date: "2023-12-01", amount: "$99.00", status: "Paid" },
                       { date: "2023-11-01", amount: "$99.00", status: "Paid" },
                     ].map((invoice, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div>
                           <p className="font-medium text-gray-900">{invoice.date}</p>
                           <p className="text-sm text-gray-600">{invoice.amount}</p>
@@ -516,4 +556,4 @@ export default function SettingsPage() {
       </div>
     </DashboardLayout>
   );
-} 
+}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   HelpCircle,
   Search,
@@ -14,7 +13,6 @@ import {
   Users,
   Settings,
   Zap,
-  Shield,
   CreditCard,
   ChevronRight,
   ExternalLink,
@@ -27,7 +25,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function HelpSupportPage() {
-  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [supportForm, setSupportForm] = useState({
     subject: "",
@@ -44,17 +41,20 @@ export default function HelpSupportPage() {
       questions: [
         {
           question: "How do I create my first course?",
-          answer: "To create your first course, navigate to Course Management and click 'Add New Course'. Fill in the course details, upload content, and publish when ready."
+          answer:
+            "To create your first course, navigate to Course Management and click 'Add New Course'. Fill in the course details, upload content, and publish when ready.",
         },
         {
           question: "How do I invite students to my academy?",
-          answer: "Go to Student Management and click 'Add Student'. You can either add students individually or enable public registration in Settings."
+          answer:
+            "Go to Student Management and click 'Add Student'. You can either add students individually or enable public registration in Settings.",
         },
         {
           question: "How do I customize my academy's appearance?",
-          answer: "Visit Settings > Appearance to customize your academy's colors, logo, and branding elements."
-        }
-      ]
+          answer:
+            "Visit Settings > Appearance to customize your academy's colors, logo, and branding elements.",
+        },
+      ],
     },
     {
       id: "course-management",
@@ -63,17 +63,20 @@ export default function HelpSupportPage() {
       questions: [
         {
           question: "Can I import content from other platforms?",
-          answer: "Yes, you can import content from various formats including SCORM packages, videos, PDFs, and presentations."
+          answer:
+            "Yes, you can import content from various formats including SCORM packages, videos, PDFs, and presentations.",
         },
         {
           question: "How do I track student progress?",
-          answer: "Student progress is automatically tracked and can be viewed in the Student Management section or individual course analytics."
+          answer:
+            "Student progress is automatically tracked and can be viewed in the Student Management section or individual course analytics.",
         },
         {
           question: "Can I create quizzes and assessments?",
-          answer: "Yes, you can create various types of assessments including multiple choice, true/false, and essay questions."
-        }
-      ]
+          answer:
+            "Yes, you can create various types of assessments including multiple choice, true/false, and essay questions.",
+        },
+      ],
     },
     {
       id: "student-management",
@@ -82,17 +85,20 @@ export default function HelpSupportPage() {
       questions: [
         {
           question: "How do I enroll students in courses?",
-          answer: "Students can be enrolled automatically upon registration or manually assigned to specific courses in Student Management."
+          answer:
+            "Students can be enrolled automatically upon registration or manually assigned to specific courses in Student Management.",
         },
         {
           question: "Can I send messages to students?",
-          answer: "Yes, you can send individual messages or broadcast announcements to all students or specific groups."
+          answer:
+            "Yes, you can send individual messages or broadcast announcements to all students or specific groups.",
         },
         {
           question: "How do I generate student reports?",
-          answer: "Reports can be generated from the Student Management section, including progress reports, completion certificates, and performance analytics."
-        }
-      ]
+          answer:
+            "Reports can be generated from the Student Management section, including progress reports, completion certificates, and performance analytics.",
+        },
+      ],
     },
     {
       id: "billing",
@@ -101,18 +107,21 @@ export default function HelpSupportPage() {
       questions: [
         {
           question: "How do I upgrade my plan?",
-          answer: "Visit Settings > Billing to view available plans and upgrade options. Changes take effect immediately."
+          answer:
+            "Visit Settings > Billing to view available plans and upgrade options. Changes take effect immediately.",
         },
         {
           question: "Can I accept payments from students?",
-          answer: "Yes, you can set up payment processing to charge for courses. Configure payment methods in Settings > Billing."
+          answer:
+            "Yes, you can set up payment processing to charge for courses. Configure payment methods in Settings > Billing.",
         },
         {
           question: "How do I download invoices?",
-          answer: "All invoices are available in Settings > Billing > Billing History and can be downloaded as PDFs."
-        }
-      ]
-    }
+          answer:
+            "All invoices are available in Settings > Billing > Billing History and can be downloaded as PDFs.",
+        },
+      ],
+    },
   ];
 
   const supportChannels = [
@@ -122,7 +131,7 @@ export default function HelpSupportPage() {
       icon: MessageCircle,
       availability: "24/7",
       action: "Start Chat",
-      color: "bg-blue-100 text-blue-600"
+      color: "bg-blue-100 text-blue-600",
     },
     {
       title: "Email Support",
@@ -130,7 +139,7 @@ export default function HelpSupportPage() {
       icon: Mail,
       availability: "Response within 24h",
       action: "Send Email",
-      color: "bg-green-100 text-green-600"
+      color: "bg-green-100 text-green-600",
     },
     {
       title: "Phone Support",
@@ -138,8 +147,8 @@ export default function HelpSupportPage() {
       icon: Phone,
       availability: "Mon-Fri 9AM-6PM EST",
       action: "Call Now",
-      color: "bg-purple-100 text-purple-600"
-    }
+      color: "bg-purple-100 text-purple-600",
+    },
   ];
 
   const resources = [
@@ -148,38 +157,41 @@ export default function HelpSupportPage() {
       description: "Step-by-step video guides",
       icon: Video,
       count: "25+ videos",
-      link: "#"
+      link: "#",
     },
     {
       title: "Documentation",
       description: "Comprehensive user guides",
       icon: FileText,
       count: "50+ articles",
-      link: "#"
+      link: "#",
     },
     {
       title: "Community Forum",
       description: "Connect with other educators",
       icon: Users,
       count: "1000+ members",
-      link: "#"
+      link: "#",
     },
     {
       title: "API Documentation",
       description: "Technical integration guides",
       icon: Settings,
       count: "Full reference",
-      link: "#"
-    }
+      link: "#",
+    },
   ];
 
-  const filteredFAQs = faqCategories.map(category => ({
-    ...category,
-    questions: category.questions.filter(q =>
-      q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      q.answer.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  })).filter(category => category.questions.length > 0);
+  const filteredFAQs = faqCategories
+    .map((category) => ({
+      ...category,
+      questions: category.questions.filter(
+        (q) =>
+          q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          q.answer.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
+    }))
+    .filter((category) => category.questions.length > 0);
 
   const handleSupportSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -294,7 +306,9 @@ export default function HelpSupportPage() {
                       </label>
                       <Input
                         value={supportForm.subject}
-                        onChange={(e) => setSupportForm(prev => ({ ...prev, subject: e.target.value }))}
+                        onChange={(e) =>
+                          setSupportForm((prev) => ({ ...prev, subject: e.target.value }))
+                        }
                         placeholder="Brief description of your issue"
                         required
                       />
@@ -306,9 +320,10 @@ export default function HelpSupportPage() {
                       </label>
                       <select
                         value={supportForm.category}
-                        onChange={(e) => setSupportForm(prev => ({ ...prev, category: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-sm"
-                      >
+                        onChange={(e) =>
+                          setSupportForm((prev) => ({ ...prev, category: e.target.value }))
+                        }
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-sm">
                         <option value="general">General Question</option>
                         <option value="technical">Technical Issue</option>
                         <option value="billing">Billing & Payments</option>
@@ -319,14 +334,13 @@ export default function HelpSupportPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Priority
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
                     <select
                       value={supportForm.priority}
-                      onChange={(e) => setSupportForm(prev => ({ ...prev, priority: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-sm max-w-xs"
-                    >
+                      onChange={(e) =>
+                        setSupportForm((prev) => ({ ...prev, priority: e.target.value }))
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-sm max-w-xs">
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
                       <option value="high">High</option>
@@ -335,12 +349,12 @@ export default function HelpSupportPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Message
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
                     <Textarea
                       value={supportForm.message}
-                      onChange={(e) => setSupportForm(prev => ({ ...prev, message: e.target.value }))}
+                      onChange={(e) =>
+                        setSupportForm((prev) => ({ ...prev, message: e.target.value }))
+                      }
                       placeholder="Please provide detailed information about your issue..."
                       rows={5}
                       required
@@ -425,7 +439,9 @@ export default function HelpSupportPage() {
                     { service: "Video Streaming", status: "Operational", uptime: "99.7%" },
                     { service: "API Services", status: "Operational", uptime: "99.9%" },
                   ].map((service, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div className="flex items-center space-x-3">
                         <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         <span className="font-medium text-gray-900">{service.service}</span>
@@ -450,18 +466,18 @@ export default function HelpSupportPage() {
                     {
                       date: "Jan 25, 2024",
                       title: "New Quiz Features Released",
-                      description: "Added support for timed quizzes and advanced question types."
+                      description: "Added support for timed quizzes and advanced question types.",
                     },
                     {
                       date: "Jan 20, 2024",
                       title: "Performance Improvements",
-                      description: "Improved page load times and video streaming quality."
+                      description: "Improved page load times and video streaming quality.",
                     },
                     {
                       date: "Jan 15, 2024",
                       title: "Mobile App Update",
-                      description: "Enhanced mobile experience with new navigation and features."
-                    }
+                      description: "Enhanced mobile experience with new navigation and features.",
+                    },
                   ].map((update, index) => (
                     <div key={index} className="border-l-4 border-blue-500 pl-4">
                       <div className="flex items-center justify-between">
@@ -479,4 +495,4 @@ export default function HelpSupportPage() {
       </div>
     </DashboardLayout>
   );
-} 
+}

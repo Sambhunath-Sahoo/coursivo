@@ -49,4 +49,4 @@ export default function StudentQuizPage() {
       </div>
     </DashboardLayout>
   );
-} 
+}

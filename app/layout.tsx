@@ -17,8 +17,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Coursivo - Multi-tenant Learning Platform",
-  description: "Transform education digitally with our comprehensive learning platform designed for modern educators and students.",
-  keywords: ["education", "learning platform", "online courses", "e-learning", "academy management"],
+  description:
+    "Transform education digitally with our comprehensive learning platform designed for modern educators and students.",
+  keywords: [
+    "education",
+    "learning platform",
+    "online courses",
+    "e-learning",
+    "academy management",
+  ],
   authors: [{ name: "Coursivo Team" }],
   viewport: "width=device-width, initial-scale=1",
 };

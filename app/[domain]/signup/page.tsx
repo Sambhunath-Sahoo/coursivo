@@ -19,7 +19,6 @@ export default function StudentSignUpPage() {
     confirmPassword: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const router = useRouter();
   const params = useParams();
   const academyName = params.domain as string; // URL param is 'domain' but represents academy name
@@ -27,11 +26,10 @@ export default function StudentSignUpPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
 
     // Basic validation
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords don't match!");
+      console.error("Passwords don't match!");
       setIsLoading(false);
       return;
     }
@@ -47,13 +45,13 @@ export default function StudentSignUpPage() {
       });
 
       if (result?.error) {
-        setError(result.error);
+        console.error("Sign up error:", result.error);
       } else {
         // Redirect to student dashboard with academy domain
         router.push(`/${academyName}/dashboard`);
       }
     } catch (error) {
-      setError("An unexpected error occurred");
+      console.error("An unexpected error occurred:", error);
     } finally {
       setIsLoading(false);
     }
@@ -73,8 +71,7 @@ export default function StudentSignUpPage() {
         <Button
           variant="ghost"
           onClick={() => router.push(`/${academyName}`)}
-          className="mb-6 text-gray-600 hover:text-gray-900"
-        >
+          className="mb-6 text-gray-600 hover:text-gray-900">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to {academyName} Academy
         </Button>
@@ -85,21 +82,13 @@ export default function StudentSignUpPage() {
             <div className="w-16 h-16 rounded-2xl mx-auto mb-4 bg-[#09382f] flex items-center justify-center shadow-lg">
               <GraduationCap className="h-8 w-8 text-white" />
             </div>
-            <CardTitle className="text-2xl text-gray-900">
-              Join {academyName} Academy
-            </CardTitle>
+            <CardTitle className="text-2xl text-gray-900">Join {academyName} Academy</CardTitle>
             <CardDescription className="text-base text-gray-600">
               Start your learning journey today
             </CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-6">
-            {error && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-sm text-red-600">{error}</p>
-              </div>
-            )}
-
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-gray-900">
@@ -158,8 +147,7 @@ export default function StudentSignUpPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-900"
-                  >
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-900">
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
@@ -187,8 +175,7 @@ export default function StudentSignUpPage() {
               <Button
                 type="submit"
                 className="w-full bg-[#09382f] hover:bg-[#0a4a3d] text-white border-0 transition-all duration-300 shadow-lg"
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
                 {isLoading ? "Creating Account..." : "Create Account"}
               </Button>
             </form>
@@ -205,8 +192,7 @@ export default function StudentSignUpPage() {
               <Button
                 variant="link"
                 onClick={() => router.push(`/${academyName}/signin`)}
-                className="p-0 h-auto text-[#09382f] hover:text-[#0a4a3d]"
-              >
+                className="p-0 h-auto text-[#09382f] hover:text-[#0a4a3d]">
                 Sign In
               </Button>
             </div>

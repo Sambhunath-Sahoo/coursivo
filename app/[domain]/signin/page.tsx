@@ -17,7 +17,6 @@ export default function StudentSignInPage() {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const router = useRouter();
   const params = useParams();
   const academyName = params.domain as string; // URL param is 'domain' but represents academy name
@@ -25,7 +24,6 @@ export default function StudentSignInPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
 
     try {
       const result = await signIn("credentials", {
@@ -37,13 +35,13 @@ export default function StudentSignInPage() {
       });
 
       if (result?.error) {
-        setError(result.error);
+        console.error("Sign in error:", result.error);
       } else {
         // Redirect to student dashboard with academy domain
         router.push(`/${academyName}/dashboard`);
       }
     } catch (error) {
-      setError("An unexpected error occurred");
+      console.error("An unexpected error occurred:", error);
     } finally {
       setIsLoading(false);
     }
@@ -63,8 +61,7 @@ export default function StudentSignInPage() {
         <Button
           variant="ghost"
           onClick={() => router.push("/")}
-          className="mb-6 text-gray-600 hover:text-gray-900"
-        >
+          className="mb-6 text-gray-600 hover:text-gray-900">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
         </Button>
@@ -84,12 +81,6 @@ export default function StudentSignInPage() {
           </CardHeader>
 
           <CardContent className="space-y-6">
-            {error && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-sm text-red-600">{error}</p>
-              </div>
-            )}
-
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-gray-900">
@@ -129,8 +120,7 @@ export default function StudentSignInPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-900"
-                  >
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-900">
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
@@ -139,8 +129,7 @@ export default function StudentSignInPage() {
               <Button
                 type="submit"
                 className="w-full bg-[#09382f] hover:bg-[#0a4a3d] text-white border-0 transition-all duration-300 shadow-lg"
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
                 {isLoading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
@@ -157,8 +146,7 @@ export default function StudentSignInPage() {
               <Button
                 variant="link"
                 onClick={() => router.push(`/${academyName}/signup`)}
-                className="p-0 h-auto text-[#09382f] hover:text-[#0a4a3d]"
-              >
+                className="p-0 h-auto text-[#09382f] hover:text-[#0a4a3d]">
                 Create Account
               </Button>
             </div>

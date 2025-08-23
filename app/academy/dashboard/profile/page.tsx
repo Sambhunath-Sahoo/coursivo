@@ -1,13 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   User,
   Mail,
-  Phone,
-  MapPin,
-  Calendar,
   Edit,
   Save,
   X,
@@ -30,7 +26,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function AcademyProfilePage() {
-  const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
     name: "Dr. Sarah Chen",
@@ -45,7 +40,12 @@ export default function AcademyProfilePage() {
     linkedin: "https://linkedin.com/in/sarahchen",
     twitter: "https://twitter.com/sarahchen",
     organization: "Coursivo Academy",
-    expertise: ["Online Learning", "Curriculum Development", "Educational Technology", "Student Engagement"],
+    expertise: [
+      "Online Learning",
+      "Curriculum Development",
+      "Educational Technology",
+      "Student Engagement",
+    ],
   });
 
   const [editData, setEditData] = useState(profileData);
@@ -87,11 +87,7 @@ export default function AcademyProfilePage() {
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setEditData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleExpertiseChange = (expertise: string[]) => {
-    setEditData(prev => ({ ...prev, expertise }));
+    setEditData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -114,8 +110,7 @@ export default function AcademyProfilePage() {
                       variant="outline"
                       size="sm"
                       onClick={handleEdit}
-                      className="border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                    >
+                      className="border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white">
                       <Edit className="h-4 w-4 mr-2" />
                       Edit Profile
                     </Button>
@@ -124,16 +119,11 @@ export default function AcademyProfilePage() {
                       <Button
                         size="sm"
                         onClick={handleSave}
-                        className="bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-                      >
+                        className="bg-[#09382f] hover:bg-[#0a4a3a] text-white">
                         <Save className="h-4 w-4 mr-2" />
                         Save
                       </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handleCancel}
-                      >
+                      <Button variant="outline" size="sm" onClick={handleCancel}>
                         <X className="h-4 w-4 mr-2" />
                         Cancel
                       </Button>
@@ -155,9 +145,7 @@ export default function AcademyProfilePage() {
                     )}
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      {profileData.name}
-                    </h3>
+                    <h3 className="text-xl font-semibold text-gray-900">{profileData.name}</h3>
                     <p className="text-gray-600">{profileData.title}</p>
                     <p className="text-sm text-gray-500">
                       Member since {new Date(profileData.joinDate).toLocaleDateString()}
@@ -173,7 +161,7 @@ export default function AcademyProfilePage() {
                       <Input
                         id="name"
                         value={editData.name}
-                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        onChange={(e) => handleInputChange("name", e.target.value)}
                         className="mt-1"
                       />
                     ) : (
@@ -187,7 +175,7 @@ export default function AcademyProfilePage() {
                       <Input
                         id="title"
                         value={editData.title}
-                        onChange={(e) => handleInputChange('title', e.target.value)}
+                        onChange={(e) => handleInputChange("title", e.target.value)}
                         className="mt-1"
                       />
                     ) : (
@@ -202,7 +190,7 @@ export default function AcademyProfilePage() {
                         id="email"
                         type="email"
                         value={editData.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        onChange={(e) => handleInputChange("email", e.target.value)}
                         className="mt-1"
                       />
                     ) : (
@@ -216,7 +204,7 @@ export default function AcademyProfilePage() {
                       <Input
                         id="phone"
                         value={editData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        onChange={(e) => handleInputChange("phone", e.target.value)}
                         className="mt-1"
                       />
                     ) : (
@@ -230,7 +218,7 @@ export default function AcademyProfilePage() {
                       <Input
                         id="location"
                         value={editData.location}
-                        onChange={(e) => handleInputChange('location', e.target.value)}
+                        onChange={(e) => handleInputChange("location", e.target.value)}
                         className="mt-1"
                       />
                     ) : (
@@ -244,7 +232,7 @@ export default function AcademyProfilePage() {
                       <Input
                         id="organization"
                         value={editData.organization}
-                        onChange={(e) => handleInputChange('organization', e.target.value)}
+                        onChange={(e) => handleInputChange("organization", e.target.value)}
                         className="mt-1"
                       />
                     ) : (
@@ -259,7 +247,7 @@ export default function AcademyProfilePage() {
                     <Textarea
                       id="bio"
                       value={editData.bio}
-                      onChange={(e) => handleInputChange('bio', e.target.value)}
+                      onChange={(e) => handleInputChange("bio", e.target.value)}
                       className="mt-1"
                       rows={4}
                     />
@@ -276,13 +264,17 @@ export default function AcademyProfilePage() {
                       <Input
                         id="website"
                         value={editData.website}
-                        onChange={(e) => handleInputChange('website', e.target.value)}
+                        onChange={(e) => handleInputChange("website", e.target.value)}
                         className="mt-1"
                       />
                     ) : (
                       <div className="mt-1 flex items-center space-x-2">
                         <Globe className="h-4 w-4 text-gray-400" />
-                        <a href={profileData.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                        <a
+                          href={profileData.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline">
                           {profileData.website}
                         </a>
                       </div>
@@ -295,13 +287,17 @@ export default function AcademyProfilePage() {
                       <Input
                         id="linkedin"
                         value={editData.linkedin}
-                        onChange={(e) => handleInputChange('linkedin', e.target.value)}
+                        onChange={(e) => handleInputChange("linkedin", e.target.value)}
                         className="mt-1"
                       />
                     ) : (
                       <div className="mt-1 flex items-center space-x-2">
                         <Linkedin className="h-4 w-4 text-gray-400" />
-                        <a href={profileData.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                        <a
+                          href={profileData.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline">
                           LinkedIn Profile
                         </a>
                       </div>
@@ -314,13 +310,17 @@ export default function AcademyProfilePage() {
                       <Input
                         id="twitter"
                         value={editData.twitter}
-                        onChange={(e) => handleInputChange('twitter', e.target.value)}
+                        onChange={(e) => handleInputChange("twitter", e.target.value)}
                         className="mt-1"
                       />
                     ) : (
                       <div className="mt-1 flex items-center space-x-2">
                         <Twitter className="h-4 w-4 text-gray-400" />
-                        <a href={profileData.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                        <a
+                          href={profileData.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline">
                           Twitter Profile
                         </a>
                       </div>
@@ -380,7 +380,9 @@ export default function AcademyProfilePage() {
                     <TrendingUp className="h-4 w-4 text-gray-600" />
                     <span className="text-sm text-gray-600">Total Revenue</span>
                   </div>
-                  <span className="font-semibold text-gray-900">${stats.totalRevenue.toLocaleString()}</span>
+                  <span className="font-semibold text-gray-900">
+                    ${stats.totalRevenue.toLocaleString()}
+                  </span>
                 </div>
               </CardContent>
             </Card>
@@ -392,7 +394,9 @@ export default function AcademyProfilePage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 {achievements.map((achievement, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
                     <div>
                       <p className="font-medium text-gray-900">{achievement.title}</p>
                       <p className="text-sm text-gray-600">{achievement.description}</p>
@@ -445,7 +449,9 @@ export default function AcademyProfilePage() {
                   <Building className="h-4 w-4 mr-2" />
                   Academy Settings
                 </Button>
-                <Button variant="outline" className="w-full justify-start text-red-600 hover:text-red-700">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start text-red-600 hover:text-red-700">
                   <X className="h-4 w-4 mr-2" />
                   Delete Account
                 </Button>
@@ -456,4 +462,4 @@ export default function AcademyProfilePage() {
       </div>
     </DashboardLayout>
   );
-} 
+}

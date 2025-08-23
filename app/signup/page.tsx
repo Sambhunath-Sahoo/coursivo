@@ -3,7 +3,17 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { ArrowLeft, Mail, Lock, GraduationCap, User, Eye, EyeOff, School, Brain } from "lucide-react";
+import {
+  ArrowLeft,
+  Mail,
+  Lock,
+  GraduationCap,
+  User,
+  Eye,
+  EyeOff,
+  School,
+  Brain,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -51,7 +61,7 @@ export default function EducatorSignUpPage() {
       } else {
         router.push("/dashboard");
       }
-    } catch (error) {
+    } catch {
       setError("An unexpected error occurred");
     } finally {
       setIsLoading(false);
@@ -170,7 +180,11 @@ export default function EducatorSignUpPage() {
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-900">
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
                       </button>
                     </div>
                   </div>

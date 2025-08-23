@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   BookOpen,
@@ -129,7 +128,9 @@ export default function AcademyDashboardPage() {
                   <TrendingUp className="h-6 w-6 text-yellow-600" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">${stats.totalRevenue.toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    ${stats.totalRevenue.toLocaleString()}
+                  </p>
                   <p className="text-sm text-gray-600">Total Revenue</p>
                 </div>
               </div>
@@ -159,10 +160,9 @@ export default function AcademyDashboardPage() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle>Recent Courses</CardTitle>
-                  <Button 
+                  <Button
                     className="bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-                    onClick={() => router.push('/academy/dashboard/courses')}
-                  >
+                    onClick={() => router.push("/academy/dashboard/courses")}>
                     <Plus className="h-4 w-4 mr-2" />
                     Add Course
                   </Button>
@@ -171,15 +171,22 @@ export default function AcademyDashboardPage() {
               <CardContent>
                 <div className="space-y-4">
                   {courses.map((course) => (
-                    <div key={course.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    <div
+                      key={course.id}
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                       <div className="flex-1">
                         <h3 className="font-semibold text-gray-900">{course.title}</h3>
                         <div className="flex items-center space-x-4 mt-2">
                           <span className="text-sm text-gray-600">{course.students} students</span>
-                          <span className="text-sm text-gray-600">{course.progress}% avg progress</span>
-                          <Badge 
-                            className={course.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}
-                          >
+                          <span className="text-sm text-gray-600">
+                            {course.progress}% avg progress
+                          </span>
+                          <Badge
+                            className={
+                              course.status === "active"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-gray-100 text-gray-800"
+                            }>
                             {course.status}
                           </Badge>
                         </div>
@@ -199,11 +206,10 @@ export default function AcademyDashboardPage() {
                   ))}
                 </div>
                 <div className="mt-6">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                    onClick={() => router.push('/academy/dashboard/courses')}
-                  >
+                    onClick={() => router.push("/academy/dashboard/courses")}>
                     View All Courses
                   </Button>
                 </div>
@@ -218,7 +224,9 @@ export default function AcademyDashboardPage() {
               <CardContent>
                 <div className="space-y-4">
                   {students.map((student) => (
-                    <div key={student.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    <div
+                      key={student.id}
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                       <div className="flex items-center space-x-4">
                         <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
                           <Users className="h-5 w-5 text-gray-400" />
@@ -229,18 +237,19 @@ export default function AcademyDashboardPage() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-medium text-gray-900">{student.courses} courses</p>
+                        <p className="text-sm font-medium text-gray-900">
+                          {student.courses} courses
+                        </p>
                         <p className="text-sm text-gray-600">{student.progress}% progress</p>
                       </div>
                     </div>
                   ))}
                 </div>
                 <div className="mt-6">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                    onClick={() => router.push('/academy/dashboard/students')}
-                  >
+                    onClick={() => router.push("/academy/dashboard/students")}>
                     View All Students
                   </Button>
                 </div>
@@ -258,7 +267,9 @@ export default function AcademyDashboardPage() {
               <CardContent>
                 <div className="space-y-3">
                   {recentActivity.map((activity, index) => (
-                    <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <div
+                      key={index}
+                      className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
                       <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
                       <div className="flex-1">
                         <p className="text-sm font-medium text-gray-900">{activity.action}</p>
@@ -277,26 +288,23 @@ export default function AcademyDashboardPage() {
                 <CardTitle>Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button 
+                <Button
                   className="w-full bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-                  onClick={() => router.push('/academy/dashboard/courses')}
-                >
+                  onClick={() => router.push("/academy/dashboard/courses")}>
                   <Plus className="h-4 w-4 mr-2" />
                   Create Course
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                  onClick={() => router.push('/academy/dashboard/students')}
-                >
+                  onClick={() => router.push("/academy/dashboard/students")}>
                   <Users className="h-4 w-4 mr-2" />
                   Manage Students
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                  onClick={() => router.push('/academy/dashboard/settings')}
-                >
+                  onClick={() => router.push("/academy/dashboard/settings")}>
                   <FileText className="h-4 w-4 mr-2" />
                   View Reports
                 </Button>

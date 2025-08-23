@@ -1,32 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   Users,
   Search,
-  Filter,
   Download,
   Mail,
-  Phone,
   MoreHorizontal,
   UserPlus,
-  Edit,
-  Trash2,
   Eye,
   BookOpen,
   Trophy,
-  Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function StudentManagementPage() {
-  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
 
@@ -78,9 +71,7 @@ export default function StudentManagementPage() {
       lastActive: "2024-01-20",
       status: "inactive",
       avatar: "/api/placeholder/40/40",
-      courses: [
-        { name: "Graphic Design Basics", progress: 25 },
-      ],
+      courses: [{ name: "Graphic Design Basics", progress: 25 }],
     },
     {
       id: 4,
@@ -116,17 +107,20 @@ export default function StudentManagementPage() {
     }
   };
 
-  const filteredStudents = students.filter(student => {
-    const matchesSearch = student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         student.email.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredStudents = students.filter((student) => {
+    const matchesSearch =
+      student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      student.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = selectedFilter === "all" || student.status === selectedFilter;
     return matchesSearch && matchesFilter;
   });
 
   const totalStudents = students.length;
-  const activeStudents = students.filter(s => s.status === "active").length;
+  const activeStudents = students.filter((s) => s.status === "active").length;
   const totalEnrollments = students.reduce((sum, student) => sum + student.enrolledCourses, 0);
-  const averageProgress = Math.round(students.reduce((sum, student) => sum + student.totalProgress, 0) / students.length);
+  const averageProgress = Math.round(
+    students.reduce((sum, student) => sum + student.totalProgress, 0) / students.length
+  );
 
   return (
     <DashboardLayout type="academy">
@@ -217,8 +211,7 @@ export default function StudentManagementPage() {
           <select
             value={selectedFilter}
             onChange={(e) => setSelectedFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-md bg-white text-sm"
-          >
+            className="px-3 py-2 border border-gray-300 rounded-md bg-white text-sm">
             <option value="all">All Students</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
@@ -256,15 +249,21 @@ export default function StudentManagementPage() {
 
                   <div className="flex items-center space-x-6">
                     <div className="text-center">
-                      <p className="text-lg font-semibold text-gray-900">{student.enrolledCourses}</p>
+                      <p className="text-lg font-semibold text-gray-900">
+                        {student.enrolledCourses}
+                      </p>
                       <p className="text-xs text-gray-600">Enrolled</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-lg font-semibold text-gray-900">{student.completedCourses}</p>
+                      <p className="text-lg font-semibold text-gray-900">
+                        {student.completedCourses}
+                      </p>
                       <p className="text-xs text-gray-600">Completed</p>
                     </div>
                     <div className="text-center min-w-[100px]">
-                      <p className="text-lg font-semibold text-gray-900">{student.totalProgress}%</p>
+                      <p className="text-lg font-semibold text-gray-900">
+                        {student.totalProgress}%
+                      </p>
                       <Progress value={student.totalProgress} className="h-2 mt-1" />
                     </div>
                     <div className="flex items-center space-x-2">
@@ -289,7 +288,9 @@ export default function StudentManagementPage() {
                   <h4 className="text-sm font-medium text-gray-900 mb-3">Course Progress</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {student.courses.map((course, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div className="flex-1">
                           <p className="text-sm font-medium text-gray-900">{course.name}</p>
                           <div className="flex items-center space-x-2 mt-1">
@@ -321,4 +322,4 @@ export default function StudentManagementPage() {
       </div>
     </DashboardLayout>
   );
-} 
+}

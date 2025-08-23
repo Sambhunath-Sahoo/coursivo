@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   BookOpen,
   Plus,
@@ -22,7 +21,6 @@ import { AddNewCourse } from "@/components/AddNewCourse";
 import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function CourseManagementPage() {
-  const router = useRouter();
   const [activeView, setActiveView] = useState("list");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -94,9 +92,10 @@ export default function CourseManagementPage() {
     }
   };
 
-  const filteredCourses = courses.filter(course =>
-    course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    course.category.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCourses = courses.filter(
+    (course) =>
+      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleAddNewCourse = () => {
@@ -132,8 +131,7 @@ export default function CourseManagementPage() {
             </div>
             <Button
               onClick={handleAddNewCourse}
-              className="bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-            >
+              className="bg-[#09382f] hover:bg-[#0a4a3a] text-white">
               <Plus className="h-4 w-4 mr-2" />
               Add New Course
             </Button>
@@ -180,7 +178,7 @@ export default function CourseManagementPage() {
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-gray-900">
-                    {courses.filter(c => c.status === 'active').length}
+                    {courses.filter((c) => c.status === "active").length}
                   </p>
                   <p className="text-sm text-gray-600">Active Courses</p>
                 </div>
@@ -196,7 +194,7 @@ export default function CourseManagementPage() {
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-gray-900">
-                    {courses.filter(c => c.status === 'draft').length}
+                    {courses.filter((c) => c.status === "draft").length}
                   </p>
                   <p className="text-sm text-gray-600">Draft Courses</p>
                 </div>
@@ -236,9 +234,7 @@ export default function CourseManagementPage() {
                     <CardTitle className="text-lg font-semibold text-gray-900 mb-2">
                       {course.title}
                     </CardTitle>
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                      {course.description}
-                    </p>
+                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{course.description}</p>
                     <div className="flex items-center space-x-2">
                       {getStatusBadge(course.status)}
                       <Badge variant="outline">{course.category}</Badge>
@@ -296,8 +292,7 @@ export default function CourseManagementPage() {
               <p className="text-gray-600 mb-4">No courses found matching your search</p>
               <Button
                 onClick={handleAddNewCourse}
-                className="bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-              >
+                className="bg-[#09382f] hover:bg-[#0a4a3a] text-white">
                 <Plus className="h-4 w-4 mr-2" />
                 Create Your First Course
               </Button>
@@ -307,4 +302,4 @@ export default function CourseManagementPage() {
       </div>
     </DashboardLayout>
   );
-} 
+}

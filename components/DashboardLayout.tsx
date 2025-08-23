@@ -5,19 +5,17 @@ import { useSession } from "next-auth/react";
 import {
   Home,
   BookOpen,
+  FileQuestion,
   Trophy,
   Calendar,
-  User,
-  LogOut,
-  FileQuestion,
-  GraduationCap,
   Users,
   Settings,
   HelpCircle,
+  GraduationCap,
+  User,
+  LogOut,
   Copy,
-  Link,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface NavigationItem {
   id: string;
@@ -32,28 +30,25 @@ interface DashboardLayoutProps {
   academyName?: string; // For student routes - represents the academy name
 }
 
-const defaultAcademy = {
-  id: "coursivo",
-  name: "Coursivo",
-  description: "Natural Intelligence Meets Digital Learning",
-  theme: { primary: "#09382f", secondary: "#8b5cf6" },
-};
-
 export function DashboardLayout({ children, type, academyName }: DashboardLayoutProps) {
   const router = useRouter();
   const pathname = usePathname();
   const { data: session } = useSession();
-  
+
   // Get academy name from session (for educators) or use provided academyName (for students)
-  const currentAcademyName = type === "educator" 
-    ? session?.user?.domain || "coursivo" 
-    : academyName || "coursivo";
+  const currentAcademyName =
+    type === "educator" ? session?.user?.domain || "coursivo" : academyName || "coursivo";
 
   const studentNavigationItems: NavigationItem[] = [
     { id: "dashboard", label: "Dashboard", icon: Home, href: `/${currentAcademyName}/dashboard` },
     { id: "courses", label: "My Courses", icon: BookOpen, href: `/${currentAcademyName}/courses` },
     { id: "quiz", label: "Take Quiz", icon: FileQuestion, href: `/${currentAcademyName}/quiz` },
-    { id: "achievements", label: "Achievements", icon: Trophy, href: `/${currentAcademyName}/achievements` },
+    {
+      id: "achievements",
+      label: "Achievements",
+      icon: Trophy,
+      href: `/${currentAcademyName}/achievements`,
+    },
     { id: "schedule", label: "Schedule", icon: Calendar, href: `/${currentAcademyName}/schedule` },
   ];
 
@@ -80,7 +75,7 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
   const copyStudentLandingLink = () => {
     const landingLink = `${window.location.origin}/${currentAcademyName}`;
     navigator.clipboard.writeText(landingLink);
-    alert('Student landing page link copied to clipboard!');
+    alert("Student landing page link copied to clipboard!");
   };
 
   const isActive = (href: string) => {
@@ -101,7 +96,9 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
               <GraduationCap className="h-6 w-6 text-white" />
             </div>
             <h1 className="text-xl font-bold text-gray-900">
-              {type === "educator" ? `${currentAcademyName} Academy` : `${currentAcademyName} Academy`}
+              {type === "educator"
+                ? `${currentAcademyName} Academy`
+                : `${currentAcademyName} Academy`}
             </h1>
           </div>
         </div>
@@ -117,8 +114,7 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
                   isActive(item.href)
                     ? "bg-[#09382f] text-white shadow-lg"
                     : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                }`}
-              >
+                }`}>
                 <item.icon className="h-5 w-5" />
                 <span className="font-medium text-sm">{item.label}</span>
               </button>
@@ -134,8 +130,7 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
               <p className="text-xs font-medium text-gray-700 mb-2">Student Access</p>
               <button
                 onClick={copyStudentLandingLink}
-                className="w-full flex items-center justify-between px-2 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors font-medium"
-              >
+                className="w-full flex items-center justify-between px-2 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors font-medium">
                 <span>Copy Landing Page Link</span>
                 <Copy className="h-4 w-4" />
               </button>
@@ -146,23 +141,21 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
           )}
 
           {/* Profile Button */}
-          <button 
+          <button
             onClick={() => handleNavigation(profileHref)}
             className={`w-full flex items-center space-x-3 px-3 py-3 rounded-xl transition-all text-left mb-2 ${
               isActive(profileHref)
                 ? "bg-[#09382f] text-white shadow-lg"
                 : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-            }`}
-          >
+            }`}>
             <User className="h-5 w-5" />
             <span className="font-medium text-sm">My Profile</span>
           </button>
-          
+
           {/* Logout Button */}
-          <button 
+          <button
             onClick={handleLogout}
-            className="w-full flex items-center space-x-3 px-3 py-3 rounded-xl text-red-600 hover:bg-red-50 hover:text-red-700 transition-all text-left"
-          >
+            className="w-full flex items-center space-x-3 px-3 py-3 rounded-xl text-red-600 hover:bg-red-50 hover:text-red-700 transition-all text-left">
             <LogOut className="h-5 w-5" />
             <span className="font-medium text-sm">Sign Out</span>
           </button>
@@ -170,9 +163,7 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 ml-80 flex flex-col min-h-screen">
-        {children}
-      </div>
+      <div className="flex-1 ml-80 flex flex-col min-h-screen">{children}</div>
     </div>
   );
-} 
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {
@@ -11,7 +11,6 @@ import {
   ChevronRight,
   BookOpen,
   Trophy,
-  Calendar,
   Users,
   Plus,
   FileText,
@@ -27,10 +26,10 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 export default function DashboardPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
-  
+
   // Get academy name from session or fallback to default
   const academyName = session?.user?.domain || "coursivo";
-  const userType = session?.user?.role as "student" | "educator" || "educator";
+  const userType = (session?.user?.role as "student" | "educator") || "educator";
   const userName = session?.user?.name || "User";
 
   // Redirect to signin if not authenticated
@@ -130,7 +129,9 @@ export default function DashboardPage() {
             {/* Header */}
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, {userName}!</h1>
-              <p className="text-gray-600">Continue your learning journey at {academyName} Academy</p>
+              <p className="text-gray-600">
+                Continue your learning journey at {academyName} Academy
+              </p>
             </div>
 
             {/* Stats Overview */}
@@ -202,7 +203,9 @@ export default function DashboardPage() {
                   <CardContent>
                     <div className="space-y-4">
                       {enrolledCourses.map((course) => (
-                        <div key={course.id} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                        <div
+                          key={course.id}
+                          className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
                           <div className="flex-1">
                             <h3 className="font-semibold text-gray-900">{course.title}</h3>
                             <p className="text-sm text-gray-600">by {course.instructor}</p>
@@ -225,11 +228,10 @@ export default function DashboardPage() {
                       ))}
                     </div>
                     <div className="mt-6">
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                        onClick={() => router.push(`/${academyName}/courses`)}
-                      >
+                        onClick={() => router.push(`/${academyName}/courses`)}>
                         View All Courses
                         <ChevronRight className="h-4 w-4 ml-2" />
                       </Button>
@@ -246,17 +248,15 @@ export default function DashboardPage() {
                     <CardTitle>Quick Actions</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <Button 
+                    <Button
                       className="w-full bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-                      onClick={() => router.push(`/${academyName}/quiz`)}
-                    >
+                      onClick={() => router.push(`/${academyName}/quiz`)}>
                       Take a Quiz
                     </Button>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                      onClick={() => router.push(`/${academyName}/courses`)}
-                    >
+                      onClick={() => router.push(`/${academyName}/courses`)}>
                       Browse Courses
                     </Button>
                   </CardContent>
@@ -349,13 +349,17 @@ export default function DashboardPage() {
                 <CardContent>
                   <div className="space-y-4">
                     {courses.map((course) => (
-                      <div key={course.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                      <div
+                        key={course.id}
+                        className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                         <div className="flex-1">
                           <h3 className="font-semibold text-gray-900">{course.title}</h3>
                           <div className="flex items-center space-x-4 mt-2">
                             <div className="flex items-center space-x-2">
                               <Users className="h-4 w-4 text-gray-500" />
-                              <span className="text-sm text-gray-600">{course.students} students</span>
+                              <span className="text-sm text-gray-600">
+                                {course.students} students
+                              </span>
                             </div>
                             <div className="flex items-center space-x-2">
                               <Progress value={course.progress} className="w-20 h-2" />
@@ -366,11 +370,10 @@ export default function DashboardPage() {
                         </div>
                         <div className="text-right">
                           <p className="text-sm font-medium text-gray-900">{course.nextClass}</p>
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             className="mt-2 bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-                            onClick={() => router.push('/courses')}
-                          >
+                            onClick={() => router.push("/courses")}>
                             Manage
                           </Button>
                         </div>
@@ -378,11 +381,10 @@ export default function DashboardPage() {
                     ))}
                   </div>
                   <div className="mt-6">
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                      onClick={() => router.push('/courses')}
-                    >
+                      onClick={() => router.push("/courses")}>
                       View All Courses
                       <ChevronRight className="h-4 w-4 ml-2" />
                     </Button>
@@ -399,26 +401,23 @@ export default function DashboardPage() {
                   <CardTitle>Quick Actions</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <Button 
+                  <Button
                     className="w-full bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-                    onClick={() => router.push('/courses')}
-                  >
+                    onClick={() => router.push("/courses")}>
                     <Plus className="h-4 w-4 mr-2" />
                     Create Course
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                    onClick={() => router.push('/students')}
-                  >
+                    onClick={() => router.push("/students")}>
                     <Users className="h-4 w-4 mr-2" />
                     Manage Students
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                    onClick={() => router.push('/settings')}
-                  >
+                    onClick={() => router.push("/settings")}>
                     <FileText className="h-4 w-4 mr-2" />
                     View Reports
                   </Button>
@@ -436,7 +435,7 @@ export default function DashboardPage() {
                     <div className="flex items-center space-x-2">
                       <input
                         type="text"
-                        value={`${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/${academyName}`}
+                        value={`${typeof window !== "undefined" ? window.location.origin : "http://localhost:3000"}/${academyName}`}
                         readOnly
                         className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-md bg-white"
                       />
@@ -444,10 +443,9 @@ export default function DashboardPage() {
                         size="sm"
                         onClick={() => {
                           navigator.clipboard.writeText(`${window.location.origin}/${academyName}`);
-                          alert('Student landing page link copied to clipboard!');
+                          alert("Student landing page link copied to clipboard!");
                         }}
-                        className="bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-                      >
+                        className="bg-[#09382f] hover:bg-[#0a4a3a] text-white">
                         Copy
                       </Button>
                     </div>

@@ -205,7 +205,9 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
             <Eye className="h-4 w-4 mr-2" />
             Preview
           </Button>
-          <Button onClick={handleSave} className="bg-[#09382f] hover:bg-[#0a4a3d] text-white transition-all duration-300 shadow-lg">
+          <Button
+            onClick={handleSave}
+            className="bg-[#09382f] hover:bg-[#0a4a3d] text-white transition-all duration-300 shadow-lg">
             <Save className="h-4 w-4 mr-2" />
             Save Course
           </Button>
@@ -473,7 +475,9 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-gray-900">Course Curriculum</CardTitle>
-                <Button onClick={addModule} className="bg-[#09382f] hover:bg-[#0a4a3d] text-white transition-all duration-300 shadow-lg">
+                <Button
+                  onClick={addModule}
+                  className="bg-[#09382f] hover:bg-[#0a4a3d] text-white transition-all duration-300 shadow-lg">
                   <Plus className="h-4 w-4 mr-2" />
                   Add Module
                 </Button>

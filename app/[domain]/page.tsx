@@ -20,10 +20,10 @@ export default function StudentLandingPage() {
     rating: 4.8,
     features: [
       "Interactive Learning Modules",
-      "Real-time Progress Tracking", 
+      "Real-time Progress Tracking",
       "Expert Instructor Support",
-      "Certificate of Completion"
-    ]
+      "Certificate of Completion",
+    ],
   };
 
   return (
@@ -42,15 +42,16 @@ export default function StudentLandingPage() {
                 </div>
               </div>
               <div>
-                <span className="text-xl font-bold tracking-tight text-[#09382f]">{academyInfo.name}</span>
+                <span className="text-xl font-bold tracking-tight text-[#09382f]">
+                  {academyInfo.name}
+                </span>
                 <p className="text-xs text-gray-600">{academyInfo.description}</p>
               </div>
             </div>
             <Button
               variant="ghost"
               onClick={() => router.push("/")}
-              className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
-            >
+              className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Home
             </Button>
@@ -66,23 +67,27 @@ export default function StudentLandingPage() {
               Welcome to <span className="text-[#09382f]">{academyInfo.name}</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Join thousands of students in our comprehensive learning platform. 
-              Master new skills with expert guidance and interactive content.
+              Join thousands of students in our comprehensive learning platform. Master new skills
+              with expert guidance and interactive content.
             </p>
-            
+
             {/* Stats */}
             <div className="flex justify-center items-center space-x-8 mb-12">
               <div className="text-center">
                 <div className="flex items-center justify-center space-x-1 mb-1">
                   <BookOpen className="h-5 w-5 text-[#09382f]" />
-                  <span className="text-2xl font-bold text-gray-900">{academyInfo.totalCourses}</span>
+                  <span className="text-2xl font-bold text-gray-900">
+                    {academyInfo.totalCourses}
+                  </span>
                 </div>
                 <p className="text-sm text-gray-600">Courses</p>
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center space-x-1 mb-1">
                   <Users className="h-5 w-5 text-[#09382f]" />
-                  <span className="text-2xl font-bold text-gray-900">{academyInfo.totalStudents}</span>
+                  <span className="text-2xl font-bold text-gray-900">
+                    {academyInfo.totalStudents}
+                  </span>
                 </div>
                 <p className="text-sm text-gray-600">Students</p>
               </div>
@@ -99,15 +104,13 @@ export default function StudentLandingPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button
                 onClick={() => router.push(`/${academyName}/signup`)}
-                className="bg-[#09382f] hover:bg-[#0a4a3d] text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              >
+                className="bg-[#09382f] hover:bg-[#0a4a3d] text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                 Get Started - Sign Up
               </Button>
               <Button
                 variant="outline"
                 onClick={() => router.push(`/${academyName}/signin`)}
-                className="border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white px-8 py-3 text-lg font-semibold transition-all duration-300"
-              >
+                className="border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white px-8 py-3 text-lg font-semibold transition-all duration-300">
                 Already a Student? Sign In
               </Button>
             </div>
@@ -116,7 +119,9 @@ export default function StudentLandingPage() {
           {/* Features Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {academyInfo.features.map((feature, index) => (
-              <Card key={index} className="text-center border-gray-200 hover:shadow-lg transition-shadow">
+              <Card
+                key={index}
+                className="text-center border-gray-200 hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 bg-[#09382f]/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                     <Trophy className="h-6 w-6 text-[#09382f]" />
@@ -136,18 +141,21 @@ export default function StudentLandingPage() {
             <CardContent className="text-center">
               <div className="w-20 h-20 bg-[#09382f] rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-white">
-                  {academyInfo.instructor.split(' ').map(n => n[0]).join('')}
+                  {academyInfo.instructor
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")}
                 </span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">{academyInfo.instructor}</h3>
               <p className="text-gray-600 mb-6">
-                Expert educator with years of experience in delivering high-quality online learning experiences.
+                Expert educator with years of experience in delivering high-quality online learning
+                experiences.
               </p>
               <div className="flex justify-center space-x-4">
                 <Button
                   onClick={() => router.push(`/${academyName}/signup`)}
-                  className="bg-[#09382f] hover:bg-[#0a4a3d] text-white"
-                >
+                  className="bg-[#09382f] hover:bg-[#0a4a3d] text-white">
                   Start Learning Today
                 </Button>
               </div>
@@ -167,4 +175,4 @@ export default function StudentLandingPage() {
       </footer>
     </div>
   );
-} 
+}
