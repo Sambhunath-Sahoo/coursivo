@@ -2,8 +2,9 @@ import "next-auth";
 
 declare module "next-auth" {
   interface User {
-    educatorId: string;
-    tenant: string;
+    educatorId?: string;
+    tenant?: string;
+    domain?: string; // Academy name for educators
     role: string;
   }
 
@@ -12,8 +13,9 @@ declare module "next-auth" {
       id: string;
       email: string;
       name: string;
-      educatorId: string;
-      tenant: string;
+      educatorId?: string;
+      tenant?: string;
+      domain?: string; // Academy name for educators
       role: string;
     };
   }
@@ -21,8 +23,9 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
   interface JWT {
-    educatorId: string;
-    tenant: string;
+    educatorId?: string;
+    tenant?: string;
+    domain?: string; // Academy name for educators
     role: string;
   }
 }

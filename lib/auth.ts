@@ -88,12 +88,12 @@ async function handleStudentAuth(credentials: Record<string, string>) {
 
 // Educator authentication function
 async function handleEducatorAuth(credentials: Record<string, string>) {
-  const domain = credentials.domain;
-  if (!domain) {
-    throw new Error("Domain is required");
-  }
-
   if (credentials.action === "signup") {
+    const domain = credentials.domain;
+    if (!domain) {
+      throw new Error("Domain is required for signup");
+    }
+
     if (!credentials.name) {
       throw new Error("Name is required for signup");
     }
@@ -126,8 +126,9 @@ async function handleEducatorAuth(credentials: Record<string, string>) {
   }
 
   if (credentials.action === "signin") {
+    // For signin, find educator by email first, then get domain from database
     const educator = await prisma.educator_account.findFirst({
-      where: { domain: domain },
+      where: { email: credentials.email },
     });
 
     if (!educator || !educator.password_hash) {
@@ -143,7 +144,7 @@ async function handleEducatorAuth(credentials: Record<string, string>) {
       id: educator.id,
       email: educator.email,
       name: educator.name,
-      domain: educator.domain,
+      domain: educator.domain, // Domain comes from database
       role: "educator",
     };
   }

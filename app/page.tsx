@@ -12,7 +12,7 @@ export default function HomePage() {
 
   const handleAuthStart = (role: UserRole, mode: AuthMode) => {
     if (role === "educator") {
-      router.push(`/academy/${mode}`);
+      router.push(`/${mode === 'signin' ? 'signin' : 'signup'}`);
     } else if (role === "student") {
       router.push(`/${mode}`);
     }

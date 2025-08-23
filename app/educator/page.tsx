@@ -20,6 +20,10 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function AcademyDashboardPage() {
   const router = useRouter();
+  
+  // This would typically come from authentication context or API
+  const educatorName = "Dr. Sarah Chen";
+  const academyDomain = "coursivo"; // This would come from the educator's academy settings
 
   const courses = [
     {
@@ -84,11 +88,12 @@ export default function AcademyDashboardPage() {
   };
 
   return (
-    <DashboardLayout type="academy">
-      <div className="p-8">
+    <DashboardLayout type="educator">
+      <div className="flex-1 overflow-auto">
+        <div className="p-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Academy Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, {educatorName}!</h1>
           <p className="text-gray-600">Manage your courses and students</p>
         </div>
 
@@ -161,7 +166,7 @@ export default function AcademyDashboardPage() {
                   <CardTitle>Recent Courses</CardTitle>
                   <Button 
                     className="bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-                    onClick={() => router.push('/academy/dashboard/courses')}
+                    onClick={() => router.push('/educator/courses')}
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Add Course
@@ -202,7 +207,7 @@ export default function AcademyDashboardPage() {
                   <Button 
                     variant="outline" 
                     className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                    onClick={() => router.push('/academy/dashboard/courses')}
+                    onClick={() => router.push('/educator/courses')}
                   >
                     View All Courses
                   </Button>
@@ -239,7 +244,7 @@ export default function AcademyDashboardPage() {
                   <Button 
                     variant="outline" 
                     className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                    onClick={() => router.push('/academy/dashboard/students')}
+                    onClick={() => router.push('/educator/students')}
                   >
                     View All Students
                   </Button>
@@ -279,7 +284,7 @@ export default function AcademyDashboardPage() {
               <CardContent className="space-y-3">
                 <Button 
                   className="w-full bg-[#09382f] hover:bg-[#0a4a3a] text-white"
-                  onClick={() => router.push('/academy/dashboard/courses')}
+                  onClick={() => router.push('/educator/courses')}
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   Create Course
@@ -287,7 +292,7 @@ export default function AcademyDashboardPage() {
                 <Button 
                   variant="outline" 
                   className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                  onClick={() => router.push('/academy/dashboard/students')}
+                  onClick={() => router.push('/educator/students')}
                 >
                   <Users className="h-4 w-4 mr-2" />
                   Manage Students
@@ -295,11 +300,44 @@ export default function AcademyDashboardPage() {
                 <Button 
                   variant="outline" 
                   className="w-full border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white"
-                  onClick={() => router.push('/academy/dashboard/settings')}
+                  onClick={() => router.push('/educator/settings')}
                 >
                   <FileText className="h-4 w-4 mr-2" />
                   View Reports
                 </Button>
+              </CardContent>
+            </Card>
+
+            {/* Student Signup Link */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Student Enrollment</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <p className="text-sm font-medium text-gray-900 mb-2">Student Signup Link</p>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      value={`${window.location.origin}/${academyDomain}/signup`}
+                      readOnly
+                      className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-md bg-white"
+                    />
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        navigator.clipboard.writeText(`${window.location.origin}/${academyDomain}/signup`);
+                        alert('Link copied to clipboard!');
+                      }}
+                      className="bg-[#09382f] hover:bg-[#0a4a3a] text-white"
+                    >
+                      Copy
+                    </Button>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">
+                    Share this link with students to let them join your academy
+                  </p>
+                </div>
               </CardContent>
             </Card>
 
@@ -323,6 +361,7 @@ export default function AcademyDashboardPage() {
                 </div>
               </CardContent>
             </Card>
+          </div>
           </div>
         </div>
       </div>

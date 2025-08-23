@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
 import { ArrowLeft, Mail, Lock, GraduationCap, User, Eye, EyeOff, School, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
-export default function EducatorSignUpPage() {
+export default function AcademySignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -21,41 +20,17 @@ export default function EducatorSignUpPage() {
     academyDescription: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
 
-    // Basic validation
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords don't match!");
-      setIsLoading(false);
-      return;
-    }
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    try {
-      const result = await signIn("educator-credentials", {
-        email: formData.email,
-        password: formData.password,
-        name: formData.name,
-        domain: formData.academyName,
-        action: "signup",
-        redirect: false,
-      });
-
-      if (result?.error) {
-        setError(result.error);
-      } else {
-        router.push("/dashboard");
-      }
-    } catch (error) {
-      setError("An unexpected error occurred");
-    } finally {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
+    router.push("/educator");
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -104,12 +79,6 @@ export default function EducatorSignUpPage() {
             </CardHeader>
 
             <CardContent className="space-y-6">
-              {error && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-sm text-red-600">{error}</p>
-                </div>
-              )}
-
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Personal Information */}
                 <div className="space-y-4">
@@ -253,7 +222,7 @@ export default function EducatorSignUpPage() {
                 <p className="text-sm text-gray-600">Already have an academy account?</p>
                 <Button
                   variant="link"
-                  onClick={() => router.push("/signin")}
+                  onClick={() => router.push("/academy/signin")}
                   className="p-0 h-auto text-[#09382f] hover:text-[#0a4a3d]">
                   Sign In
                 </Button>
