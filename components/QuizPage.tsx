@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Clock, CheckCircle, XCircle, ArrowLeft, ArrowRight, Flag } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
+import { useState, useEffect } from "react";
+import { Clock, CheckCircle, XCircle, ArrowLeft, ArrowRight, Flag } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 interface Question {
   id: number;
@@ -15,7 +15,7 @@ interface Question {
   options: string[];
   correctAnswer: number;
   explanation: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
+  difficulty: "Easy" | "Medium" | "Hard";
 }
 
 export function QuizPage() {
@@ -33,24 +33,19 @@ export function QuizPage() {
         "To manage component lifecycle",
         "To manage state in functional components",
         "To handle side effects",
-        "To optimize performance"
+        "To optimize performance",
       ],
       correctAnswer: 1,
       explanation: "useState is used to add state management to functional components in React.",
-      difficulty: "Medium"
+      difficulty: "Medium",
     },
     {
       id: 2,
       question: "Which HTML tag is used to define the structure of a webpage?",
-      options: [
-        "<body>",
-        "<html>",
-        "<head>",
-        "<div>"
-      ],
+      options: ["<body>", "<html>", "<head>", "<div>"],
       correctAnswer: 1,
       explanation: "The <html> tag is the root element that contains all other HTML elements.",
-      difficulty: "Easy"
+      difficulty: "Easy",
     },
     {
       id: 3,
@@ -59,38 +54,29 @@ export function QuizPage() {
         "Computer Style Sheets",
         "Cascading Style Sheets",
         "Creative Style Sheets",
-        "Colorful Style Sheets"
+        "Colorful Style Sheets",
       ],
       correctAnswer: 1,
       explanation: "CSS stands for Cascading Style Sheets, used for styling web pages.",
-      difficulty: "Easy"
+      difficulty: "Easy",
     },
     {
       id: 4,
       question: "In JavaScript, which method is used to add an element to the end of an array?",
-      options: [
-        "append()",
-        "add()",
-        "push()",
-        "insert()"
-      ],
+      options: ["append()", "add()", "push()", "insert()"],
       correctAnswer: 2,
       explanation: "The push() method adds one or more elements to the end of an array.",
-      difficulty: "Medium"
+      difficulty: "Medium",
     },
     {
       id: 5,
       question: "What is the time complexity of binary search?",
-      options: [
-        "O(n)",
-        "O(log n)",
-        "O(n²)",
-        "O(1)"
-      ],
+      options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
       correctAnswer: 1,
-      explanation: "Binary search has O(log n) time complexity as it eliminates half of the search space in each iteration.",
-      difficulty: "Hard"
-    }
+      explanation:
+        "Binary search has O(log n) time complexity as it eliminates half of the search space in each iteration.",
+      difficulty: "Hard",
+    },
   ];
 
   useEffect(() => {
@@ -105,13 +91,13 @@ export function QuizPage() {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   const handleAnswerSelect = (questionId: number, answerIndex: number) => {
-    setSelectedAnswers(prev => ({
+    setSelectedAnswers((prev) => ({
       ...prev,
-      [questionId]: answerIndex
+      [questionId]: answerIndex,
     }));
   };
 
@@ -122,7 +108,7 @@ export function QuizPage() {
 
   const calculateScore = () => {
     let correct = 0;
-    questions.forEach(question => {
+    questions.forEach((question) => {
       if (selectedAnswers[question.id] === question.correctAnswer) {
         correct++;
       }
@@ -136,7 +122,9 @@ export function QuizPage() {
 
   if (showResults) {
     const score = calculateScore();
-    const correctAnswers = questions.filter(q => selectedAnswers[q.id] === q.correctAnswer).length;
+    const correctAnswers = questions.filter(
+      (q) => selectedAnswers[q.id] === q.correctAnswer
+    ).length;
 
     return (
       <div className="px-4 py-6 max-w-4xl mx-auto">
@@ -152,17 +140,15 @@ export function QuizPage() {
             <CardTitle className="text-2xl text-black">Quiz Completed!</CardTitle>
             <p className="text-gray-600">Here are your results</p>
           </CardHeader>
-          
+
           <CardContent className="space-y-6">
             <div className="text-center space-y-4">
               <div className="text-4xl font-bold text-black">{score}%</div>
               <p className="text-lg text-gray-600">
                 {correctAnswers} out of {questions.length} questions correct
               </p>
-              <Badge 
-                className={`text-white ${score >= 70 ? 'bg-green-600' : 'bg-red-600'}`}
-              >
-                {score >= 70 ? 'Passed' : 'Failed'}
+              <Badge className={`text-white ${score >= 70 ? "bg-green-600" : "bg-red-600"}`}>
+                {score >= 70 ? "Passed" : "Failed"}
               </Badge>
             </div>
 
@@ -171,7 +157,7 @@ export function QuizPage() {
               {questions.map((question, index) => {
                 const userAnswer = selectedAnswers[question.id];
                 const isCorrect = userAnswer === question.correctAnswer;
-                
+
                 return (
                   <div key={question.id} className="p-4 border border-gray-200 rounded-lg">
                     <div className="flex items-start justify-between mb-2">
@@ -183,18 +169,20 @@ export function QuizPage() {
                       )}
                     </div>
                     <p className="text-gray-700 mb-3">{question.question}</p>
-                    
+
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center space-x-2">
                         <span className="text-gray-600">Your answer:</span>
-                        <span className={isCorrect ? 'text-green-600' : 'text-red-600'}>
-                          {userAnswer !== undefined ? question.options[userAnswer] : 'Not answered'}
+                        <span className={isCorrect ? "text-green-600" : "text-red-600"}>
+                          {userAnswer !== undefined ? question.options[userAnswer] : "Not answered"}
                         </span>
                       </div>
                       {!isCorrect && (
                         <div className="flex items-center space-x-2">
                           <span className="text-gray-600">Correct answer:</span>
-                          <span className="text-green-600">{question.options[question.correctAnswer]}</span>
+                          <span className="text-green-600">
+                            {question.options[question.correctAnswer]}
+                          </span>
                         </div>
                       )}
                       <p className="text-gray-600 italic">{question.explanation}</p>
@@ -205,9 +193,7 @@ export function QuizPage() {
             </div>
 
             <div className="flex justify-center">
-              <Button className="bg-black hover:bg-gray-800 text-white">
-                Back to Course
-              </Button>
+              <Button className="bg-black hover:bg-gray-800 text-white">Back to Course</Button>
             </div>
           </CardContent>
         </Card>
@@ -233,11 +219,13 @@ export function QuizPage() {
             </Badge>
           </div>
         </div>
-        
+
         <div className="space-y-2">
           <div className="flex justify-between text-sm text-gray-600">
             <span>Progress</span>
-            <span>{currentQuestion + 1} of {questions.length}</span>
+            <span>
+              {currentQuestion + 1} of {questions.length}
+            </span>
           </div>
           <Progress value={((currentQuestion + 1) / questions.length) * 100} className="h-2" />
         </div>
@@ -258,12 +246,11 @@ export function QuizPage() {
                     onClick={() => setCurrentQuestion(index)}
                     className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${
                       currentQuestion === index
-                        ? 'bg-black text-white'
+                        ? "bg-black text-white"
                         : selectedAnswers[questions[index].id] !== undefined
-                        ? 'bg-green-100 text-green-800 border border-green-200'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
-                  >
+                          ? "bg-green-100 text-green-800 border border-green-200"
+                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}>
                     {index + 1}
                   </button>
                 ))}
@@ -281,14 +268,15 @@ export function QuizPage() {
                   <Badge variant="outline" className="border-black text-black">
                     Question {currentQuestion + 1}
                   </Badge>
-                  <Badge 
+                  <Badge
                     variant="secondary"
                     className={`${
-                      currentQ.difficulty === 'Easy' ? 'bg-green-100 text-green-800' :
-                      currentQ.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-red-100 text-red-800'
-                    }`}
-                  >
+                      currentQ.difficulty === "Easy"
+                        ? "bg-green-100 text-green-800"
+                        : currentQ.difficulty === "Medium"
+                          ? "bg-yellow-100 text-yellow-800"
+                          : "bg-red-100 text-red-800"
+                    }`}>
                     {currentQ.difficulty}
                   </Badge>
                 </div>
@@ -298,20 +286,23 @@ export function QuizPage() {
                 </Button>
               </div>
             </CardHeader>
-            
+
             <CardContent className="space-y-6">
               <div>
                 <h3 className="text-lg font-medium text-black mb-4">{currentQ.question}</h3>
-                
+
                 <RadioGroup
                   value={selectedAnswers[currentQ.id]?.toString()}
                   onValueChange={(value) => handleAnswerSelect(currentQ.id, parseInt(value))}
-                  className="space-y-3"
-                >
+                  className="space-y-3">
                   {currentQ.options.map((option, index) => (
-                    <div key={index} className="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50">
+                    <div
+                      key={index}
+                      className="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50">
                       <RadioGroupItem value={index.toString()} id={`option-${index}`} />
-                      <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer text-black">
+                      <Label
+                        htmlFor={`option-${index}`}
+                        className="flex-1 cursor-pointer text-black">
                         {option}
                       </Label>
                     </div>
@@ -324,8 +315,7 @@ export function QuizPage() {
                   variant="outline"
                   onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
                   disabled={currentQuestion === 0}
-                  className="border-black text-black hover:bg-gray-50"
-                >
+                  className="border-black text-black hover:bg-gray-50">
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Previous
                 </Button>
@@ -334,8 +324,7 @@ export function QuizPage() {
                   {currentQuestion < questions.length - 1 ? (
                     <Button
                       onClick={() => setCurrentQuestion(currentQuestion + 1)}
-                      className="bg-black hover:bg-gray-800 text-white"
-                    >
+                      className="bg-black hover:bg-gray-800 text-white">
                       Next
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </Button>
@@ -343,8 +332,7 @@ export function QuizPage() {
                     <Button
                       onClick={handleSubmit}
                       className="bg-black hover:bg-gray-800 text-white"
-                      disabled={getAnsweredCount() === 0}
-                    >
+                      disabled={getAnsweredCount() === 0}>
                       Submit Quiz
                     </Button>
                   )}
@@ -356,4 +344,4 @@ export function QuizPage() {
       </div>
     </div>
   );
-} 
+}

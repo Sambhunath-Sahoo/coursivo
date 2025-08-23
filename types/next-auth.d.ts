@@ -6,7 +6,7 @@ declare module "next-auth" {
     tenant: string;
     role: string;
   }
-  
+
   interface Session {
     user: {
       id: string;

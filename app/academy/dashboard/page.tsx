@@ -1,132 +1,142 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { 
-  Home, BookOpen, Users, Settings, HelpCircle, User, LogOut, GraduationCap, 
-  Plus, TrendingUp, Calendar, Award, FileText
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { AddNewCourse } from '@/components/AddNewCourse';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  Home,
+  BookOpen,
+  Users,
+  Settings,
+  HelpCircle,
+  User,
+  LogOut,
+  GraduationCap,
+  Plus,
+  TrendingUp,
+  Award,
+  FileText,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AddNewCourse } from "@/components/AddNewCourse";
 
 const defaultAcademy = {
-  id: 'coursivo',
-  name: 'Coursivo Academy',
-  description: 'Modern Learning Platform',
-  theme: { primary: '#000000', secondary: '#404040' }
+  id: "coursivo",
+  name: "Coursivo Academy",
+  description: "Modern Learning Platform",
+  theme: { primary: "#000000", secondary: "#404040" },
 };
 
 export default function AcademyDashboardPage() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState("dashboard");
   const router = useRouter();
 
   const handleAddNewCourse = () => {
-    setActiveTab('add-course');
+    setActiveTab("add-course");
   };
 
   const handleBackToCourses = () => {
-    setActiveTab('courses');
+    setActiveTab("courses");
   };
 
-  const handleSaveCourse = (courseData: any) => {
-    console.log('Saving course:', courseData);
+  const handleSaveCourse = (courseData: Record<string, unknown>) => {
+    console.log("Saving course:", courseData);
     // Here you would typically save to your backend
-    setActiveTab('courses');
+    setActiveTab("courses");
   };
 
   const navigationItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'courses', label: 'Course Management', icon: BookOpen },
-    { id: 'students', label: 'Student Management', icon: Users },
-    { id: 'settings', label: 'Settings', icon: Settings },
-    { id: 'help', label: 'Help & Support', icon: HelpCircle },
+    { id: "dashboard", label: "Dashboard", icon: Home },
+    { id: "courses", label: "Course Management", icon: BookOpen },
+    { id: "students", label: "Student Management", icon: Users },
+    { id: "settings", label: "Settings", icon: Settings },
+    { id: "help", label: "Help & Support", icon: HelpCircle },
   ];
 
   const courses = [
     {
       id: 1,
-      title: 'Introduction to Programming',
+      title: "Introduction to Programming",
       students: 45,
       progress: 78,
-      status: 'active'
+      status: "active",
     },
     {
       id: 2,
-      title: 'Digital Marketing Fundamentals',
+      title: "Digital Marketing Fundamentals",
       students: 32,
       progress: 92,
-      status: 'active'
+      status: "active",
     },
     {
       id: 3,
-      title: 'Graphic Design Basics',
+      title: "Graphic Design Basics",
       students: 28,
       progress: 65,
-      status: 'draft'
-    }
+      status: "draft",
+    },
   ];
 
   const students = [
     {
       id: 1,
-      name: 'Alice Johnson',
-      email: 'alice@email.com',
+      name: "Alice Johnson",
+      email: "alice@email.com",
       courses: 3,
-      progress: 85
+      progress: 85,
     },
     {
       id: 2,
-      name: 'Bob Smith',
-      email: 'bob@email.com',
+      name: "Bob Smith",
+      email: "bob@email.com",
       courses: 2,
-      progress: 72
+      progress: 72,
     },
     {
       id: 3,
-      name: 'Carol Davis',
-      email: 'carol@email.com',
+      name: "Carol Davis",
+      email: "carol@email.com",
       courses: 1,
-      progress: 94
-    }
+      progress: 94,
+    },
   ];
 
   const handleLogout = () => {
-    router.push('/');
+    router.push("/");
   };
 
   const getPageTitle = () => {
     switch (activeTab) {
-      case 'add-course':
-        return 'Add New Course';
+      case "add-course":
+        return "Add New Course";
       default:
-        return navigationItems.find(item => item.id === activeTab)?.label || 'Academy Management';
+        return navigationItems.find((item) => item.id === activeTab)?.label || "Academy Management";
     }
   };
 
   const getPageDescription = () => {
     switch (activeTab) {
-      case 'dashboard':
-        return 'Overview of your academy performance and insights';
-      case 'courses':
-        return 'Create, edit and manage your course catalog';
-      case 'add-course':
-        return 'Create a new course for your academy';
-      case 'students':
-        return 'Monitor student progress and manage enrollments';
-      case 'settings':
-        return 'Configure your academy preferences and settings';
-      case 'help':
-        return 'Get assistance and access support resources';
+      case "dashboard":
+        return "Overview of your academy performance and insights";
+      case "courses":
+        return "Create, edit and manage your course catalog";
+      case "add-course":
+        return "Create a new course for your academy";
+      case "students":
+        return "Monitor student progress and manage enrollments";
+      case "settings":
+        return "Configure your academy preferences and settings";
+      case "help":
+        return "Get assistance and access support resources";
       default:
-        return '';
+        return "";
     }
   };
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'dashboard':
+      case "dashboard":
         return (
           <div className="p-6 space-y-6">
             {/* Stats Cards */}
@@ -197,15 +207,18 @@ export default function AcademyDashboardPage() {
                 <CardContent>
                   <div className="space-y-4">
                     {courses.map((course) => (
-                      <div key={course.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div
+                        key={course.id}
+                        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div>
                           <h4 className="font-medium text-black">{course.title}</h4>
                           <p className="text-sm text-gray-600">{course.students} students</p>
                         </div>
-                        <Badge 
-                          variant={course.status === 'active' ? 'default' : 'outline'}
-                          className={course.status === 'active' ? 'bg-black text-white' : 'border-gray-300'}
-                        >
+                        <Badge
+                          variant={course.status === "active" ? "default" : "outline"}
+                          className={
+                            course.status === "active" ? "bg-black text-white" : "border-gray-300"
+                          }>
                           {course.status}
                         </Badge>
                       </div>
@@ -221,10 +234,14 @@ export default function AcademyDashboardPage() {
                 <CardContent>
                   <div className="space-y-4">
                     {students.map((student) => (
-                      <div key={student.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div
+                        key={student.id}
+                        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div>
                           <h4 className="font-medium text-black">{student.name}</h4>
-                          <p className="text-sm text-gray-600">{student.courses} courses enrolled</p>
+                          <p className="text-sm text-gray-600">
+                            {student.courses} courses enrolled
+                          </p>
                         </div>
                         <div className="text-right">
                           <p className="font-medium text-black">{student.progress}%</p>
@@ -238,20 +255,24 @@ export default function AcademyDashboardPage() {
             </div>
           </div>
         );
-      case 'courses':
+      case "courses":
         return (
           <div className="p-6 space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-bold text-black">Course Management</h2>
-              <Button onClick={handleAddNewCourse} className="bg-black hover:bg-gray-800 text-white">
+              <Button
+                onClick={handleAddNewCourse}
+                className="bg-black hover:bg-gray-800 text-white">
                 <Plus className="h-4 w-4 mr-2" />
                 Add New Course
               </Button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {courses.map((course) => (
-                <Card key={course.id} className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                <Card
+                  key={course.id}
+                  className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
                     <h3 className="font-semibold text-black mb-2">{course.title}</h3>
                     <div className="space-y-2 text-sm text-gray-600">
@@ -259,10 +280,11 @@ export default function AcademyDashboardPage() {
                       <p>{course.progress}% content completed</p>
                     </div>
                     <div className="flex justify-between items-center mt-4">
-                      <Badge 
-                        variant={course.status === 'active' ? 'default' : 'outline'}
-                        className={course.status === 'active' ? 'bg-black text-white' : 'border-gray-300'}
-                      >
+                      <Badge
+                        variant={course.status === "active" ? "default" : "outline"}
+                        className={
+                          course.status === "active" ? "bg-black text-white" : "border-gray-300"
+                        }>
                         {course.status}
                       </Badge>
                       <Button variant="outline" size="sm" className="border-gray-300">
@@ -275,18 +297,20 @@ export default function AcademyDashboardPage() {
             </div>
           </div>
         );
-      case 'add-course':
+      case "add-course":
         return <AddNewCourse onBack={handleBackToCourses} onSave={handleSaveCourse} />;
-      case 'students':
+      case "students":
         return (
           <div className="p-6 space-y-6">
             <h2 className="text-xl font-bold text-black">Student Management</h2>
-            
+
             <Card className="bg-white border border-gray-200">
               <CardContent className="p-6">
                 <div className="space-y-4">
                   {students.map((student) => (
-                    <div key={student.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                    <div
+                      key={student.id}
+                      className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                       <div className="flex items-center space-x-4">
                         <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center">
                           <User className="h-5 w-5 text-white" />
@@ -312,11 +336,11 @@ export default function AcademyDashboardPage() {
             </Card>
           </div>
         );
-      case 'settings':
+      case "settings":
         return (
           <div className="p-6 space-y-6">
             <h2 className="text-xl font-bold text-black">Academy Settings</h2>
-            
+
             <Card className="bg-white border border-gray-200">
               <CardHeader>
                 <CardTitle className="text-black">Academy Information</CardTitle>
@@ -324,32 +348,30 @@ export default function AcademyDashboardPage() {
               <CardContent className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-black mb-2">Academy Name</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     defaultValue={defaultAcademy.name}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:border-black focus:outline-none"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-black mb-2">Description</label>
-                  <textarea 
+                  <textarea
                     defaultValue={defaultAcademy.description}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:border-black focus:outline-none"
                     rows={3}
                   />
                 </div>
-                <Button className="bg-black hover:bg-gray-800 text-white">
-                  Save Changes
-                </Button>
+                <Button className="bg-black hover:bg-gray-800 text-white">Save Changes</Button>
               </CardContent>
             </Card>
           </div>
         );
-      case 'help':
+      case "help":
         return (
           <div className="p-6 space-y-6">
             <h2 className="text-xl font-bold text-black">Help & Support</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="bg-white border border-gray-200">
                 <CardContent className="p-6 text-center">
@@ -396,7 +418,7 @@ export default function AcademyDashboardPage() {
               <h1 className="font-semibold text-black">Coursivo</h1>
             </div>
           </div>
-          
+
           <div className="px-4 py-4 flex flex-col h-full">
             <nav className="space-y-1 flex-1">
               {navigationItems.map((item) => (
@@ -404,17 +426,16 @@ export default function AcademyDashboardPage() {
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center space-x-3 px-3 py-3 rounded-xl transition-all text-left ${
-                    activeTab === item.id 
-                      ? 'bg-black text-white shadow-md' 
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-black'
-                  }`}
-                >
+                    activeTab === item.id
+                      ? "bg-black text-white shadow-md"
+                      : "text-gray-700 hover:bg-gray-50 hover:text-black"
+                  }`}>
                   <item.icon className="h-5 w-5" />
                   <span className="font-medium text-sm">{item.label}</span>
                 </button>
               ))}
             </nav>
-            
+
             {/* Profile Section */}
             <div className="pt-6 border-t border-gray-200">
               <button className="w-full flex items-center space-x-3 px-3 py-3 rounded-xl text-gray-700 hover:bg-gray-50 hover:text-black transition-all text-left">
@@ -431,18 +452,17 @@ export default function AcademyDashboardPage() {
           <header className="bg-white border-b border-gray-200 px-6 py-4 relative z-30">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-bold text-black leading-tight">
-                  {getPageTitle()}
-                </h1>
-                <p className="text-gray-600 mt-1">
-                  {getPageDescription()}
-                </p>
+                <h1 className="text-3xl font-bold text-black leading-tight">{getPageTitle()}</h1>
+                <p className="text-gray-600 mt-1">{getPageDescription()}</p>
               </div>
               <div className="flex items-center space-x-4">
                 <Badge className="bg-black text-white border-0 px-3 py-1">
                   {defaultAcademy.name}
                 </Badge>
-                <Button variant="outline" onClick={handleLogout} className="border-gray-300 text-black hover:bg-gray-50">
+                <Button
+                  variant="outline"
+                  onClick={handleLogout}
+                  className="border-gray-300 text-black hover:bg-gray-50">
                   <LogOut className="h-4 w-4 mr-2" />
                   Logout
                 </Button>
@@ -451,9 +471,7 @@ export default function AcademyDashboardPage() {
           </header>
 
           {/* Dashboard Content */}
-          <main className="flex-1 overflow-auto bg-gray-50">
-            {renderContent()}
-          </main>
+          <main className="flex-1 overflow-auto bg-gray-50">{renderContent()}</main>
         </div>
       </div>
     </div>

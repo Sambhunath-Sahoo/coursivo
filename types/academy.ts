@@ -1,5 +1,5 @@
-export type UserRole = 'student' | 'educator' | null;
-export type AuthMode = 'signin' | 'signup';
+export type UserRole = "student" | "educator" | null;
+export type AuthMode = "signin" | "signup";
 
 export interface Academy {
   id: string;
@@ -17,9 +17,9 @@ export interface Course {
   description: string;
   instructor: string;
   duration: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced';
+  level: "Beginner" | "Intermediate" | "Advanced";
   progress?: number;
-  status?: 'active' | 'completed' | 'draft';
+  status?: "active" | "completed" | "draft";
   students?: number;
   category?: string;
   image?: string;
@@ -32,4 +32,4 @@ export interface Student {
   enrolledCourses: Course[];
   progress: Record<string, number>;
   joinedAt: Date;
-} 
+}

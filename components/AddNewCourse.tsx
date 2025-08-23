@@ -1,22 +1,28 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { ArrowLeft, Save, Plus, Trash2, GripVertical, Upload, Eye } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
+import { useState } from "react";
+import { ArrowLeft, Save, Plus, Trash2, GripVertical, Upload, Eye } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 
 interface Lesson {
   id: string;
   title: string;
-  type: 'video' | 'reading' | 'quiz' | 'assignment';
+  type: "video" | "reading" | "quiz" | "assignment";
   duration: string;
   description: string;
 }
@@ -30,140 +36,149 @@ interface Module {
 
 interface AddNewCourseProps {
   onBack: () => void;
-  onSave: (courseData: any) => void;
+  onSave: (courseData: Record<string, unknown>) => void;
 }
 
 export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
   const [courseData, setCourseData] = useState({
-    title: '',
-    description: '',
-    shortDescription: '',
-    category: '',
-    level: '',
-    language: 'English',
-    duration: '',
-    price: '',
-    currency: 'USD',
-    thumbnail: '',
+    title: "",
+    description: "",
+    shortDescription: "",
+    category: "",
+    level: "",
+    language: "English",
+    duration: "",
+    price: "",
+    currency: "USD",
+    thumbnail: "",
     tags: [],
     isPublished: false,
     allowPreview: true,
-    maxStudents: '',
-    certificate: true
+    maxStudents: "",
+    certificate: true,
   });
 
   const [modules, setModules] = useState<Module[]>([
     {
-      id: '1',
-      title: 'Introduction',
-      description: 'Course introduction and overview',
+      id: "1",
+      title: "Introduction",
+      description: "Course introduction and overview",
       lessons: [
         {
-          id: '1-1',
-          title: 'Welcome to the Course',
-          type: 'video',
-          duration: '5',
-          description: 'Course overview and what you\'ll learn'
-        }
-      ]
-    }
+          id: "1-1",
+          title: "Welcome to the Course",
+          type: "video",
+          duration: "5",
+          description: "Course overview and what you'll learn",
+        },
+      ],
+    },
   ]);
 
-  const [currentTag, setCurrentTag] = useState('');
+  const [currentTag, setCurrentTag] = useState("");
 
-  const handleInputChange = (field: string, value: any) => {
-    setCourseData(prev => ({ ...prev, [field]: value }));
+  const handleInputChange = (field: string, value: string | boolean | string[]) => {
+    setCourseData((prev) => ({ ...prev, [field]: value }));
   };
 
   const addTag = () => {
     if (currentTag.trim() && !courseData.tags.includes(currentTag.trim())) {
-      setCourseData(prev => ({
+      setCourseData((prev) => ({
         ...prev,
-        tags: [...prev.tags, currentTag.trim()]
+        tags: [...prev.tags, currentTag.trim()],
       }));
-      setCurrentTag('');
+      setCurrentTag("");
     }
   };
 
   const removeTag = (tagToRemove: string) => {
-    setCourseData(prev => ({
+    setCourseData((prev) => ({
       ...prev,
-      tags: prev.tags.filter(tag => tag !== tagToRemove)
+      tags: prev.tags.filter((tag) => tag !== tagToRemove),
     }));
   };
 
   const addModule = () => {
     const newModule: Module = {
       id: Date.now().toString(),
-      title: 'New Module',
-      description: '',
-      lessons: []
+      title: "New Module",
+      description: "",
+      lessons: [],
     };
-    setModules(prev => [...prev, newModule]);
+    setModules((prev) => [...prev, newModule]);
   };
 
   const updateModule = (moduleId: string, field: string, value: string) => {
-    setModules(prev => prev.map(module => 
-      module.id === moduleId ? { ...module, [field]: value } : module
-    ));
+    setModules((prev) =>
+      prev.map((module) => (module.id === moduleId ? { ...module, [field]: value } : module))
+    );
   };
 
   const deleteModule = (moduleId: string) => {
-    setModules(prev => prev.filter(module => module.id !== moduleId));
+    setModules((prev) => prev.filter((module) => module.id !== moduleId));
   };
 
   const addLesson = (moduleId: string) => {
     const newLesson: Lesson = {
       id: `${moduleId}-${Date.now()}`,
-      title: 'New Lesson',
-      type: 'video',
-      duration: '10',
-      description: ''
+      title: "New Lesson",
+      type: "video",
+      duration: "10",
+      description: "",
     };
-    
-    setModules(prev => prev.map(module => 
-      module.id === moduleId 
-        ? { ...module, lessons: [...module.lessons, newLesson] }
-        : module
-    ));
+
+    setModules((prev) =>
+      prev.map((module) =>
+        module.id === moduleId ? { ...module, lessons: [...module.lessons, newLesson] } : module
+      )
+    );
   };
 
   const updateLesson = (moduleId: string, lessonId: string, field: string, value: string) => {
-    setModules(prev => prev.map(module => 
-      module.id === moduleId 
-        ? {
-            ...module,
-            lessons: module.lessons.map(lesson => 
-              lesson.id === lessonId ? { ...lesson, [field]: value } : lesson
-            )
-          }
-        : module
-    ));
+    setModules((prev) =>
+      prev.map((module) =>
+        module.id === moduleId
+          ? {
+              ...module,
+              lessons: module.lessons.map((lesson) =>
+                lesson.id === lessonId ? { ...lesson, [field]: value } : lesson
+              ),
+            }
+          : module
+      )
+    );
   };
 
   const deleteLesson = (moduleId: string, lessonId: string) => {
-    setModules(prev => prev.map(module => 
-      module.id === moduleId 
-        ? { ...module, lessons: module.lessons.filter(lesson => lesson.id !== lessonId) }
-        : module
-    ));
+    setModules((prev) =>
+      prev.map((module) =>
+        module.id === moduleId
+          ? { ...module, lessons: module.lessons.filter((lesson) => lesson.id !== lessonId) }
+          : module
+      )
+    );
   };
 
   const handleSave = () => {
     const completeData = {
       ...courseData,
-      modules: modules
+      modules: modules,
     };
     onSave(completeData);
   };
 
   const getLessonTypeColor = (type: string) => {
     switch (type) {
-      case 'video': return 'bg-blue-100 text-blue-800';
-      case 'reading': return 'bg-green-100 text-green-800';
-      case 'quiz': return 'bg-purple-100 text-purple-800';
-      case 'assignment': return 'bg-orange-100 text-orange-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "video":
+        return "bg-blue-100 text-blue-800";
+      case "reading":
+        return "bg-green-100 text-green-800";
+      case "quiz":
+        return "bg-purple-100 text-purple-800";
+      case "assignment":
+        return "bg-orange-100 text-orange-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -172,7 +187,10 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center space-x-4">
-          <Button variant="outline" onClick={onBack} className="border-gray-300 text-black hover:bg-gray-50">
+          <Button
+            variant="outline"
+            onClick={onBack}
+            className="border-gray-300 text-black hover:bg-gray-50">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Courses
           </Button>
@@ -181,7 +199,7 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
             <p className="text-gray-600">Build an engaging learning experience for your students</p>
           </div>
         </div>
-        
+
         <div className="flex items-center space-x-3">
           <Button variant="outline" className="border-gray-300 text-black hover:bg-gray-50">
             <Eye className="h-4 w-4 mr-2" />
@@ -196,13 +214,19 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
 
       <Tabs defaultValue="basic" className="space-y-6">
         <TabsList className="bg-gray-100">
-          <TabsTrigger value="basic" className="data-[state=active]:bg-black data-[state=active]:text-white">
+          <TabsTrigger
+            value="basic"
+            className="data-[state=active]:bg-black data-[state=active]:text-white">
             Basic Information
           </TabsTrigger>
-          <TabsTrigger value="curriculum" className="data-[state=active]:bg-black data-[state=active]:text-white">
+          <TabsTrigger
+            value="curriculum"
+            className="data-[state=active]:bg-black data-[state=active]:text-white">
             Curriculum
           </TabsTrigger>
-          <TabsTrigger value="pricing" className="data-[state=active]:bg-black data-[state=active]:text-white">
+          <TabsTrigger
+            value="pricing"
+            className="data-[state=active]:bg-black data-[state=active]:text-white">
             Pricing & Settings
           </TabsTrigger>
         </TabsList>
@@ -218,35 +242,41 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="title" className="text-black">Course Title *</Label>
+                    <Label htmlFor="title" className="text-black">
+                      Course Title *
+                    </Label>
                     <Input
                       id="title"
                       placeholder="Enter course title..."
                       value={courseData.title}
-                      onChange={(e) => handleInputChange('title', e.target.value)}
+                      onChange={(e) => handleInputChange("title", e.target.value)}
                       className="border-gray-300 focus:border-black"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="shortDescription" className="text-black">Short Description *</Label>
+                    <Label htmlFor="shortDescription" className="text-black">
+                      Short Description *
+                    </Label>
                     <Textarea
                       id="shortDescription"
                       placeholder="Brief description for course preview..."
                       value={courseData.shortDescription}
-                      onChange={(e) => handleInputChange('shortDescription', e.target.value)}
+                      onChange={(e) => handleInputChange("shortDescription", e.target.value)}
                       className="border-gray-300 focus:border-black"
                       rows={2}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="description" className="text-black">Full Description *</Label>
+                    <Label htmlFor="description" className="text-black">
+                      Full Description *
+                    </Label>
                     <Textarea
                       id="description"
                       placeholder="Detailed course description, learning outcomes, prerequisites..."
                       value={courseData.description}
-                      onChange={(e) => handleInputChange('description', e.target.value)}
+                      onChange={(e) => handleInputChange("description", e.target.value)}
                       className="border-gray-300 focus:border-black"
                       rows={6}
                     />
@@ -254,8 +284,12 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="category" className="text-black">Category *</Label>
-                      <Select value={courseData.category} onValueChange={(value) => handleInputChange('category', value)}>
+                      <Label htmlFor="category" className="text-black">
+                        Category *
+                      </Label>
+                      <Select
+                        value={courseData.category}
+                        onValueChange={(value) => handleInputChange("category", value)}>
                         <SelectTrigger className="border-gray-300">
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
@@ -272,8 +306,12 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="level" className="text-black">Difficulty Level *</Label>
-                      <Select value={courseData.level} onValueChange={(value) => handleInputChange('level', value)}>
+                      <Label htmlFor="level" className="text-black">
+                        Difficulty Level *
+                      </Label>
+                      <Select
+                        value={courseData.level}
+                        onValueChange={(value) => handleInputChange("level", value)}>
                         <SelectTrigger className="border-gray-300">
                           <SelectValue placeholder="Select level" />
                         </SelectTrigger>
@@ -288,19 +326,25 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="duration" className="text-black">Estimated Duration</Label>
+                      <Label htmlFor="duration" className="text-black">
+                        Estimated Duration
+                      </Label>
                       <Input
                         id="duration"
                         placeholder="e.g., 8 weeks, 20 hours"
                         value={courseData.duration}
-                        onChange={(e) => handleInputChange('duration', e.target.value)}
+                        onChange={(e) => handleInputChange("duration", e.target.value)}
                         className="border-gray-300 focus:border-black"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="language" className="text-black">Language</Label>
-                      <Select value={courseData.language} onValueChange={(value) => handleInputChange('language', value)}>
+                      <Label htmlFor="language" className="text-black">
+                        Language
+                      </Label>
+                      <Select
+                        value={courseData.language}
+                        onValueChange={(value) => handleInputChange("language", value)}>
                         <SelectTrigger className="border-gray-300">
                           <SelectValue />
                         </SelectTrigger>
@@ -323,22 +367,25 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                         placeholder="Add a tag..."
                         value={currentTag}
                         onChange={(e) => setCurrentTag(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                        onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addTag())}
                         className="border-gray-300 focus:border-black"
                       />
-                      <Button type="button" onClick={addTag} size="sm" className="bg-black hover:bg-gray-800 text-white">
+                      <Button
+                        type="button"
+                        onClick={addTag}
+                        size="sm"
+                        className="bg-black hover:bg-gray-800 text-white">
                         Add
                       </Button>
                     </div>
                     {courseData.tags.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-2">
                         {courseData.tags.map((tag, index) => (
-                          <Badge 
+                          <Badge
                             key={index}
                             variant="secondary"
                             className="bg-gray-100 text-black hover:bg-gray-200 cursor-pointer"
-                            onClick={() => removeTag(tag)}
-                          >
+                            onClick={() => removeTag(tag)}>
                             {tag}
                             <span className="ml-1">×</span>
                           </Badge>
@@ -361,7 +408,9 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                     <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-600 mb-2">Upload course thumbnail</p>
                     <p className="text-sm text-gray-500">Recommended: 1280x720 pixels</p>
-                    <Button variant="outline" className="mt-3 border-gray-300 text-black hover:bg-gray-50">
+                    <Button
+                      variant="outline"
+                      className="mt-3 border-gray-300 text-black hover:bg-gray-50">
                       Choose File
                     </Button>
                   </div>
@@ -380,7 +429,7 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                     </div>
                     <Switch
                       checked={courseData.allowPreview}
-                      onCheckedChange={(checked) => handleInputChange('allowPreview', checked)}
+                      onCheckedChange={(checked) => handleInputChange("allowPreview", checked)}
                     />
                   </div>
 
@@ -393,20 +442,22 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                     </div>
                     <Switch
                       checked={courseData.certificate}
-                      onCheckedChange={(checked) => handleInputChange('certificate', checked)}
+                      onCheckedChange={(checked) => handleInputChange("certificate", checked)}
                     />
                   </div>
 
                   <Separator className="bg-gray-200" />
 
                   <div className="space-y-2">
-                    <Label htmlFor="maxStudents" className="text-black">Max Students</Label>
+                    <Label htmlFor="maxStudents" className="text-black">
+                      Max Students
+                    </Label>
                     <Input
                       id="maxStudents"
                       type="number"
                       placeholder="Unlimited"
                       value={courseData.maxStudents}
-                      onChange={(e) => handleInputChange('maxStudents', e.target.value)}
+                      onChange={(e) => handleInputChange("maxStudents", e.target.value)}
                       className="border-gray-300 focus:border-black"
                     />
                   </div>
@@ -442,8 +493,7 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                       variant="ghost"
                       size="sm"
                       onClick={() => deleteModule(module.id)}
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                    >
+                      className="text-red-600 hover:text-red-700 hover:bg-red-50">
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -453,7 +503,7 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                       <Label className="text-black">Module Title</Label>
                       <Input
                         value={module.title}
-                        onChange={(e) => updateModule(module.id, 'title', e.target.value)}
+                        onChange={(e) => updateModule(module.id, "title", e.target.value)}
                         className="border-gray-300 focus:border-black"
                       />
                     </div>
@@ -461,7 +511,7 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                       <Label className="text-black">Module Description</Label>
                       <Input
                         value={module.description}
-                        onChange={(e) => updateModule(module.id, 'description', e.target.value)}
+                        onChange={(e) => updateModule(module.id, "description", e.target.value)}
                         placeholder="Brief module description..."
                         className="border-gray-300 focus:border-black"
                       />
@@ -476,8 +526,7 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                         variant="outline"
                         size="sm"
                         onClick={() => addLesson(module.id)}
-                        className="border-gray-300 text-black hover:bg-gray-50"
-                      >
+                        className="border-gray-300 text-black hover:bg-gray-50">
                         <Plus className="h-4 w-4 mr-1" />
                         Add Lesson
                       </Button>
@@ -491,10 +540,9 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                             <span className="text-sm font-medium text-gray-600">
                               Lesson {lessonIndex + 1}
                             </span>
-                            <Badge 
-                              variant="secondary" 
-                              className={`text-xs ${getLessonTypeColor(lesson.type)}`}
-                            >
+                            <Badge
+                              variant="secondary"
+                              className={`text-xs ${getLessonTypeColor(lesson.type)}`}>
                               {lesson.type}
                             </Badge>
                           </div>
@@ -502,8 +550,7 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                             variant="ghost"
                             size="sm"
                             onClick={() => deleteLesson(module.id, lesson.id)}
-                            className="text-red-600 hover:text-red-700 hover:bg-red-100"
-                          >
+                            className="text-red-600 hover:text-red-700 hover:bg-red-100">
                             <Trash2 className="h-3 w-3" />
                           </Button>
                         </div>
@@ -513,16 +560,19 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                             <Label className="text-xs text-black">Title</Label>
                             <Input
                               value={lesson.title}
-                              onChange={(e) => updateLesson(module.id, lesson.id, 'title', e.target.value)}
+                              onChange={(e) =>
+                                updateLesson(module.id, lesson.id, "title", e.target.value)
+                              }
                               className="border-gray-300 focus:border-black text-sm"
                             />
                           </div>
                           <div className="space-y-1">
                             <Label className="text-xs text-black">Type</Label>
-                            <Select 
-                              value={lesson.type} 
-                              onValueChange={(value) => updateLesson(module.id, lesson.id, 'type', value)}
-                            >
+                            <Select
+                              value={lesson.type}
+                              onValueChange={(value) =>
+                                updateLesson(module.id, lesson.id, "type", value)
+                              }>
                               <SelectTrigger className="border-gray-300 text-sm">
                                 <SelectValue />
                               </SelectTrigger>
@@ -539,7 +589,9 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                             <Input
                               type="number"
                               value={lesson.duration}
-                              onChange={(e) => updateLesson(module.id, lesson.id, 'duration', e.target.value)}
+                              onChange={(e) =>
+                                updateLesson(module.id, lesson.id, "duration", e.target.value)
+                              }
                               className="border-gray-300 focus:border-black text-sm"
                             />
                           </div>
@@ -549,7 +601,7 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
 
                     {module.lessons.length === 0 && (
                       <div className="text-center py-8 text-gray-500">
-                        <p>No lessons added yet. Click "Add Lesson" to get started.</p>
+                        <p>No lessons added yet. Click &quot;Add Lesson&quot; to get started.</p>
                       </div>
                     )}
                   </div>
@@ -558,7 +610,10 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
 
               {modules.length === 0 && (
                 <div className="text-center py-12 text-gray-500">
-                  <p>No modules created yet. Click "Add Module" to start building your curriculum.</p>
+                  <p>
+                    No modules created yet. Click &quot;Add Module&quot; to start building your
+                    curriculum.
+                  </p>
                 </div>
               )}
             </CardContent>
@@ -575,19 +630,25 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="price" className="text-black">Price *</Label>
+                    <Label htmlFor="price" className="text-black">
+                      Price *
+                    </Label>
                     <Input
                       id="price"
                       type="number"
                       placeholder="0.00"
                       value={courseData.price}
-                      onChange={(e) => handleInputChange('price', e.target.value)}
+                      onChange={(e) => handleInputChange("price", e.target.value)}
                       className="border-gray-300 focus:border-black"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="currency" className="text-black">Currency</Label>
-                    <Select value={courseData.currency} onValueChange={(value) => handleInputChange('currency', value)}>
+                    <Label htmlFor="currency" className="text-black">
+                      Currency
+                    </Label>
+                    <Select
+                      value={courseData.currency}
+                      onValueChange={(value) => handleInputChange("currency", value)}>
                       <SelectTrigger className="border-gray-300">
                         <SelectValue />
                       </SelectTrigger>
@@ -603,8 +664,8 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
 
                 <div className="p-4 bg-gray-50 rounded-lg">
                   <p className="text-sm text-gray-600">
-                    <strong>Note:</strong> Setting price to $0 will make this a free course. 
-                    You can always update pricing later.
+                    <strong>Note:</strong> Setting price to $0 will make this a free course. You can
+                    always update pricing later.
                   </p>
                 </div>
               </CardContent>
@@ -622,14 +683,14 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                   </div>
                   <Switch
                     checked={courseData.isPublished}
-                    onCheckedChange={(checked) => handleInputChange('isPublished', checked)}
+                    onCheckedChange={(checked) => handleInputChange("isPublished", checked)}
                   />
                 </div>
 
                 <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                   <p className="text-sm text-yellow-800">
-                    <strong>Tip:</strong> Keep your course as draft while you're building it. 
-                    Publish when you're ready for students to enroll.
+                    <strong>Tip:</strong> Keep your course as draft while you&apos;re building it.
+                    Publish when you&apos;re ready for students to enroll.
                   </p>
                 </div>
               </CardContent>
@@ -639,4 +700,4 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
       </Tabs>
     </div>
   );
-} 
+}

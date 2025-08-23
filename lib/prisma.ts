@@ -1,15 +1,15 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
-}
+  prisma: PrismaClient | undefined;
+};
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
+export const prisma = globalForPrisma.prisma ?? new PrismaClient();
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 // Export types for convenience
-export type { 
+export type {
   educator_account,
   students,
   educator_bank,
@@ -23,5 +23,5 @@ export type {
   purchases,
   enrollments,
   course_completion_certificates,
-  enrollment_content_progress
-} from '@prisma/client'
+  enrollment_content_progress,
+} from "@prisma/client";

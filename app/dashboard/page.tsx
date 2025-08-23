@@ -1,103 +1,114 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { 
-  Home, BookOpen, Trophy, Calendar, User, LogOut, Play, Clock, 
-  TrendingUp, Star, ChevronRight, FileQuestion, GraduationCap
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { QuizPage } from '@/components/QuizPage';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  Home,
+  BookOpen,
+  Trophy,
+  Calendar,
+  User,
+  LogOut,
+  Play,
+  Clock,
+  TrendingUp,
+  Star,
+  ChevronRight,
+  FileQuestion,
+  GraduationCap,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { QuizPage } from "@/components/QuizPage";
 
 const defaultAcademy = {
-  id: 'coursivo',
-  name: 'Coursivo',
-  description: 'Modern Learning Platform',
-  theme: { primary: '#000000', secondary: '#404040' }
+  id: "coursivo",
+  name: "Coursivo",
+  description: "Modern Learning Platform",
+  theme: { primary: "#000000", secondary: "#404040" },
 };
 
 export default function StudentDashboardPage() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState("dashboard");
   const router = useRouter();
 
   const navigationItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'courses', label: 'My Courses', icon: BookOpen },
-    { id: 'quiz', label: 'Take Quiz', icon: FileQuestion },
-    { id: 'achievements', label: 'Achievements', icon: Trophy },
-    { id: 'schedule', label: 'Schedule', icon: Calendar },
+    { id: "dashboard", label: "Dashboard", icon: Home },
+    { id: "courses", label: "My Courses", icon: BookOpen },
+    { id: "quiz", label: "Take Quiz", icon: FileQuestion },
+    { id: "achievements", label: "Achievements", icon: Trophy },
+    { id: "schedule", label: "Schedule", icon: Calendar },
   ];
 
   const enrolledCourses = [
     {
       id: 1,
-      title: 'Introduction to Programming',
-      instructor: 'Dr. Sarah Chen',
+      title: "Introduction to Programming",
+      instructor: "Dr. Sarah Chen",
       progress: 75,
-      nextLesson: 'Variables and Data Types',
-      duration: '45 min',
-      difficulty: 'Beginner',
-      rating: 4.8
+      nextLesson: "Variables and Data Types",
+      duration: "45 min",
+      difficulty: "Beginner",
+      rating: 4.8,
     },
     {
       id: 2,
-      title: 'Digital Marketing Fundamentals',
-      instructor: 'Mark Johnson',
+      title: "Digital Marketing Fundamentals",
+      instructor: "Mark Johnson",
       progress: 45,
-      nextLesson: 'Social Media Strategy',
-      duration: '35 min',
-      difficulty: 'Intermediate',
-      rating: 4.6
+      nextLesson: "Social Media Strategy",
+      duration: "35 min",
+      difficulty: "Intermediate",
+      rating: 4.6,
     },
     {
       id: 3,
-      title: 'Graphic Design Basics',
-      instructor: 'Emily Rodriguez',
+      title: "Graphic Design Basics",
+      instructor: "Emily Rodriguez",
       progress: 20,
-      nextLesson: 'Color Theory',
-      duration: '50 min',
-      difficulty: 'Beginner',
-      rating: 4.9
-    }
+      nextLesson: "Color Theory",
+      duration: "50 min",
+      difficulty: "Beginner",
+      rating: 4.9,
+    },
   ];
 
   const upcomingLessons = [
     {
-      course: 'Introduction to Programming',
-      lesson: 'Variables and Data Types',
-      time: '10:00 AM',
-      date: 'Today'
+      course: "Introduction to Programming",
+      lesson: "Variables and Data Types",
+      time: "10:00 AM",
+      date: "Today",
     },
     {
-      course: 'Digital Marketing Fundamentals',
-      lesson: 'Social Media Strategy',
-      time: '2:00 PM',
-      date: 'Tomorrow'
+      course: "Digital Marketing Fundamentals",
+      lesson: "Social Media Strategy",
+      time: "2:00 PM",
+      date: "Tomorrow",
     },
     {
-      course: 'Graphic Design Basics',
-      lesson: 'Color Theory',
-      time: '11:00 AM',
-      date: 'Friday'
-    }
+      course: "Graphic Design Basics",
+      lesson: "Color Theory",
+      time: "11:00 AM",
+      date: "Friday",
+    },
   ];
 
   const achievements = [
-    { title: 'First Course Completed', date: 'July 15, 2024', icon: Trophy },
-    { title: '7-Day Streak', date: 'July 20, 2024', icon: TrendingUp },
-    { title: 'Top 10% Student', date: 'July 22, 2024', icon: Star }
+    { title: "First Course Completed", date: "July 15, 2024", icon: Trophy },
+    { title: "7-Day Streak", date: "July 20, 2024", icon: TrendingUp },
+    { title: "Top 10% Student", date: "July 22, 2024", icon: Star },
   ];
 
   const handleLogout = () => {
-    router.push('/');
+    router.push("/");
   };
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'dashboard':
+      case "dashboard":
         return (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Main Content Area */}
@@ -112,7 +123,9 @@ export default function StudentDashboardPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {enrolledCourses.map((course) => (
-                    <div key={course.id} className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors">
+                    <div
+                      key={course.id}
+                      className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
                           <h3 className="font-semibold text-black mb-1">{course.title}</h3>
@@ -122,7 +135,7 @@ export default function StudentDashboardPage() {
                           {course.difficulty}
                         </Badge>
                       </div>
-                      
+
                       <div className="space-y-3">
                         <div>
                           <div className="flex justify-between text-sm mb-2">
@@ -131,7 +144,7 @@ export default function StudentDashboardPage() {
                           </div>
                           <Progress value={course.progress} className="h-2" />
                         </div>
-                        
+
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4 text-sm text-gray-600">
                             <span className="flex items-center space-x-1">
@@ -143,10 +156,7 @@ export default function StudentDashboardPage() {
                               <span>{course.rating}</span>
                             </span>
                           </div>
-                          <Button 
-                            size="sm" 
-                            className="bg-black hover:bg-gray-800 text-white"
-                          >
+                          <Button size="sm" className="bg-black hover:bg-gray-800 text-white">
                             Continue
                             <ChevronRight className="h-4 w-4 ml-1" />
                           </Button>
@@ -159,10 +169,9 @@ export default function StudentDashboardPage() {
 
               {/* Quick Actions */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Card 
+                <Card
                   className="bg-black text-white border-0 cursor-pointer hover:bg-gray-800 transition-colors"
-                  onClick={() => setActiveTab('quiz')}
-                >
+                  onClick={() => setActiveTab("quiz")}>
                   <CardContent className="p-6 text-center">
                     <FileQuestion className="h-8 w-8 mx-auto mb-3" />
                     <h3 className="font-semibold mb-1">Take Quiz</h3>
@@ -170,10 +179,9 @@ export default function StudentDashboardPage() {
                   </CardContent>
                 </Card>
 
-                <Card 
+                <Card
                   className="bg-white border border-gray-200 cursor-pointer hover:shadow-md transition-shadow"
-                  onClick={() => setActiveTab('achievements')}
-                >
+                  onClick={() => setActiveTab("achievements")}>
                   <CardContent className="p-6 text-center">
                     <Trophy className="h-8 w-8 mx-auto mb-3 text-black" />
                     <h3 className="font-semibold text-black mb-1">Achievements</h3>
@@ -193,7 +201,9 @@ export default function StudentDashboardPage() {
                 <CardContent>
                   <div className="space-y-3">
                     {achievements.map((achievement, index) => (
-                      <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl">
+                      <div
+                        key={index}
+                        className="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl">
                         <div className="p-2 rounded-full bg-black">
                           <achievement.icon className="h-4 w-4 text-white" />
                         </div>
@@ -224,7 +234,9 @@ export default function StudentDashboardPage() {
                       <div key={index} className="border-l-3 border-black pl-3">
                         <p className="font-medium text-black text-sm">{lesson.lesson}</p>
                         <p className="text-sm text-gray-600">{lesson.course}</p>
-                        <p className="text-xs text-gray-500 mt-1">{lesson.date} at {lesson.time}</p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          {lesson.date} at {lesson.time}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -254,25 +266,24 @@ export default function StudentDashboardPage() {
             </div>
           </div>
         );
-      case 'quiz':
+      case "quiz":
         return <QuizPage />;
-      case 'courses':
+      case "courses":
         return (
           <div className="px-4 py-6">
             <h3 className="text-xl font-bold text-black mb-6">My Enrolled Courses</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {enrolledCourses.map((course) => (
-                <Card key={course.id} className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                <Card
+                  key={course.id}
+                  className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
                     <h4 className="font-semibold text-black mb-2">{course.title}</h4>
                     <p className="text-sm text-gray-600 mb-4">by {course.instructor}</p>
                     <Progress value={course.progress} className="h-2 mb-4" />
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-gray-600">{course.progress}% complete</span>
-                      <Button 
-                        size="sm" 
-                        className="bg-black hover:bg-gray-800 text-white"
-                      >
+                      <Button size="sm" className="bg-black hover:bg-gray-800 text-white">
                         Continue
                       </Button>
                     </div>
@@ -282,13 +293,15 @@ export default function StudentDashboardPage() {
             </div>
           </div>
         );
-      case 'achievements':
+      case "achievements":
         return (
           <div className="px-4 py-6">
             <h3 className="text-xl font-bold text-black mb-6">Your Achievements</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {achievements.map((achievement, index) => (
-                <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                <Card
+                  key={index}
+                  className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
                   <CardContent className="p-6 text-center">
                     <div className="p-4 rounded-full bg-black inline-flex mb-4">
                       <achievement.icon className="h-8 w-8 text-white" />
@@ -301,13 +314,15 @@ export default function StudentDashboardPage() {
             </div>
           </div>
         );
-      case 'schedule':
+      case "schedule":
         return (
           <div className="px-4 py-6">
             <h3 className="text-xl font-bold text-black mb-6">Your Schedule</h3>
             <div className="space-y-4">
               {upcomingLessons.map((lesson, index) => (
-                <Card key={index} className="bg-white border border-gray-200 hover:shadow-md transition-shadow">
+                <Card
+                  key={index}
+                  className="bg-white border border-gray-200 hover:shadow-md transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex justify-between items-start">
                       <div>
@@ -346,7 +361,7 @@ export default function StudentDashboardPage() {
               <h1 className="font-semibold text-black">Coursivo</h1>
             </div>
           </div>
-          
+
           <div className="px-4 py-4 flex flex-col h-full">
             <nav className="space-y-1 flex-1">
               {navigationItems.map((item) => (
@@ -354,17 +369,16 @@ export default function StudentDashboardPage() {
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center space-x-3 px-3 py-3 rounded-xl transition-all text-left ${
-                    activeTab === item.id 
-                      ? 'bg-black text-white shadow-md' 
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-black'
-                  }`}
-                >
+                    activeTab === item.id
+                      ? "bg-black text-white shadow-md"
+                      : "text-gray-700 hover:bg-gray-50 hover:text-black"
+                  }`}>
                   <item.icon className="h-5 w-5" />
                   <span className="font-medium text-sm">{item.label}</span>
                 </button>
               ))}
             </nav>
-            
+
             {/* Profile Section */}
             <div className="pt-6 border-t border-gray-200">
               <button className="w-full flex items-center space-x-3 px-3 py-3 rounded-xl text-gray-700 hover:bg-gray-50 hover:text-black transition-all text-left">
@@ -382,7 +396,8 @@ export default function StudentDashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold text-black leading-tight">
-                  {navigationItems.find(item => item.id === activeTab)?.label || 'Student Dashboard'}
+                  {navigationItems.find((item) => item.id === activeTab)?.label ||
+                    "Student Dashboard"}
                 </h1>
                 <p className="text-gray-600 mt-1">Welcome back! Ready to continue learning?</p>
               </div>
@@ -390,7 +405,10 @@ export default function StudentDashboardPage() {
                 <Badge className="bg-black text-white border-0 px-3 py-1">
                   {defaultAcademy.name}
                 </Badge>
-                <Button variant="outline" onClick={handleLogout} className="border-gray-300 text-black hover:bg-gray-50">
+                <Button
+                  variant="outline"
+                  onClick={handleLogout}
+                  className="border-gray-300 text-black hover:bg-gray-50">
                   <LogOut className="h-4 w-4 mr-2" />
                   Logout
                 </Button>
@@ -399,9 +417,7 @@ export default function StudentDashboardPage() {
           </header>
 
           {/* Dashboard Content */}
-          <main className="flex-1 overflow-auto bg-gray-50 p-6">
-            {renderContent()}
-          </main>
+          <main className="flex-1 overflow-auto bg-gray-50 p-6">{renderContent()}</main>
         </div>
       </div>
     </div>
