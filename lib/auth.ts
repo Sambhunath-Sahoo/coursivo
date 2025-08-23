@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import { compare, hash } from "bcryptjs";
 import type { JWT } from "next-auth/jwt";
-import type { Session } from "next-auth";
+import type { Session, User } from "next-auth";
 
 // Student authentication function
 async function handleStudentAuth(credentials: Record<string, string>) {
@@ -120,7 +120,7 @@ async function handleEducatorAuth(credentials: Record<string, string>) {
       id: newEducator.id,
       email: newEducator.email,
       name: newEducator.name,
-      domain: newEducator.domain,
+      domain: newEducator.domain ?? undefined,
       role: "educator",
     };
   }
@@ -144,7 +144,7 @@ async function handleEducatorAuth(credentials: Record<string, string>) {
       id: educator.id,
       email: educator.email,
       name: educator.name,
-      domain: educator.domain, // Domain comes from database
+      domain: educator.domain ?? undefined, // Domain comes from database
       role: "educator",
     };
   }
@@ -190,7 +190,7 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user: Record<string, unknown> }) {
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         if (user.role === "educator") {
           token.domain = user.domain;

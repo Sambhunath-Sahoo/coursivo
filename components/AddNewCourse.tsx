@@ -51,7 +51,7 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
     price: "",
     currency: "USD",
     thumbnail: "",
-    tags: [],
+    tags: [] as string[],
     isPublished: false,
     allowPreview: true,
     maxStudents: "",

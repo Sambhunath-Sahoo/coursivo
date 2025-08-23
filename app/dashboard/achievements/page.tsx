@@ -167,9 +167,11 @@ export default function AchievementsPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-gray-600 mb-2">{achievement.description}</p>
-                    <p className="text-sm text-gray-500">
-                      Earned on {new Date(achievement.earnedDate).toLocaleDateString()}
-                    </p>
+                    {achievement.earnedDate && (
+                      <p className="text-sm text-gray-500">
+                        Earned on {new Date(achievement.earnedDate).toLocaleDateString()}
+                      </p>
+                    )}
                   </CardContent>
                 </Card>
               ))}

@@ -114,14 +114,14 @@ export default function CourseManagementPage() {
 
   if (activeView === "add-course") {
     return (
-      <DashboardLayout type="academy">
+      <DashboardLayout type="educator">
         <AddNewCourse onBack={handleBackToCourses} onSave={handleSaveCourse} />
       </DashboardLayout>
     );
   }
 
   return (
-    <DashboardLayout type="academy">
+    <DashboardLayout type="educator">
       <div className="p-8">
         <div className="mb-8">
           <div className="flex items-center justify-between">

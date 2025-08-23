@@ -73,9 +73,11 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
   };
 
   const copyStudentLandingLink = () => {
-    const landingLink = `${window.location.origin}/${currentAcademyName}`;
-    navigator.clipboard.writeText(landingLink);
-    alert("Student landing page link copied to clipboard!");
+    if (typeof window !== 'undefined') {
+      const landingLink = `${window.location.origin}/${currentAcademyName}`;
+      navigator.clipboard.writeText(landingLink);
+      alert("Student landing page link copied to clipboard!");
+    }
   };
 
   const isActive = (href: string) => {
@@ -135,7 +137,7 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
                 <Copy className="h-4 w-4" />
               </button>
               <p className="text-xs text-gray-500 mt-1">
-                Share: {window.location.origin}/{currentAcademyName}
+                Share: {typeof window !== 'undefined' ? window.location.origin : ''}/{currentAcademyName}
               </p>
             </div>
           )}

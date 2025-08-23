@@ -329,17 +329,19 @@ export default function AcademyDashboardPage() {
                     <div className="flex items-center space-x-2">
                       <input
                         type="text"
-                        value={`${window.location.origin}/${academyDomain}/signup`}
+                        value={`${typeof window !== 'undefined' ? window.location.origin : ''}/${academyDomain}/signup`}
                         readOnly
                         className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-md bg-white"
                       />
                       <Button
                         size="sm"
                         onClick={() => {
-                          navigator.clipboard.writeText(
-                            `${window.location.origin}/${academyDomain}/signup`
-                          );
-                          alert("Link copied to clipboard!");
+                          if (typeof window !== 'undefined') {
+                            navigator.clipboard.writeText(
+                              `${window.location.origin}/${academyDomain}/signup`
+                            );
+                            alert("Link copied to clipboard!");
+                          }
                         }}
                         className="bg-[#09382f] hover:bg-[#0a4a3a] text-white">
                         Copy

@@ -83,7 +83,7 @@ export default function AcademyDashboardPage() {
   };
 
   return (
-    <DashboardLayout type="academy">
+    <DashboardLayout type="educator">
       <div className="p-8">
         {/* Header */}
         <div className="mb-8">
