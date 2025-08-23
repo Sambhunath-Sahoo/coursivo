@@ -190,22 +190,22 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
           <Button
             variant="outline"
             onClick={onBack}
-            className="border-gray-300 text-black hover:bg-gray-50">
+            className="border-gray-200 text-gray-900 hover:bg-gray-100">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Courses
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-black">Create New Course</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Create New Course</h1>
             <p className="text-gray-600">Build an engaging learning experience for your students</p>
           </div>
         </div>
 
         <div className="flex items-center space-x-3">
-          <Button variant="outline" className="border-gray-300 text-black hover:bg-gray-50">
+          <Button variant="outline" className="border-gray-200 text-gray-900 hover:bg-gray-100">
             <Eye className="h-4 w-4 mr-2" />
             Preview
           </Button>
-          <Button onClick={handleSave} className="bg-black hover:bg-gray-800 text-white">
+          <Button onClick={handleSave} className="bg-[#09382f] hover:bg-[#0a4a3d] text-white transition-all duration-300 shadow-lg">
             <Save className="h-4 w-4 mr-2" />
             Save Course
           </Button>
@@ -216,17 +216,17 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
         <TabsList className="bg-gray-100">
           <TabsTrigger
             value="basic"
-            className="data-[state=active]:bg-black data-[state=active]:text-white">
+            className="data-[state=active]:bg-[#09382f] data-[state=active]:text-white">
             Basic Information
           </TabsTrigger>
           <TabsTrigger
             value="curriculum"
-            className="data-[state=active]:bg-black data-[state=active]:text-white">
+            className="data-[state=active]:bg-[#09382f] data-[state=active]:text-white">
             Curriculum
           </TabsTrigger>
           <TabsTrigger
             value="pricing"
-            className="data-[state=active]:bg-black data-[state=active]:text-white">
+            className="data-[state=active]:bg-[#09382f] data-[state=active]:text-white">
             Pricing & Settings
           </TabsTrigger>
         </TabsList>
@@ -236,13 +236,13 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Course Details */}
             <div className="lg:col-span-2 space-y-6">
-              <Card className="bg-white border border-gray-200">
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardHeader>
-                  <CardTitle className="text-black">Course Details</CardTitle>
+                  <CardTitle className="text-gray-900">Course Details</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="title" className="text-black">
+                    <Label htmlFor="title" className="text-gray-900">
                       Course Title *
                     </Label>
                     <Input
@@ -250,12 +250,12 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                       placeholder="Enter course title..."
                       value={courseData.title}
                       onChange={(e) => handleInputChange("title", e.target.value)}
-                      className="border-gray-300 focus:border-black"
+                      className="border-gray-200 focus:border-[#09382f] focus:ring-[#09382f]/20"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="shortDescription" className="text-black">
+                    <Label htmlFor="shortDescription" className="text-gray-900">
                       Short Description *
                     </Label>
                     <Textarea
@@ -263,13 +263,13 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                       placeholder="Brief description for course preview..."
                       value={courseData.shortDescription}
                       onChange={(e) => handleInputChange("shortDescription", e.target.value)}
-                      className="border-gray-300 focus:border-black"
+                      className="border-gray-200 focus:border-[#09382f] focus:ring-[#09382f]/20"
                       rows={2}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="description" className="text-black">
+                    <Label htmlFor="description" className="text-gray-900">
                       Full Description *
                     </Label>
                     <Textarea
@@ -277,20 +277,20 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                       placeholder="Detailed course description, learning outcomes, prerequisites..."
                       value={courseData.description}
                       onChange={(e) => handleInputChange("description", e.target.value)}
-                      className="border-gray-300 focus:border-black"
+                      className="border-gray-200 focus:border-[#09382f] focus:ring-[#09382f]/20"
                       rows={6}
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="category" className="text-black">
+                      <Label htmlFor="category" className="text-gray-900">
                         Category *
                       </Label>
                       <Select
                         value={courseData.category}
                         onValueChange={(value) => handleInputChange("category", value)}>
-                        <SelectTrigger className="border-gray-300">
+                        <SelectTrigger className="border-gray-200">
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
                         <SelectContent>
@@ -306,13 +306,13 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="level" className="text-black">
+                      <Label htmlFor="level" className="text-gray-900">
                         Difficulty Level *
                       </Label>
                       <Select
                         value={courseData.level}
                         onValueChange={(value) => handleInputChange("level", value)}>
-                        <SelectTrigger className="border-gray-300">
+                        <SelectTrigger className="border-gray-200">
                           <SelectValue placeholder="Select level" />
                         </SelectTrigger>
                         <SelectContent>
@@ -368,13 +368,13 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                         value={currentTag}
                         onChange={(e) => setCurrentTag(e.target.value)}
                         onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addTag())}
-                        className="border-gray-300 focus:border-black"
+                        className="border-gray-200 focus:border-[#09382f] focus:ring-[#09382f]/20"
                       />
                       <Button
                         type="button"
                         onClick={addTag}
                         size="sm"
-                        className="bg-black hover:bg-gray-800 text-white">
+                        className="bg-[#09382f] hover:bg-[#0a4a3d] text-white transition-all duration-300 shadow-lg">
                         Add
                       </Button>
                     </div>
@@ -399,9 +399,9 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
 
             {/* Course Media & Settings */}
             <div className="space-y-6">
-              <Card className="bg-white border border-gray-200">
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardHeader>
-                  <CardTitle className="text-black">Course Thumbnail</CardTitle>
+                  <CardTitle className="text-gray-900">Course Thumbnail</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors cursor-pointer">
@@ -417,14 +417,14 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
                 </CardContent>
               </Card>
 
-              <Card className="bg-white border border-gray-200">
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardHeader>
-                  <CardTitle className="text-black">Quick Settings</CardTitle>
+                  <CardTitle className="text-gray-900">Quick Settings</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium text-black">Allow Preview</p>
+                      <p className="font-medium text-gray-900">Allow Preview</p>
                       <p className="text-sm text-gray-600">Let students preview content</p>
                     </div>
                     <Switch
@@ -437,7 +437,7 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium text-black">Certificate</p>
+                      <p className="font-medium text-gray-900">Certificate</p>
                       <p className="text-sm text-gray-600">Issue completion certificate</p>
                     </div>
                     <Switch
@@ -469,11 +469,11 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
 
         {/* Curriculum Tab */}
         <TabsContent value="curriculum" className="space-y-6">
-          <Card className="bg-white border border-gray-200">
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-black">Course Curriculum</CardTitle>
-                <Button onClick={addModule} className="bg-black hover:bg-gray-800 text-white">
+                <CardTitle className="text-gray-900">Course Curriculum</CardTitle>
+                <Button onClick={addModule} className="bg-[#09382f] hover:bg-[#0a4a3d] text-white transition-all duration-300 shadow-lg">
                   <Plus className="h-4 w-4 mr-2" />
                   Add Module
                 </Button>
@@ -623,9 +623,9 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
         {/* Pricing & Settings Tab */}
         <TabsContent value="pricing" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-white border border-gray-200">
+            <Card className="bg-white border border-gray-200 shadow-lg">
               <CardHeader>
-                <CardTitle className="text-black">Pricing</CardTitle>
+                <CardTitle className="text-gray-900">Pricing</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -671,14 +671,14 @@ export function AddNewCourse({ onBack, onSave }: AddNewCourseProps) {
               </CardContent>
             </Card>
 
-            <Card className="bg-white border border-gray-200">
+            <Card className="bg-white border border-gray-200 shadow-lg">
               <CardHeader>
-                <CardTitle className="text-black">Publication Settings</CardTitle>
+                <CardTitle className="text-gray-900">Publication Settings</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-black">Publish Course</p>
+                    <p className="font-medium text-gray-900">Publish Course</p>
                     <p className="text-sm text-gray-600">Make course visible to students</p>
                   </div>
                   <Switch

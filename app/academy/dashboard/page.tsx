@@ -24,8 +24,8 @@ import { AddNewCourse } from "@/components/AddNewCourse";
 const defaultAcademy = {
   id: "coursivo",
   name: "Coursivo Academy",
-  description: "Modern Learning Platform",
-  theme: { primary: "#6366f1", secondary: "#8b5cf6" },
+  description: "Natural Intelligence Meets Digital Learning",
+  theme: { primary: "#09382f", secondary: "#8b5cf6" },
 };
 
 export default function AcademyDashboardPage() {
@@ -141,57 +141,57 @@ export default function AcademyDashboardPage() {
           <div className="p-6 space-y-6">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card className="bg-card border border-border shadow-soft">
+              <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center">
-                    <div className="p-2 rounded-full bg-gradient-primary shadow-glow">
+                    <div className="p-2 rounded-full bg-[#09382f] shadow-lg">
                       <BookOpen className="h-6 w-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-muted-foreground">Total Courses</p>
-                      <p className="text-2xl font-bold text-foreground">12</p>
+                      <p className="text-sm font-medium text-gray-600">Total Courses</p>
+                      <p className="text-2xl font-bold text-gray-900">12</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border border-border shadow-soft">
+              <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center">
-                    <div className="p-2 rounded-full bg-gradient-primary shadow-glow">
+                    <div className="p-2 rounded-full bg-[#09382f] shadow-lg">
                       <Users className="h-6 w-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-muted-foreground">Active Students</p>
-                      <p className="text-2xl font-bold text-foreground">156</p>
+                      <p className="text-sm font-medium text-gray-600">Active Students</p>
+                      <p className="text-2xl font-bold text-gray-900">156</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border border-border shadow-soft">
+              <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center">
-                    <div className="p-2 rounded-full bg-gradient-primary shadow-glow">
+                    <div className="p-2 rounded-full bg-[#09382f] shadow-lg">
                       <TrendingUp className="h-6 w-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-muted-foreground">Completion Rate</p>
-                      <p className="text-2xl font-bold text-foreground">84%</p>
+                      <p className="text-sm font-medium text-gray-600">Completion Rate</p>
+                      <p className="text-2xl font-bold text-gray-900">84%</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border border-border shadow-soft">
+              <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center">
-                    <div className="p-2 rounded-full bg-gradient-primary shadow-glow">
+                    <div className="p-2 rounded-full bg-[#09382f] shadow-lg">
                       <Award className="h-6 w-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-muted-foreground">Certificates</p>
-                      <p className="text-2xl font-bold text-foreground">89</p>
+                      <p className="text-sm font-medium text-gray-600">Certificates</p>
+                      <p className="text-2xl font-bold text-gray-900">89</p>
                     </div>
                   </div>
                 </CardContent>
@@ -200,24 +200,24 @@ export default function AcademyDashboardPage() {
 
             {/* Recent Activity */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card className="bg-card border border-border shadow-soft">
+              <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-shadow">
                 <CardHeader>
-                  <CardTitle className="text-foreground">Recent Courses</CardTitle>
+                  <CardTitle className="text-gray-900">Recent Courses</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {courses.map((course) => (
                       <div
                         key={course.id}
-                        className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                         <div>
-                          <h4 className="font-medium text-foreground">{course.title}</h4>
-                          <p className="text-sm text-muted-foreground">{course.students} students</p>
+                          <h4 className="font-medium text-gray-900">{course.title}</h4>
+                          <p className="text-sm text-gray-600">{course.students} students</p>
                         </div>
                         <Badge
                           variant={course.status === "active" ? "default" : "outline"}
                           className={
-                            course.status === "active" ? "bg-gradient-primary text-white shadow-glow" : "border-border"
+                            course.status === "active" ? "bg-[#09382f] text-white shadow-lg" : "border-gray-200"
                           }>
                           {course.status}
                         </Badge>
@@ -227,25 +227,25 @@ export default function AcademyDashboardPage() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border border-border shadow-soft">
+              <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-shadow">
                 <CardHeader>
-                  <CardTitle className="text-foreground">Top Students</CardTitle>
+                  <CardTitle className="text-gray-900">Top Students</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {students.map((student) => (
                       <div
                         key={student.id}
-                        className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                         <div>
-                          <h4 className="font-medium text-foreground">{student.name}</h4>
-                          <p className="text-sm text-muted-foreground">
+                          <h4 className="font-medium text-gray-900">{student.name}</h4>
+                          <p className="text-sm text-gray-600">
                             {student.courses} courses enrolled
                           </p>
                         </div>
                         <div className="text-right">
-                          <p className="font-medium text-foreground">{student.progress}%</p>
-                          <p className="text-sm text-muted-foreground">progress</p>
+                          <p className="font-medium text-gray-900">{student.progress}%</p>
+                          <p className="text-sm text-gray-600">progress</p>
                         </div>
                       </div>
                     ))}
@@ -259,10 +259,10 @@ export default function AcademyDashboardPage() {
         return (
           <div className="p-6 space-y-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold text-foreground">Course Management</h2>
+              <h2 className="text-xl font-bold text-gray-900">Course Management</h2>
               <Button
                 onClick={handleAddNewCourse}
-                className="bg-gradient-primary hover:shadow-glow text-white border-0">
+                className="bg-[#09382f] hover:bg-[#0a4a3d] text-white border-0 transition-all duration-300 shadow-lg">
                 <Plus className="h-4 w-4 mr-2" />
                 Add New Course
               </Button>
@@ -272,10 +272,10 @@ export default function AcademyDashboardPage() {
               {courses.map((course) => (
                 <Card
                   key={course.id}
-                  className="bg-card border border-border hover:shadow-soft transition-shadow">
+                  className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
-                    <h3 className="font-semibold text-foreground mb-2">{course.title}</h3>
-                    <div className="space-y-2 text-sm text-muted-foreground">
+                    <h3 className="font-semibold text-gray-900 mb-2">{course.title}</h3>
+                    <div className="space-y-2 text-sm text-gray-600">
                       <p>{course.students} students enrolled</p>
                       <p>{course.progress}% content completed</p>
                     </div>
@@ -283,11 +283,11 @@ export default function AcademyDashboardPage() {
                       <Badge
                         variant={course.status === "active" ? "default" : "outline"}
                         className={
-                          course.status === "active" ? "bg-gradient-primary text-white shadow-glow" : "border-border"
+                          course.status === "active" ? "bg-[#09382f] text-white shadow-lg" : "border-gray-200"
                         }>
                         {course.status}
                       </Badge>
-                      <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-accent">
+                      <Button variant="outline" size="sm" className="border-gray-200 text-gray-900 hover:bg-gray-100">
                         Edit
                       </Button>
                     </div>
@@ -302,30 +302,30 @@ export default function AcademyDashboardPage() {
       case "students":
         return (
           <div className="p-6 space-y-6">
-            <h2 className="text-xl font-bold text-foreground">Student Management</h2>
+            <h2 className="text-xl font-bold text-gray-900">Student Management</h2>
 
-            <Card className="bg-card border border-border shadow-soft">
+            <Card className="bg-white border border-gray-200 shadow-lg">
               <CardContent className="p-6">
                 <div className="space-y-4">
                   {students.map((student) => (
                     <div
                       key={student.id}
-                      className="flex items-center justify-between p-4 border border-border rounded-lg">
+                      className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                       <div className="flex items-center space-x-4">
-                        <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow">
+                        <div className="w-10 h-10 rounded-full bg-[#09382f] flex items-center justify-center shadow-lg">
                           <User className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <h4 className="font-medium text-foreground">{student.name}</h4>
-                          <p className="text-sm text-muted-foreground">{student.email}</p>
+                          <h4 className="font-medium text-gray-900">{student.name}</h4>
+                          <p className="text-sm text-gray-600">{student.email}</p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-4">
                         <div className="text-right">
-                          <p className="text-sm text-muted-foreground">{student.courses} courses</p>
-                          <p className="font-medium text-foreground">{student.progress}% avg progress</p>
+                          <p className="text-sm text-gray-600">{student.courses} courses</p>
+                          <p className="font-medium text-gray-900">{student.progress}% avg progress</p>
                         </div>
-                        <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-accent">
+                        <Button variant="outline" size="sm" className="border-gray-200 text-gray-900 hover:bg-gray-100">
                           View Details
                         </Button>
                       </div>
@@ -339,30 +339,30 @@ export default function AcademyDashboardPage() {
       case "settings":
         return (
           <div className="p-6 space-y-6">
-            <h2 className="text-xl font-bold text-foreground">Academy Settings</h2>
+            <h2 className="text-xl font-bold text-gray-900">Academy Settings</h2>
 
-            <Card className="bg-card border border-border shadow-soft">
+            <Card className="bg-white border border-gray-200 shadow-lg">
               <CardHeader>
-                <CardTitle className="text-foreground">Academy Information</CardTitle>
+                <CardTitle className="text-gray-900">Academy Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Academy Name</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Academy Name</label>
                   <input
                     type="text"
                     defaultValue={defaultAcademy.name}
-                    className="w-full p-3 border border-border rounded-lg focus:border-primary focus:ring-primary/20 focus:outline-none"
+                    className="w-full p-3 border border-gray-200 rounded-lg focus:border-[#09382f] focus:ring-[#09382f]/20 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Description</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Description</label>
                   <textarea
                     defaultValue={defaultAcademy.description}
-                    className="w-full p-3 border border-border rounded-lg focus:border-primary focus:ring-primary/20 focus:outline-none"
+                    className="w-full p-3 border border-gray-200 rounded-lg focus:border-[#09382f] focus:ring-[#09382f]/20 focus:outline-none"
                     rows={3}
                   />
                 </div>
-                <Button className="bg-gradient-primary hover:shadow-glow text-white border-0">Save Changes</Button>
+                <Button className="bg-[#09382f] hover:bg-[#0a4a3d] text-white border-0 transition-all duration-300 shadow-lg">Save Changes</Button>
               </CardContent>
             </Card>
           </div>
@@ -370,26 +370,26 @@ export default function AcademyDashboardPage() {
       case "help":
         return (
           <div className="p-6 space-y-6">
-            <h2 className="text-xl font-bold text-foreground">Help & Support</h2>
+            <h2 className="text-xl font-bold text-gray-900">Help & Support</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="bg-card border border-border shadow-soft">
+              <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="p-6 text-center">
-                  <FileText className="h-12 w-12 mx-auto mb-4 text-primary" />
-                  <h3 className="font-semibold text-foreground mb-2">Documentation</h3>
-                  <p className="text-muted-foreground mb-4">Access comprehensive guides and tutorials</p>
-                  <Button variant="outline" className="border-border text-foreground hover:bg-accent">
+                  <FileText className="h-12 w-12 mx-auto mb-4 text-[#09382f]" />
+                  <h3 className="font-semibold text-gray-900 mb-2">Documentation</h3>
+                  <p className="text-gray-600 mb-4">Access comprehensive guides and tutorials</p>
+                  <Button variant="outline" className="border-gray-200 text-gray-900 hover:bg-gray-100">
                     View Docs
                   </Button>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border border-border shadow-soft">
+              <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="p-6 text-center">
-                  <HelpCircle className="h-12 w-12 mx-auto mb-4 text-primary" />
-                  <h3 className="font-semibold text-foreground mb-2">Contact Support</h3>
-                  <p className="text-muted-foreground mb-4">Get help from our support team</p>
-                  <Button variant="outline" className="border-border text-foreground hover:bg-accent">
+                  <HelpCircle className="h-12 w-12 mx-auto mb-4 text-[#09382f]" />
+                  <h3 className="font-semibold text-gray-900 mb-2">Contact Support</h3>
+                  <p className="text-gray-600 mb-4">Get help from our support team</p>
+                  <Button variant="outline" className="border-gray-200 text-gray-900 hover:bg-gray-100">
                     Get Help
                   </Button>
                 </CardContent>
@@ -403,19 +403,19 @@ export default function AcademyDashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-[#FCFBF8]">
       <div className="flex h-screen">
         {/* Fixed Sidebar */}
-        <div className="fixed left-0 top-0 h-full w-80 bg-card border-r border-border z-40 shadow-soft">
-          <div className="p-4 border-b border-border">
+        <div className="fixed left-0 top-0 h-full w-80 bg-white border-r border-gray-200 z-40 shadow-lg">
+          <div className="p-4 border-b border-gray-200">
             <div className="flex items-center space-x-3">
               <div className="relative">
-                <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center shadow-glow">
+                <div className="w-8 h-8 rounded-lg bg-[#09382f] flex items-center justify-center shadow-lg">
                   <GraduationCap className="h-5 w-5 text-white" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-white border-2 border-primary rounded-full"></div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-white border-2 border-[#09382f] rounded-full"></div>
               </div>
-              <h1 className="font-semibold text-gradient">Coursivo</h1>
+              <h1 className="font-semibold text-[#09382f]">Coursivo</h1>
             </div>
           </div>
 
@@ -427,8 +427,8 @@ export default function AcademyDashboardPage() {
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center space-x-3 px-3 py-3 rounded-xl transition-all text-left ${
                     activeTab === item.id
-                      ? "bg-gradient-primary text-white shadow-glow"
-                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                      ? "bg-[#09382f] text-white shadow-lg"
+                      : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                   }`}>
                   <item.icon className="h-5 w-5" />
                   <span className="font-medium text-sm">{item.label}</span>
@@ -437,8 +437,8 @@ export default function AcademyDashboardPage() {
             </nav>
 
             {/* Profile Section */}
-            <div className="pt-6 border-t border-border">
-              <button className="w-full flex items-center space-x-3 px-3 py-3 rounded-xl text-muted-foreground hover:bg-accent hover:text-foreground transition-all text-left">
+            <div className="pt-6 border-t border-gray-200">
+              <button className="w-full flex items-center space-x-3 px-3 py-3 rounded-xl text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all text-left">
                 <User className="h-5 w-5" />
                 <span className="font-medium text-sm">My Profile</span>
               </button>
@@ -449,20 +449,20 @@ export default function AcademyDashboardPage() {
         {/* Main Content with Left Margin */}
         <div className="flex-1 ml-80 flex flex-col overflow-hidden">
           {/* Header */}
-          <header className="bg-card border-b border-border px-6 py-4 relative z-30 shadow-soft">
+          <header className="bg-white border-b border-gray-200 px-6 py-4 relative z-30 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-bold text-foreground leading-tight">{getPageTitle()}</h1>
-                <p className="text-muted-foreground mt-1">{getPageDescription()}</p>
+                <h1 className="text-3xl font-bold text-gray-900 leading-tight">{getPageTitle()}</h1>
+                <p className="text-gray-600 mt-1">{getPageDescription()}</p>
               </div>
               <div className="flex items-center space-x-4">
-                <Badge className="bg-gradient-primary text-white border-0 px-3 py-1 shadow-glow">
+                <Badge className="bg-[#09382f] text-white border-0 px-3 py-1 shadow-lg">
                   {defaultAcademy.name}
                 </Badge>
                 <Button
                   variant="outline"
                   onClick={handleLogout}
-                  className="border-border text-foreground hover:bg-accent">
+                  className="border-gray-200 text-gray-900 hover:bg-gray-100">
                   <LogOut className="h-4 w-4 mr-2" />
                   Logout
                 </Button>
@@ -471,7 +471,7 @@ export default function AcademyDashboardPage() {
           </header>
 
           {/* Dashboard Content */}
-          <main className="flex-1 overflow-auto bg-muted/30">{renderContent()}</main>
+          <main className="flex-1 overflow-auto bg-gradient-to-br from-gray-100 to-[#FCFBF8]">{renderContent()}</main>
         </div>
       </div>
     </div>
