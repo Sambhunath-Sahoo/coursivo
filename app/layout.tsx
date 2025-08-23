@@ -6,16 +6,21 @@ import { SessionProvider } from "@/components/providers/SessionProvider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Coursivo - Multi-tenant Learning Platform",
-  description: "Multi-tenant learning platform with NextAuth.js authentication",
+  description: "Transform education digitally with our comprehensive learning platform designed for modern educators and students.",
+  keywords: ["education", "learning platform", "online courses", "e-learning", "academy management"],
+  authors: [{ name: "Coursivo Team" }],
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
@@ -24,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SessionProvider>{children}</SessionProvider>
       </body>

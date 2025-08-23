@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { GraduationCap, ArrowRight, Users, BookOpen, TrendingUp, Zap, Award } from "lucide-react";
+import { GraduationCap, ArrowRight, Users, BookOpen, TrendingUp, Zap, Award, Sparkles, CheckCircle, Star, Play, Monitor, Search, Shield, Leaf, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { UserRole, AuthMode } from "@/types/academy";
 
@@ -19,42 +19,44 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen bg-[#FCFBF8] text-gray-900">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
-        <div className="container mx-auto px-6 py-4">
+      <nav className="fixed top-0 left-0 right-0 bg-[#FCFBF8]/90 backdrop-blur-xl border-b border-gray-200 z-50">
+        <div className="container mx-auto px-12 lg:px-24 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="relative">
-                <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-[#09382f] rounded-xl flex items-center justify-center shadow-lg">
                   <GraduationCap className="h-6 w-6 text-white" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-white border-2 border-black rounded-full"></div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-white border-2 border-[#09382f] rounded-full"></div>
               </div>
-              <span className="text-xl font-bold tracking-tight">Coursivo</span>
+              <span className="text-xl font-bold tracking-tight text-[#09382f]">Coursivo</span>
             </div>
 
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-600 hover:text-black transition-colors">
-                Features
-              </a>
-              <a href="#about" className="text-gray-600 hover:text-black transition-colors">
-                About
-              </a>
-              <a href="#contact" className="text-gray-600 hover:text-black transition-colors">
-                Contact
-              </a>
-
-              <div className="flex items-center space-x-3 ml-8 pl-8 border-l border-gray-200">
+            <div className="hidden md:flex items-center space-x-16">
+              <div className="flex items-center space-x-12">
+                <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
+                  Features
+                </a>
+                <a href="#about" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
+                  About
+                </a>
+                <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
+                  Contact
+                </a>
+              </div>
+              
+              <div className="flex items-center space-x-4">
                 <Button
                   variant="ghost"
                   onClick={() => handleAuthStart("educator", "signin")}
-                  className="text-black hover:bg-gray-50">
+                  className="text-gray-900 hover:bg-gray-100 hover:text-gray-900">
                   Educator Login
                 </Button>
                 <Button
                   onClick={() => handleAuthStart("educator", "signup")}
-                  className="bg-black hover:bg-gray-800 text-white">
+                  className="bg-[#09382f] hover:bg-[#0a4a3d] text-white border-0 transition-all duration-300">
                   Get Started
                 </Button>
               </div>
@@ -65,37 +67,37 @@ export default function HomePage() {
               className="md:hidden w-8 h-8 flex flex-col justify-center items-center space-y-1"
               onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <div
-                className={`w-6 h-0.5 bg-black transition-all ${isMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}></div>
+                className={`w-6 h-0.5 bg-gray-900 transition-all ${isMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}></div>
               <div
-                className={`w-6 h-0.5 bg-black transition-all ${isMenuOpen ? "opacity-0" : ""}`}></div>
+                className={`w-6 h-0.5 bg-gray-900 transition-all ${isMenuOpen ? "opacity-0" : ""}`}></div>
               <div
-                className={`w-6 h-0.5 bg-black transition-all ${isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}></div>
+                className={`w-6 h-0.5 bg-gray-900 transition-all ${isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}></div>
             </button>
           </div>
 
           {/* Mobile menu */}
           {isMenuOpen && (
-            <div className="md:hidden mt-4 py-4 border-t border-gray-100">
+            <div className="md:hidden mt-4 py-4 border-t border-gray-200">
               <div className="space-y-4">
-                <a href="#features" className="block text-gray-600 hover:text-black">
+                <a href="#features" className="block text-gray-600 hover:text-gray-900">
                   Features
                 </a>
-                <a href="#about" className="block text-gray-600 hover:text-black">
+                <a href="#about" className="block text-gray-600 hover:text-gray-900">
                   About
                 </a>
-                <a href="#contact" className="block text-gray-600 hover:text-black">
+                <a href="#contact" className="block text-gray-600 hover:text-gray-900">
                   Contact
                 </a>
-                <div className="pt-4 border-t border-gray-100 space-y-3">
+                <div className="pt-4 border-t border-gray-200 space-y-3">
                   <Button
                     variant="outline"
                     onClick={() => handleAuthStart("educator", "signin")}
-                    className="w-full border-black text-black hover:bg-gray-50">
+                    className="w-full border-gray-200 text-gray-900 hover:bg-gray-100">
                     Educator Login
                   </Button>
                   <Button
                     onClick={() => handleAuthStart("educator", "signup")}
-                    className="w-full bg-black hover:bg-gray-800 text-white">
+                    className="w-full bg-[#09382f] hover:bg-[#0a4a3d] text-white border-0 transition-all duration-300">
                     Get Started
                   </Button>
                 </div>
@@ -105,155 +107,134 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <div className="space-y-6">
-                <div className="inline-flex items-center px-3 py-1 rounded-full border border-gray-200 bg-gray-50 text-sm">
-                  <Zap className="h-4 w-4 mr-2" />
-                  Next-generation learning platform
-                </div>
-                <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-                  Transform
-                  <span className="block">Education</span>
-                  <span className="block text-gray-400">Digitally</span>
-                </h1>
-                <p className="text-xl text-gray-600 leading-relaxed">
-                  Create, manage, and deliver exceptional learning experiences with our
-                  comprehensive platform designed for modern educators.
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  onClick={() => handleAuthStart("educator", "signup")}
-                  className="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg">
-                  Start Teaching Today
-                  <ArrowRight className="h-5 w-5 ml-2" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={() => handleAuthStart("student", "signin")}
-                  className="border-black text-black hover:bg-gray-50 px-8 py-4 text-lg">
-                  Student Access
-                </Button>
-              </div>
-
-              <div className="grid grid-cols-3 gap-8 pt-8">
-                <div className="text-center">
-                  <div className="text-2xl font-bold">50K+</div>
-                  <div className="text-sm text-gray-600">Active Learners</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">1K+</div>
-                  <div className="text-sm text-gray-600">Expert Educators</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">99%</div>
-                  <div className="text-sm text-gray-600">Satisfaction Rate</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Geometric Art */}
-            <div className="relative">
-              <div className="relative w-full h-96">
-                {/* Main geometric shape */}
-                <div className="absolute inset-0 bg-black rounded-3xl transform rotate-3"></div>
-                <div className="absolute inset-0 bg-white border-2 border-black rounded-3xl transform -rotate-3"></div>
-
-                {/* Floating elements */}
-                <div className="absolute top-4 right-4 w-16 h-16 bg-black rounded-xl transform rotate-12"></div>
-                <div className="absolute bottom-8 left-8 w-12 h-12 border-2 border-black rounded-lg transform -rotate-12"></div>
-                <div className="absolute top-1/2 left-4 w-8 h-8 bg-black rounded-full"></div>
-
-                {/* Content overlay */}
-                <div className="absolute inset-0 flex items-center justify-center text-black p-8">
-                  <div className="text-center space-y-4">
-                    <BookOpen className="h-16 w-16 mx-auto" />
-                    <div className="text-lg font-semibold">Modern Learning</div>
-                    <div className="text-sm text-gray-600">Reimagined for today</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Built for Excellence</h2>
-            <p className="text-xl text-gray-600">
-              Everything you need to create and manage world-class courses
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl border border-gray-200 group hover:shadow-lg transition-all">
-              <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Users className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Student Management</h3>
-              <p className="text-gray-600">
-                Track progress, manage enrollments, and engage with your students effectively.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl border border-gray-200 group hover:shadow-lg transition-all">
-              <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <BookOpen className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Course Creation</h3>
-              <p className="text-gray-600">
-                Build comprehensive courses with multimedia content and interactive assessments.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl border border-gray-200 group hover:shadow-lg transition-all">
-              <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <TrendingUp className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Analytics & Insights</h3>
-              <p className="text-gray-600">
-                Gain deep insights into learning patterns and course effectiveness.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-black text-white">
-        <div className="container mx-auto px-6 max-w-4xl text-center">
+      {/* Hero Section - Nature-Inspired */}
+      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-100 to-[#FCFBF8]">
+        <div className="container mx-auto max-w-6xl text-center">
           <div className="space-y-8">
-            <div className="inline-flex items-center px-4 py-2 rounded-full border border-gray-800 bg-gray-900 text-sm">
-              <Award className="h-4 w-4 mr-2" />
-              Join thousands of successful educators
+            <div className="space-y-6">
+              <div className="inline-flex items-center px-4 py-2 rounded-full border border-[#09382f]/20 bg-[#09382f]/10 text-sm font-medium text-[#09382f] mb-4">
+                <Leaf className="h-4 w-4 mr-2" />
+                Natural Intelligence Meets Digital Learning
+              </div>
+              <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+                <span className="block">Transform Education</span>
+                <span className="block text-[#09382f]">Naturally</span>
+              </h1>
+              <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+                Create, manage, and deliver exceptional learning experiences with our
+                comprehensive platform that harmonizes natural wisdom with digital innovation.
+              </p>
             </div>
-            <h2 className="text-4xl lg:text-5xl font-bold">Ready to transform your teaching?</h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Start creating engaging courses and managing your students with our powerful platform.
-            </p>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
                 onClick={() => handleAuthStart("educator", "signup")}
-                className="bg-white hover:bg-gray-100 text-black px-8 py-4 text-lg">
-                Get Started Free
+                className="bg-[#09382f] hover:bg-[#0a4a3d] text-white px-8 py-4 text-lg border-0 transition-all duration-300 shadow-lg">
+                Sign up for free
                 <ArrowRight className="h-5 w-5 ml-2" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg">
-                Schedule Demo
+                onClick={() => handleAuthStart("educator", "signin")}
+                className="border-[#09382f] text-[#09382f] hover:bg-[#09382f] hover:text-white px-8 py-4 text-lg transition-all duration-300">
+                Get a demo
+              </Button>
+            </div>
+
+            <div className="pt-8">
+              <p className="text-sm text-gray-600 mb-4">Trusted by the world's most ambitious educators</p>
+              <div className="flex justify-center items-center space-x-8 text-gray-600">
+                <span className="text-sm">Featured in</span>
+                <div className="flex space-x-8">
+                  <div className="w-24 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-xs text-gray-600 font-medium">TechCrunch</div>
+                  <div className="w-24 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-xs text-gray-600 font-medium">Forbes</div>
+                  <div className="w-24 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-xs text-gray-600 font-medium">EdTech</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section - Nature-Inspired */}
+      <section id="features" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 rounded-full border border-[#09382f]/20 bg-[#09382f]/10 text-sm font-medium text-[#09382f] mb-4">
+              <Brain className="h-4 w-4 mr-2" />
+              Intelligent Learning Features
+            </div>
+            <h2 className="text-4xl font-bold mb-4 text-gray-900">See how students learn with your platform</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Harness the power of natural intelligence combined with cutting-edge technology
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+              <div className="w-12 h-12 bg-[#09382f] rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                <Monitor className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">Monitor learning progress in real-time</h3>
+              <p className="text-gray-600">
+                See students interact with your courses in real-time with instant insights. Track progress, identify bottlenecks, and optimize learning pathways naturally.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+              <div className="w-12 h-12 bg-[#09382f] rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                <Search className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">Reveal pain points that hurt engagement</h3>
+              <p className="text-gray-600">
+                Understand where students are frustrated or confused. Drill into specific lessons to see the impact on learning outcomes and identify improvements.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+              <div className="w-12 h-12 bg-[#09382f] rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                <Shield className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">Find and capture issues at the source</h3>
+              <p className="text-gray-600">
+                Surface previously unseen problems and debug in-depth by capturing learning analytics and student behavior patterns with natural precision.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+              <div className="w-12 h-12 bg-[#09382f] rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                <Play className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">Stop wasting time in support tickets</h3>
+              <p className="text-gray-600">
+                Instantly get context on student issues and support them in real-time. Diagnose and reproduce problems effortlessly with intelligent insights.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-100 to-[#FCFBF8]">
+        <div className="container mx-auto px-6 max-w-4xl text-center">
+          <div className="space-y-8">
+            <div className="inline-flex items-center px-4 py-2 rounded-full border border-red-500/20 bg-red-500/10 text-sm font-medium text-red-500 mb-4">
+              <Star className="h-4 w-4 mr-2" />
+              See what educators are saying about Coursivo
+            </div>
+            <blockquote className="text-2xl lg:text-3xl font-medium text-gray-900 leading-relaxed">
+              "Coursivo has been game-changing for us. The platform has saved countless hours of course management, and undeniably improved the learning experience for our students."
+            </blockquote>
+            <div className="text-center">
+              <div className="font-semibold text-gray-900">Dr. Sarah Chen</div>
+              <div className="text-gray-600">Computer Science Professor, Stanford University</div>
+            </div>
+            <div className="pt-4">
+              <Button variant="link" className="text-blue-500 hover:text-[#09382f] transition-colors duration-300">
+                Read Case Study
+                <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </div>
           </div>
@@ -261,24 +242,24 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 py-12">
+      <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-[#09382f] rounded-lg flex items-center justify-center">
                   <GraduationCap className="h-5 w-5 text-white" />
                 </div>
-                <span className="text-lg font-bold">Coursivo</span>
+                <span className="text-lg font-bold text-[#09382f]">Coursivo</span>
               </div>
-              <p className="text-gray-600">
-                Empowering education through innovative technology and thoughtful design.
+              <p className="text-gray-300">
+                Empowering education through innovative technology and thoughtful design, harmonizing natural wisdom with digital innovation.
               </p>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Platform</h4>
-              <div className="space-y-2 text-gray-600">
+              <h4 className="font-semibold mb-4 text-white">Platform</h4>
+              <div className="space-y-2 text-gray-300">
                 <div>Course Creation</div>
                 <div>Student Management</div>
                 <div>Analytics</div>
@@ -287,8 +268,8 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <div className="space-y-2 text-gray-600">
+              <h4 className="font-semibold mb-4 text-white">Resources</h4>
+              <div className="space-y-2 text-gray-300">
                 <div>Documentation</div>
                 <div>Support</div>
                 <div>Community</div>
@@ -297,8 +278,8 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <div className="space-y-2 text-gray-600">
+              <h4 className="font-semibold mb-4 text-white">Company</h4>
+              <div className="space-y-2 text-gray-300">
                 <div>About</div>
                 <div>Careers</div>
                 <div>Privacy</div>
@@ -307,7 +288,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="border-t border-gray-200 mt-8 pt-8 text-center text-gray-600">
+          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
             <p>&copy; 2024 Coursivo. All rights reserved.</p>
           </div>
         </div>

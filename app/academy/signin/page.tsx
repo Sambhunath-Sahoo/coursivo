@@ -13,7 +13,7 @@ const defaultAcademy = {
   id: "coursivo",
   name: "Coursivo",
   description: "Modern Learning Platform",
-  theme: { primary: "#000000", secondary: "#404040" },
+  theme: { primary: "#6366f1", secondary: "#8b5cf6" },
 };
 
 export default function AcademySignInPage() {
@@ -41,27 +41,27 @@ export default function AcademySignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-secondary flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         {/* Back Button */}
         <Button
           variant="ghost"
           onClick={() => router.push("/")}
-          className="mb-6 text-gray-600 hover:text-black hover:bg-gray-50">
+          className="mb-6 text-muted-foreground hover:text-foreground hover:bg-accent">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
         </Button>
 
         {/* Auth Card */}
-        <Card className="bg-white border-gray-200 shadow-lg">
+        <Card className="bg-card border-border shadow-soft">
           <CardHeader className="text-center pb-6">
-            <div className="w-16 h-16 rounded-2xl mx-auto mb-4 bg-black flex items-center justify-center">
+            <div className="w-16 h-16 rounded-2xl mx-auto mb-4 bg-gradient-primary flex items-center justify-center shadow-glow">
               <GraduationCap className="h-8 w-8 text-white" />
             </div>
-            <CardTitle className="text-2xl text-black">
+            <CardTitle className="text-2xl text-foreground">
               Welcome Back to {defaultAcademy.name}
             </CardTitle>
-            <CardDescription className="text-base text-gray-600">
+            <CardDescription className="text-base text-muted-foreground">
               Sign in to your educator account
             </CardDescription>
           </CardHeader>
@@ -69,42 +69,42 @@ export default function AcademySignInPage() {
           <CardContent className="space-y-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-black">
+                <Label htmlFor="email" className="text-foreground">
                   Email Address
                 </Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="email"
                     type="email"
                     placeholder="Enter your email"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    className="pl-10 border-gray-300 focus:border-black"
+                    className="pl-10 border-border focus:border-primary focus:ring-primary/20"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-black">
+                <Label htmlFor="password" className="text-foreground">
                   Password
                 </Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={(e) => handleInputChange("password", e.target.value)}
-                    className="pl-10 pr-10 border-gray-300 focus:border-black"
+                    className="pl-10 pr-10 border-border focus:border-primary focus:ring-primary/20"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground">
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
@@ -112,25 +112,25 @@ export default function AcademySignInPage() {
 
               <Button
                 type="submit"
-                className="w-full bg-black hover:bg-gray-800 text-white"
+                className="w-full bg-gradient-primary hover:shadow-glow text-white border-0"
                 disabled={isLoading}>
                 {isLoading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
 
             <div className="relative">
-              <Separator className="bg-gray-200" />
-              <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-sm text-gray-500">
+              <Separator className="bg-border" />
+              <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-sm text-muted-foreground">
                 or
               </span>
             </div>
 
             <div className="text-center">
-              <p className="text-sm text-gray-600">Don&apos;t have an academy account?</p>
+              <p className="text-sm text-muted-foreground">Don&apos;t have an academy account?</p>
               <Button
                 variant="link"
                 onClick={() => router.push("/academy/signup")}
-                className="p-0 h-auto text-black hover:text-gray-700">
+                className="p-0 h-auto text-primary hover:text-primary/80">
                 Create Academy
               </Button>
             </div>
@@ -139,7 +139,7 @@ export default function AcademySignInPage() {
 
         {/* Role Badge */}
         <div className="mt-6 text-center">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-black text-white">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-primary text-white shadow-glow">
             Educator Portal
           </span>
         </div>
