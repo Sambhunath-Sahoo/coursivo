@@ -3,17 +3,17 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import { compare, hash } from "bcryptjs";
 import type { JWT } from "next-auth/jwt";
-import type { Session } from "next-auth";
+import type { Session, User } from "next-auth";
 
 // Student authentication function
-async function handleStudentAuth(credentials: any) {
+async function handleStudentAuth(credentials: Record<string, string>) {
   const tenant = credentials.tenant || "alpha";
-  
+
   // Find educator by tenant
   const educator = await prisma.educator_account.findFirst({
-    where: { domain: tenant }
+    where: { domain: tenant },
   });
-  
+
   if (!educator) {
     throw new Error("Invalid tenant");
   }
@@ -25,10 +25,10 @@ async function handleStudentAuth(credentials: any) {
 
     // Check if student exists
     const existingStudent = await prisma.students.findFirst({
-      where: { 
+      where: {
         educator_id: educator.id,
-        email: credentials.email 
-      }
+        email: credentials.email,
+      },
     });
 
     if (existingStudent) {
@@ -43,7 +43,7 @@ async function handleStudentAuth(credentials: any) {
         name: credentials.name,
         password_hash: hashedPassword,
         educator_id: educator.id,
-      }
+      },
     });
 
     return {
@@ -52,16 +52,16 @@ async function handleStudentAuth(credentials: any) {
       name: newStudent.name,
       educatorId: educator.id,
       tenant: tenant,
-      role: "student"
+      role: "student",
     };
   }
 
   if (credentials.action === "signin") {
     const student = await prisma.students.findFirst({
-      where: { 
+      where: {
         educator_id: educator.id,
-        email: credentials.email 
-      }
+        email: credentials.email,
+      },
     });
 
     if (!student || !student.password_hash) {
@@ -79,7 +79,7 @@ async function handleStudentAuth(credentials: any) {
       name: student.name,
       educatorId: educator.id,
       tenant: tenant,
-      role: "student"
+      role: "student",
     };
   }
 
@@ -87,19 +87,19 @@ async function handleStudentAuth(credentials: any) {
 }
 
 // Educator authentication function
-async function handleEducatorAuth(credentials: any) {
-  const domain = credentials.domain;
-  if (!domain) {
-    throw new Error("Domain is required");
-  }
-
+async function handleEducatorAuth(credentials: Record<string, string>) {
   if (credentials.action === "signup") {
+    const domain = credentials.domain;
+    if (!domain) {
+      throw new Error("Domain is required for signup");
+    }
+
     if (!credentials.name) {
       throw new Error("Name is required for signup");
     }
 
     const existingEducator = await prisma.educator_account.findFirst({
-      where: { domain: domain }
+      where: { domain: domain },
     });
 
     if (existingEducator) {
@@ -113,21 +113,22 @@ async function handleEducatorAuth(credentials: any) {
         name: credentials.name,
         password_hash: hashedPassword,
         domain: domain,
-      }
+      },
     });
 
     return {
       id: newEducator.id,
       email: newEducator.email,
       name: newEducator.name,
-      domain: newEducator.domain,
-      role: "educator"
+      domain: newEducator.domain ?? undefined,
+      role: "educator",
     };
   }
 
   if (credentials.action === "signin") {
+    // For signin, find educator by email first, then get domain from database
     const educator = await prisma.educator_account.findFirst({
-      where: { domain: domain }
+      where: { email: credentials.email },
     });
 
     if (!educator || !educator.password_hash) {
@@ -143,8 +144,8 @@ async function handleEducatorAuth(credentials: any) {
       id: educator.id,
       email: educator.email,
       name: educator.name,
-      domain: educator.domain,
-      role: "educator"
+      domain: educator.domain ?? undefined, // Domain comes from database
+      role: "educator",
     };
   }
 
@@ -161,14 +162,14 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
         name: { label: "Name", type: "text" },
         action: { label: "Action", type: "text" },
-        tenant: { label: "Tenant", type: "text" }
+        tenant: { label: "Tenant", type: "text" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Missing credentials");
         }
         return handleStudentAuth(credentials);
-      }
+      },
     }),
     CredentialsProvider({
       id: "educator-credentials",
@@ -178,18 +179,18 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
         name: { label: "Name", type: "text" },
         action: { label: "Action", type: "text" },
-        domain: { label: "Domain", type: "text" }
+        domain: { label: "Domain", type: "text" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Missing credentials");
         }
         return handleEducatorAuth(credentials);
-      }
-    })
+      },
+    }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user: any }) {
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         if (user.role === "educator") {
           token.domain = user.domain;
@@ -215,7 +216,7 @@ export const authOptions = {
         }
       }
       return session;
-    }
+    },
   },
   pages: {
     signIn: "/signin",
@@ -232,9 +233,9 @@ export const authOptions = {
         httpOnly: true,
         sameSite: "lax" as const,
         path: "/",
-        secure: process.env.NODE_ENV === "production"
-      }
-    }
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

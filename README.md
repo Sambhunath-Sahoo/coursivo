@@ -24,24 +24,27 @@ This is a [Next.js](https://nextjs.org) project for Coursivo, a platform designe
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - PostgreSQL database
 - npm or yarn
 
 ### Installation
 
 1. **Clone and install dependencies**:
+
    ```bash
    npm install
    ```
 
 2. **Set up environment**:
+
    ```bash
    cp env.example .env
    # Edit .env with your database URL and other configs
    ```
 
 3. **Set up database**:
+
    ```bash
    npm run db:generate  # Generate Prisma client
    npm run db:push      # Push schema to database
@@ -57,6 +60,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Database Schema
 
 The platform uses a comprehensive Prisma schema with models for:
+
 - Educator accounts and branding
 - Course catalog and content management
 - Student enrollment and progress tracking
