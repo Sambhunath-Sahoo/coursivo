@@ -47,9 +47,10 @@ export default function EducatorSignUpPage() {
     }
 
     try {
-      const result = await signIn("educator-credentials", {
+      const result = await signIn("credentials", {
         email: formData.email,
         password: formData.password,
+        userType: "educator",
         name: formData.name,
         domain: formData.academyName,
         action: "signup",

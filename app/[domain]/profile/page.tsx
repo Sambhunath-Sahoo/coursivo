@@ -103,7 +103,7 @@ export default function StudentProfilePage() {
   };
 
   return (
-    <DashboardLayout type="student">
+    <DashboardLayout type="student" academyName={academyName}>
       <div className="flex-1 overflow-auto">
         <div className="p-8 max-w-7xl mx-auto">
           <div className="mb-8">

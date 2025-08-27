@@ -146,7 +146,7 @@ export default function AcademySignInPage() {
                 <p className="text-sm text-gray-600">Don&apos;t have an academy account?</p>
                 <Button
                   variant="link"
-                  onClick={() => router.push("/academy/signup")}
+                  onClick={() => router.push("/signup")}
                   className="p-0 h-auto text-[#09382f] hover:text-[#0a4a3d]">
                   Create Academy
                 </Button>

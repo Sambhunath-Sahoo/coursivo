@@ -33,9 +33,10 @@ export default function EducatorSignInPage() {
     setError("");
 
     try {
-      const result = await signIn("educator-credentials", {
+      const result = await signIn("credentials", {
         email: formData.email,
         password: formData.password,
+        userType: "educator",
         action: "signin",
         redirect: false,
       });

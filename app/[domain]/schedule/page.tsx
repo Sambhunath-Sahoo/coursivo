@@ -120,7 +120,7 @@ export default function StudentSchedulePage() {
   };
 
   return (
-    <DashboardLayout type="student">
+    <DashboardLayout type="student" academyName={academyName}>
       <div className="flex-1 overflow-auto">
         <div className="p-8">
           <div className="mb-8">

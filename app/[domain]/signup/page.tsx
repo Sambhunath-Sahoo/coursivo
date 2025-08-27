@@ -39,6 +39,7 @@ export default function StudentSignUpPage() {
         name: formData.name,
         email: formData.email,
         password: formData.password,
+        userType: "student", // Add missing userType
         tenant: academyName, // Pass academy name as tenant
         action: "signup",
         redirect: false,

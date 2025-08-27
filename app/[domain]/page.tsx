@@ -29,7 +29,7 @@ export default function StudentLandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FCFBF8] to-gray-50">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-b border-gray-200 z-50">
+      <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-b border-gray-200 z-40">
         <div className="container mx-auto px-6 lg:px-12 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">

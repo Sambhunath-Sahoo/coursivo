@@ -29,6 +29,7 @@ export default function StudentSignInPage() {
       const result = await signIn("credentials", {
         email: formData.email,
         password: formData.password,
+        userType: "student", // Add missing userType
         tenant: academyName, // Pass academy name as tenant
         action: "signin",
         redirect: false,

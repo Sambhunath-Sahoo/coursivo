@@ -16,6 +16,7 @@ import {
   LogOut,
   Copy,
 } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface NavigationItem {
   id: string;
@@ -34,10 +35,16 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
   const router = useRouter();
   const pathname = usePathname();
   const { data: session } = useSession();
+  const [currentAcademyName, setCurrentAcademyName] = useState<string>("");
 
-  // Get academy name from session (for educators) or use provided academyName (for students)
-  const currentAcademyName =
-    type === "educator" ? session?.user?.domain || "coursivo" : academyName || "coursivo";
+  useEffect(() => {
+    if (academyName) {
+      setCurrentAcademyName(academyName);
+    } else if (type === "educator") {
+      // For educators without academy name, use a default or get from session
+      setCurrentAcademyName(session?.user?.domain || "academy");
+    }
+  }, [academyName, type, session?.user?.domain]);
 
   const studentNavigationItems: NavigationItem[] = [
     { id: "dashboard", label: "Dashboard", icon: Home, href: `/${currentAcademyName}/dashboard` },
