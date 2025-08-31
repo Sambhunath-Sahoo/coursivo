@@ -1,0 +1,363 @@
+# Coursivo Project - Cursor Rules
+
+## 🎯 Project Overview
+Coursivo is a multi-tenant learning management system built with Next.js 15, TypeScript, Redux Toolkit, and Prisma. Follow these rules strictly to ensure code quality and consistency.
+
+## 🏗️ Architecture & Structure
+
+### File Organization
+- Use Next.js 15 app directory structure
+- Group related functionality in logical directories
+- Follow the established folder structure for components, lib, types, etc.
+- Keep files focused and single-purpose
+
+### Naming Conventions
+- **Components**: PascalCase (e.g., `UserProfile.tsx`)
+- **Pages**: lowercase with hyphens (e.g., `user-profile/page.tsx`)
+- **API Routes**: lowercase with hyphens (e.g., `user-profile/route.ts`)
+- **Utilities**: camelCase (e.g., `formatDate.ts`)
+- **Types**: PascalCase (e.g., `UserTypes.ts`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `API_ENDPOINTS.ts`)
+- **Stores**: camelCase with 'Store' suffix (e.g., `authStore.ts`)
+
+## 🔧 TypeScript Standards
+
+### Type Definitions
+- Always use TypeScript interfaces for object shapes
+- Use explicit return types for functions
+- Prefer proper typing over `any`, but use `any` when necessary for external library compatibility
+- Use union types for multiple possible values
+- Implement proper error handling types
+
+### Code Examples
+```typescript
+// ✅ Good
+interface User {
+  id: string
+  email: string
+  name?: string
+  role: 'student' | 'educator'
+}
+
+function getUser(id: string): Promise<User | null> {
+  // Implementation
+}
+
+// ❌ Avoid
+function getUser(id: any): any {
+  // Implementation
+}
+```
+
+## ⚛️ React & Next.js Standards
+
+### Component Structure
+- Use functional components with hooks
+- Prefer named exports over default exports
+- Implement proper prop interfaces
+- Use proper TypeScript generics for reusable components
+- Implement error boundaries where appropriate
+
+### Component Examples
+```typescript
+// ✅ Good
+interface ButtonProps {
+  children: React.ReactNode
+  onClick?: () => void
+  variant?: 'primary' | 'secondary'
+  disabled?: boolean
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  variant = 'primary',
+  disabled = false
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`btn btn-${variant}`}
+    >
+      {children}
+    </button>
+  )
+}
+
+// ❌ Avoid
+export default function Button(props: any) {
+  // Implementation
+}
+```
+
+## 🗂️ Redux Toolkit Standards
+
+### Store Structure
+- Use the established 6-store structure: authStore, courseStore, uiStore, educatorStore, studentStore, sharedStore
+- Implement proper TypeScript types for state and actions
+- Use createSlice with proper reducers and extraReducers
+- Implement async thunks for API calls
+- Use proper error handling in thunks
+
+### Store Examples
+```typescript
+// ✅ Good
+interface AuthState {
+  user: User | null
+  isAuthenticated: boolean
+  isLoading: boolean
+  error: string | null
+}
+
+export const loginUser = createAsyncThunk(
+  'auth/login',
+  async (credentials: LoginCredentials, { rejectWithValue }) => {
+    try {
+      const response = await AuthService.login(credentials)
+      return response
+    } catch (error: any) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
+// ❌ Avoid
+export const loginUser = createAsyncThunk(
+  'auth/login',
+  async (credentials: any) => {
+    return await AuthService.login(credentials)
+  }
+)
+```
+
+## 🎨 Styling & UI Standards
+
+### Tailwind CSS
+- Use Tailwind CSS utility classes
+- Follow mobile-first responsive design
+- Maintain consistent spacing and typography
+- Use CSS variables for theme customization
+- Avoid custom CSS unless absolutely necessary
+
+### Component Styling
+```typescript
+// ✅ Good
+<div className="rounded-lg border bg-card p-6 shadow-sm">
+  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+    {title}
+  </h3>
+  <p className="text-sm text-gray-600">
+    {description}
+  </p>
+</div>
+
+// ❌ Avoid
+<div style={{ borderRadius: '8px', border: '1px solid #e5e7eb', padding: '24px' }}>
+  <h3 style={{ fontSize: '18px', fontWeight: '600' }}>
+    {title}
+  </h3>
+</div>
+```
+
+## 🗄️ Database & API Standards
+
+### Prisma Usage
+- Use Prisma client for all database operations
+- Implement proper error handling
+- Use transactions for complex operations
+- Implement proper validation before database calls
+- Use proper TypeScript types from Prisma
+
+### API Routes
+- Use Next.js 15 app router API routes
+- Implement proper HTTP status codes
+- Use consistent response format
+- Implement proper error handling
+- Use Zod validation for request data
+
+### API Examples
+```typescript
+// ✅ Good
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json()
+    const validation = validateCreateCourse(body)
+
+    if (!validation.success) {
+      return NextResponse.json(
+        { error: 'Validation failed', details: validation.errors },
+        { status: 400 }
+      )
+    }
+
+    const course = await CourseService.createCourse(validation.data)
+    
+    return NextResponse.json({
+      success: true,
+      data: course,
+      message: 'Course created successfully'
+    }, { status: 201 })
+  } catch (error) {
+    console.error('Error creating course:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+
+// ❌ Avoid
+export async function POST(request: NextRequest) {
+  const body = await request.json()
+  const course = await CourseService.createCourse(body)
+  return NextResponse.json(course)
+}
+```
+
+## 🧪 Testing Standards
+
+### Test Structure
+- Write tests for all new functionality
+- Use descriptive test names
+- Group related tests in describe blocks
+- Use proper mocking for external dependencies
+- Test both success and error scenarios
+
+### Test Examples
+```typescript
+// ✅ Good
+describe('CourseCard', () => {
+  const mockCourse = {
+    id: '1',
+    title: 'Test Course',
+    description: 'Test Description'
+  }
+
+  it('renders course information correctly', () => {
+    render(<CourseCard course={mockCourse} />)
+    
+    expect(screen.getByText('Test Course')).toBeInTheDocument()
+    expect(screen.getByText('Test Description')).toBeInTheDocument()
+  })
+
+  it('handles missing course data gracefully', () => {
+    render(<CourseCard course={null} />)
+    
+    expect(screen.getByText('No course data available')).toBeInTheDocument()
+  })
+})
+
+// ❌ Avoid
+test('CourseCard works', () => {
+  render(<CourseCard />)
+  expect(true).toBe(true)
+})
+```
+
+## 🔒 Security & Best Practices
+
+### Authentication & Authorization
+- Implement proper role-based access control
+- Validate all user inputs
+- Use proper session management
+- Implement proper CSRF protection
+- Never expose sensitive information in client-side code
+
+### Data Validation
+- Use Zod schemas for all data validation
+- Validate data at API boundaries
+- Sanitize data before database operations
+- Implement proper error messages
+- Use TypeScript for compile-time validation
+
+## 📝 Code Quality Standards
+
+### General Rules
+- Keep functions small and focused (max 20-30 lines)
+- Use meaningful variable and function names
+- Implement proper error handling everywhere
+- Add JSDoc comments for complex functions
+- Use consistent code formatting
+
+### Error Handling
+```typescript
+// ✅ Good
+try {
+  const result = await someAsyncOperation()
+  return result
+} catch (error) {
+  console.error('Operation failed:', error)
+  throw new Error('Operation failed: ' + error.message)
+}
+
+// ❌ Avoid
+const result = await someAsyncOperation()
+return result
+```
+
+### Performance Considerations
+- Use React.memo for expensive components
+- Implement proper loading states
+- Use proper caching strategies
+- Optimize database queries
+- Implement proper pagination
+
+## 🚫 What NOT to Do
+
+- Don't use `any` type
+- Don't ignore TypeScript errors
+- Don't commit console.log statements
+- Don't ignore error handling
+- Don't use inline styles
+- Don't create overly complex components
+- Don't ignore accessibility requirements
+- Don't skip validation
+- Don't use deprecated APIs
+- Don't ignore performance implications
+
+## ✅ Code Review Checklist
+
+Before submitting code, ensure:
+- [ ] TypeScript compilation passes
+- [ ] ESLint passes without errors
+- [ ] Prettier formatting is applied
+- [ ] Tests are included and passing
+- [ ] Error handling is implemented
+- [ ] Input validation is in place
+- [ ] Performance considerations are addressed
+- [ ] Accessibility requirements are met
+- [ ] Documentation is updated
+- [ ] No console.log statements remain
+
+## 🔧 Development Tools
+
+### Required Tools
+- ESLint for code linting
+- Prettier for code formatting
+- TypeScript for type checking
+- Jest for testing
+- Husky for pre-commit hooks
+
+### Scripts to Run
+```bash
+npm run lint          # Check linting
+npm run lint:fix      # Fix linting issues
+npm run format        # Format code with Prettier
+npm run type-check    # Check TypeScript types
+npm test              # Run tests
+npm run build         # Build project
+```
+
+## 📚 References
+
+- [Next.js 15 Documentation](https://nextjs.org/docs)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Redux Toolkit Documentation](https://redux-toolkit.js.org/)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+
+---
+
+**Follow these rules strictly to maintain code quality and consistency across the Coursivo project.**
