@@ -5,18 +5,21 @@ import { useSession } from "next-auth/react";
 import {
   Home,
   BookOpen,
-  FileQuestion,
-  Trophy,
-  Calendar,
   Users,
   Settings,
   HelpCircle,
   GraduationCap,
   User,
   LogOut,
-  Copy,
+  Menu,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 interface NavigationItem {
   id: string;
@@ -28,7 +31,7 @@ interface NavigationItem {
 interface DashboardLayoutProps {
   children: React.ReactNode;
   type: "student" | "educator";
-  academyName?: string; // For student routes - represents the academy name
+  academyName?: string;
 }
 
 export function DashboardLayout({ children, type, academyName }: DashboardLayoutProps) {
@@ -36,12 +39,12 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
   const pathname = usePathname();
   const { data: session } = useSession();
   const [currentAcademyName, setCurrentAcademyName] = useState<string>("");
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (academyName) {
       setCurrentAcademyName(academyName);
     } else if (type === "educator") {
-      // For educators without academy name, use a default or get from session
       setCurrentAcademyName(session?.user?.domain || "academy");
     }
   }, [academyName, type, session?.user?.domain]);
@@ -49,14 +52,6 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
   const studentNavigationItems: NavigationItem[] = [
     { id: "dashboard", label: "Dashboard", icon: Home, href: `/${currentAcademyName}/dashboard` },
     { id: "courses", label: "My Courses", icon: BookOpen, href: `/${currentAcademyName}/courses` },
-    { id: "quiz", label: "Take Quiz", icon: FileQuestion, href: `/${currentAcademyName}/quiz` },
-    {
-      id: "achievements",
-      label: "Achievements",
-      icon: Trophy,
-      href: `/${currentAcademyName}/achievements`,
-    },
-    { id: "schedule", label: "Schedule", icon: Calendar, href: `/${currentAcademyName}/schedule` },
   ];
 
   const educatorNavigationItems: NavigationItem[] = [
@@ -72,19 +67,12 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
 
   const handleNavigation = (href: string) => {
     router.push(href);
+    setIsOpen(false);
   };
 
   const handleLogout = () => {
-    // Here you would typically handle logout logic
     router.push("/");
-  };
-
-  const copyStudentLandingLink = () => {
-    if (typeof window !== 'undefined') {
-      const landingLink = `${window.location.origin}/${currentAcademyName}`;
-      navigator.clipboard.writeText(landingLink);
-      alert("Student landing page link copied to clipboard!");
-    }
+    setIsOpen(false);
   };
 
   const isActive = (href: string) => {
@@ -94,85 +82,95 @@ export function DashboardLayout({ children, type, academyName }: DashboardLayout
     return pathname.startsWith(href);
   };
 
-  return (
-    <div className="flex h-screen bg-[#FCFBF8]">
-      {/* Sidebar */}
-      <div className="fixed left-0 top-0 h-screen w-80 bg-white border-r border-gray-200 shadow-sm z-50 flex flex-col">
-        {/* Academy Header */}
-        <div className="p-6 border-b border-gray-200 flex-shrink-0">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-[#09382f] rounded-lg flex items-center justify-center">
-              <GraduationCap className="h-6 w-6 text-white" />
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">
-              {type === "educator"
-                ? `${currentAcademyName} Academy`
-                : `${currentAcademyName} Academy`}
-            </h1>
+  const NavigationContent = () => (
+    <div className="flex flex-col h-full">
+      {/* Academy Header */}
+      <div className="p-4 border-b border-gray-200">
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-[#09382f] rounded-lg flex items-center justify-center">
+            <GraduationCap className="h-5 w-5 text-white" />
           </div>
+          <h1 className="text-sm font-bold text-gray-900 truncate">
+            {currentAcademyName}
+          </h1>
         </div>
+      </div>
 
-        {/* Navigation - Scrollable */}
-        <div className="flex-1 overflow-y-auto px-4 py-4">
-          <nav className="space-y-1">
-            {navigationItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleNavigation(item.href)}
-                className={`w-full flex items-center space-x-3 px-3 py-3 rounded-xl transition-all text-left ${
-                  isActive(item.href)
-                    ? "bg-[#09382f] text-white shadow-lg"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                }`}>
-                <item.icon className="h-5 w-5" />
-                <span className="font-medium text-sm">{item.label}</span>
-              </button>
-            ))}
-          </nav>
+      {/* Navigation */}
+      <div className="flex-1 overflow-y-auto px-2 py-2">
+        <nav className="space-y-1">
+          {navigationItems.map((item) => (
+            <Button
+              key={item.id}
+              variant={isActive(item.href) ? "default" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => handleNavigation(item.href)}>
+              <item.icon className="h-4 w-4 mr-2" />
+              {item.label}
+            </Button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Profile Section */}
+      <div className="p-2 border-t border-gray-200">
+        <Button
+          variant={isActive(profileHref) ? "default" : "ghost"}
+          className="w-full justify-start mb-1"
+          onClick={() => handleNavigation(profileHref)}>
+          <User className="h-4 w-4 mr-2" />
+          Profile
+        </Button>
+
+        <Button
+          variant="ghost"
+          className="w-full justify-start text-red-600 hover:text-red-600 hover:bg-red-50"
+          onClick={handleLogout}>
+          <LogOut className="h-4 w-4 mr-2" />
+          Sign Out
+        </Button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-[#FCFBF8]">
+      {/* Mobile Header */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 z-50 flex items-center px-4">
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="lg:hidden">
+              <Menu className="h-6 w-6" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-60 p-0" title="Navigation Menu">
+            <NavigationContent />
+          </SheetContent>
+        </Sheet>
+
+        <div className="flex items-center space-x-2 ml-2">
+          <div className="w-8 h-8 bg-[#09382f] rounded-lg flex items-center justify-center">
+            <GraduationCap className="h-5 w-5 text-white" />
+          </div>
+          <h1 className="text-sm font-bold text-gray-900 truncate">
+            {currentAcademyName}
+          </h1>
         </div>
+      </div>
 
-        {/* Profile Section - Fixed at bottom */}
-        <div className="flex-shrink-0 p-4 border-t border-gray-200 bg-white">
-          {/* Student Landing Link for Educators */}
-          {type === "educator" && (
-            <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-              <p className="text-xs font-medium text-gray-700 mb-2">Student Access</p>
-              <button
-                onClick={copyStudentLandingLink}
-                className="w-full flex items-center justify-between px-2 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors font-medium">
-                <span>Copy Landing Page Link</span>
-                <Copy className="h-4 w-4" />
-              </button>
-              <p className="text-xs text-gray-500 mt-1">
-                Share: {typeof window !== 'undefined' ? window.location.origin : ''}/{currentAcademyName}
-              </p>
-            </div>
-          )}
-
-          {/* Profile Button */}
-          <button
-            onClick={() => handleNavigation(profileHref)}
-            className={`w-full flex items-center space-x-3 px-3 py-3 rounded-xl transition-all text-left mb-2 ${
-              isActive(profileHref)
-                ? "bg-[#09382f] text-white shadow-lg"
-                : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-            }`}>
-            <User className="h-5 w-5" />
-            <span className="font-medium text-sm">My Profile</span>
-          </button>
-
-          {/* Logout Button */}
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center space-x-3 px-3 py-3 rounded-xl text-red-600 hover:bg-red-50 hover:text-red-700 transition-all text-left">
-            <LogOut className="h-5 w-5" />
-            <span className="font-medium text-sm">Sign Out</span>
-          </button>
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-60 lg:flex-col">
+        <div className="flex flex-col flex-grow bg-white border-r border-gray-200">
+          <NavigationContent />
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 ml-80 flex flex-col min-h-screen">{children}</div>
+      <div className="lg:pl-60">
+        <main className="min-h-screen pt-16 lg:pt-0">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }
